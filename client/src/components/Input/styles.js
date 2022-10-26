@@ -23,7 +23,7 @@ export const Label = styled.label `
     color: #6C757D;
     font-size: .7rem;
     font-weight: 600;
-    top: .7rem;
+    top: .5rem;
     left: 1.3rem;
 
 `;

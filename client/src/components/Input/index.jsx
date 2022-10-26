@@ -1,17 +1,18 @@
 import React from 'react';
 import * as C from "./styles";
 
-const Input = ({ type, placeholder, value, onChange, LabelText, maxString }) => {
+const Input = ({ placeholder, type, value, onChange, LabelText, id, name }) => {
   return (
     <>
       <C.FormItem>  
         <C.Label> {LabelText} </C.Label>
         <C.Input 
             value={value}
-            onChange={onChange}
             type={type}
+            onChange={onChange}
             placeholder={placeholder}
-            maxlength={8}
+            name={name}
+            id={id}
         />
       </C.FormItem>
     </>

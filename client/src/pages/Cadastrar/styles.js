@@ -5,11 +5,23 @@ export const Container = styled.div `
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
     height: 100vh;
     background-color: white;
 `;
 
+export const Cadastro = styled.form `
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 600px;
+
+`;
 
 export const Content = styled.div`
 
@@ -18,11 +30,18 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
     background-color: white;
-    max-width: 350px;
-    padding: 1.3rem;
     border-radius: 6px;
+    width: 100%;
+`;
+
+export const Main = styled.div `
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
 
 `;
 

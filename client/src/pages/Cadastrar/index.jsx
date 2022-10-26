@@ -2,115 +2,143 @@ import React, { useState } from 'react'
 import * as C from "./styles";
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import UsuarioService from '../../services/usuario.services.js';
- 
+import Axios from 'axios';
+
 const Cadastrar = () => {
 
-    const initialUsuarioState = {
-        id: null,
+    Axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+    Axios.defaults.headers.post['Access-Control-Allow-Headers'] = '*';
+
+    const url = "http://localhost:3001/usuarios";
+    const [data, setData] = useState({
+        registroMatricula: "",
         name: "",
-        nascimento: "",
-        codInstituicao: "",
+        senha: "",
+        idade: "",
         email: "",
-        password: "",
+        telefone: "",
+        dataNascimento: "",
+        Instituicao_id: "",
+    });
 
-        sended: false,
-    };
-
-    const [usuario, setUsuario] = useState(initialUsuarioState);
-    const [submitted, setSubmitted] = useState(false);
-
-    const handleInputChange = event => {
-        const { name, value } = event.target;
-        setUsuario({ [name]: value })
+    const submit = (e) => {
+        e.preventDefault();
+        Axios.post(url, {
+            registroMatricula: data.registroMatricula,
+            name: data.name,
+            senha: data.senha,
+            idade: data.idade,
+            email: data.email,
+            telefone: data.telefone,
+            dataNascimento: data.dataNascimento,
+            Instituicao_id: data.Instituicao_id,
+        })
+        .then(res => {
+            console.log(res.data);
+        })
     }
 
-    const saveUsuario = () => {
-        var data = {
-            id: null,
-            name: usuario.name,
-            nascimento: usuario.nascimento,
-            codInstituicao: usuario.codInstituicao,
-            email: usuario.email,
-            password: usuario.password,
-        };
-    
-        UsuarioService.create(data)
-          .then(response => {
-            setUsuario({
-              id: response.data.id,
-              name: response.data.name,
-              nascimento: response.data.nascimento,
-              codInstituicao: response.data.codInstituicao,
-              email: response.data.email,
-              password: response.data.password,
-            });
-            setSubmitted(true);
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      };
-
-    const newUsuario = () => {
-        setUsuario(initialUsuarioState);
-        setSubmitted(false);
+    const handleInputChange = (e) => {
+        const newdata = { ...data }
+        newdata[e.target.id] = e.target.value
+        setData(newdata)
     }
     
     return (
-            <C.Container>
-            <C.Label>CADASTRAR USUÁRIOS</C.Label>
-            <C.Content>
-                <Input
-                    LabelText="Nome"
-                    type="text"
-                    placeholder="Jason Mary"
-                    value={usuario.name}
-                    onChange={handleInputChange}
-                    name="name"
-                />
+        <C.Container>
+            <C.Cadastro onSubmit={(e) => submit(e)}>
+                <C.Label>CADASTRAR USUÁRIOS</C.Label>
+                <C.Main>
+                    <C.Content>
+                        <Input
+                            LabelText="Registro de Matrícula"
+                            type="text"
+                            placeholder="00"
+                            value={data.registroMatricula}
+                            onChange={(e) => handleInputChange(e)}
+                            name="registroMatricula"
+                            id="registroMatricula"
+                        />
 
-                <Input
-                    LabelText="Nascimento"
-                    type="number"
-                    placeholder="00-00-0000"
-                    value={usuario.nascimento}
-                    onChange={handleInputChange}
-                    name="nascimento"
-                />
+                        <Input
+                            LabelText="Nome"
+                            type="text"
+                            placeholder="Jason Mary"
+                            value={data.name}
+                            onChange={(e) => handleInputChange(e)}
+                            name="name"
+                            id="name"
+                        />
 
-                <Input 
-                    LabelText="Cód. Instituição"
-                    type="number"
-                    placeholder="000"
-                    value={usuario.codInstituicao}
-                    onChange={handleInputChange}
-                    name="codInstituicao"
-                />
+                        <Input
+                            LabelText="Email"
+                            type="email"
+                            placeholder="test@test.com"
+                            value={data.email}
+                            onChange={(e) => handleInputChange(e)}
+                            name="email"
+                            id="email"
+                        />
 
-                <Input
-                    LabelText="Email"
-                    type="email"
-                    placeholder="test@test.com"
-                    value={usuario.email}
-                    onChange={handleInputChange}
-                    name="email"
-                />
+                        <Input 
+                            LabelText="Senha"
+                            type="password"
+                            placeholder="********"
+                            value={data.password}
+                            onChange={(e) => handleInputChange(e)}
+                            name="password"
+                            id="password"
+                        />
 
-                <Input 
-                    LabelText="Senha"
-                    type="password"
-                    placeholder="********"
-                    value={usuario.password}
-                    onChange={handleInputChange}
-                    name="password"
-                />
+                    </C.Content>
 
-            <C.LabelError></C.LabelError>
+                    <C.Content>
+                        <Input 
+                            LabelText="Data de Nascimento"
+                            type="text"
+                            placeholder="00/00/0000"
+                            value={data.dataNascimento}
+                            onChange={(e) => handleInputChange(e)}
+                            name="dataNascimento"
+                            id="dataNascimento"
+                        />
 
-            <Button Text="Cadastrar" onClick={newUsuario} />
-            </C.Content>
+                        <Input 
+                            LabelText="Idade"
+                            type="text"
+                            placeholder="00"
+                            value={data.idade}
+                            onChange={(e) => handleInputChange(e)}
+                            name="idade"
+                            id="idade"
+                        />
+
+                        <Input
+                            LabelText="Telefone"
+                            type="text"
+                            placeholder="XX XXXX-XXXX"
+                            value={data.telefone}
+                            onChange={handleInputChange}
+                            name="telefone"
+                            id="telefone"
+                        />
+
+                        <Input 
+                            LabelText="Cód. Instituição"
+                            type="text"
+                            placeholder="00"
+                            value={data.codInstituicao}
+                            onChange={(e) => handleInputChange(e)}
+                            name="codInstituicao"
+                            id="codInstituicao"
+                        />
+                    </C.Content>
+                </C.Main>
+
+                <C.LabelError></C.LabelError>
+                <Button Text="Cadastrar" Type='submit' />
+
+            </C.Cadastro>
         </C.Container>
     )
 }
