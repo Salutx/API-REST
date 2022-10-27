@@ -1,57 +1,97 @@
-import React from "react"
+import React, { Component } from "react"
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import { Table } from 'react-bootstrap';
+import "./styles.css"
+import * as C from "./styles";
+import GlobalStyle from './styles';
+const apiConfig = require('../../base/api');
 
-class Usuarios extends React.Component {
+class Usuarios extends Component {
 
     constructor(props) {
         super(props);
-
+        
         this.state = {
             usuarios: []
         }
-
-        fetch("http://localhost:3001/usuarios")
-        .then(res => res.json())
-        .then(data => {
-            this.setState({
-                usuarios : data
-            })
-            return console.log(data);
-        })
     }
 
     componentDidMount() {
         this.listUsuarios();
     }
 
+    componentWillUnmount() {
+
+    }
+
     listUsuarios = () => {
-        fetch("http://localhost:3001/usuarios")
-        .then(res => res.json())
+        fetch(apiConfig.urlAPI + "usuarios")
+        .then((response) => response.json())
         .then(data => {
             this.setState({
-                usuarios : data
+                usuarios: data.usuarios
             })
-            return console.log(data);
         })
+    }
+
+    deleteUsuario = () => {
+        
     }
 
     render () {
         return (
             <>
-            {
-                this.state.usuarios.map((usuario) => {
-                    <div>
-                    <p>{usuario.id}</p>
-                    <h1>Nome: {usuario.name}</h1>
-                    <p>Email: {usuario.email}</p>
-                    <p>Senha: {usuario.senha}</p>
-                    <p>Idade: {usuario.idade}</p>
-                    <p>Data de Nascimento: {usuario.dataNascimento}</p>
-                    <p>Telefone: {usuario.telefone}</p>
-                    <p>Registro Matrícula: {usuario.registroMatricula}</p>
-                    <p>Instituição: {usuario.Instituicao_id}</p>
-                    </div>
-                })
-            }
+            <GlobalStyle />
+            <C.Container>
+                <C.Main>
+                    <C.MainHeader>
+                        <h1>Usuários</h1>
+                        <h1>{this.state.usuarios.length} cadastrado</h1>
+                    </C.MainHeader>
+                    <C.SearchContainer>
+                        <C.SearchRefresh onClick={this.listUsuarios}>
+                            <i className="ri-refresh-line"></i>
+                        </C.SearchRefresh>
+                        <input type="text" placeholder="Pesquisar por nome, id..." />
+                    </C.SearchContainer>
+
+                    <C.MainContent>
+
+                        <Table hover size="md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Senha</th>
+                                    <th scope="col">Idade</th>
+                                    <th scope="col">Nascimento</th>
+                                    <th scope="col">Telefone</th>
+                                    <th scope="col">Matrícula</th>
+                                    <th scope="col">Inst.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                this.state.usuarios.map((usuario) => (
+                                    <tr key={usuario.id}>
+                                        <th scope="row">{usuario.id}</th>
+                                        <td>{usuario.name}</td>
+                                        <td>{usuario.email}</td>
+                                        <td>{usuario.senha}</td>
+                                        <td>{usuario.idade}</td>
+                                        <td>{usuario.dataNascimento}</td>
+                                        <td>{usuario.telefone}</td>
+                                        <td>{usuario.registroMatricula}</td>
+                                        <td>{usuario.Instituicao_id}</td>
+                                    </tr>
+                                ))
+                            }
+                            </tbody>
+                        </Table>
+                    </C.MainContent>
+                </C.Main>
+            </C.Container>
             </>
         );
     }

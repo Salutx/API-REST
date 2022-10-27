@@ -5,10 +5,7 @@ import Button from '../../components/Button';
 import Axios from 'axios';
 
 const Cadastrar = () => {
-
-    Axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
-    Axios.defaults.headers.post['Access-Control-Allow-Headers'] = '*';
-
+    
     const url = "http://localhost:3001/usuarios";
     const [data, setData] = useState({
         registroMatricula: "",

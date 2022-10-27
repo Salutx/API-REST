@@ -19,12 +19,10 @@ const RoutesApp = () => {
             <Fragment>
                 <ThemeContextProvider>
                     <Routes>
-                        <Route exact path="/inicio"        element={<Private Item={Inicio} />} />
-                        <Route path="/"                 element={<Signin />} />
-                        <Route exact path="/cadastrar"  element={<Cadastrar />} />
-                        <Route path="/"                 element={<Signin />} />
-                        <Route exact path="/equipes"  element={<Private Item={Equipes} />} />
-                        <Route path="/"                 element={<Signin />} />
+                        <Route path="/"                element={<Signin />} />
+                        <Route exact path="/inicio"    element={<Private Item={Inicio} />} />
+                        <Route exact path="/cadastrar" element={<Cadastrar />} />
+                        <Route exact path="/equipes"   element={<Private Item={Equipes} />} />
                         <Route exact path="/usuarios"  element={<Usuarios />} />
                     </Routes>
                 </ThemeContextProvider>

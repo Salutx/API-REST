@@ -59,6 +59,7 @@ export const Apresentation = styled.p `
 
 export const Highlight = styled.p `
     color: var(--primary-color);
+    margin: 0;
 `;
 
 export const Line = styled.div`

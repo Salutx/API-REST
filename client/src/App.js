@@ -7,7 +7,7 @@ import 'remixicon/fonts/remixicon.css'
 const App = () => {
 
   return (
-    	<AuthProvider>	
+    	<AuthProvider>
 			<GlobalStyle />
 			<RoutesApp />
     	</AuthProvider>
