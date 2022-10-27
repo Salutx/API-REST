@@ -1,7 +1,7 @@
 import React from 'react';
 import * as C from "./styles";
 
-const Input = ({ placeholder, type, value, onChange, LabelText, id, name }) => {
+const Input = ({ placeholder, type, value, onChange, LabelText, id, name, ref }) => {
   return (
     <>
       <C.FormItem>  
@@ -9,6 +9,7 @@ const Input = ({ placeholder, type, value, onChange, LabelText, id, name }) => {
         <C.Input 
             value={value}
             type={type}
+            ref={ref}
             onChange={onChange}
             placeholder={placeholder}
             name={name}

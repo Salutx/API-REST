@@ -30,7 +30,7 @@ class Usuarios extends Component {
         .then(data => {
             this.setState({
                 usuarios: data.usuarios
-            })
+            });
         })
     }
 
@@ -46,7 +46,7 @@ class Usuarios extends Component {
                 <C.Main>
                     <C.MainHeader>
                         <h1>Usuários</h1>
-                        <h1>{this.state.usuarios.length} cadastrado</h1>
+                        <h1>{this.state.usuarios.length} cadastrados</h1>
                     </C.MainHeader>
                     <C.SearchContainer>
                         <C.SearchRefresh onClick={this.listUsuarios}>
