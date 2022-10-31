@@ -33,7 +33,6 @@ Usuario.getAll = (name, result) => {
         if (err) {
             console.log("Error: ", err);
             return (null, err);
-            return;
         }
 
         console.log("Usuarios: ", res);
