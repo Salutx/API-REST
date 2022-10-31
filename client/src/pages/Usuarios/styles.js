@@ -11,6 +11,7 @@ export default createGlobalStyle `
         border-radius: 8px;
         color: var(--secundary-color);
         font-size: 0.8rem;
+        width: 100%;
     }
 
     th, td {
@@ -21,6 +22,7 @@ export default createGlobalStyle `
     th {
         color: var(--primary-color);
         font-weight: 500;
+        text-align: left !important;
     }
 
     .table > :not(caption) > * > * {
@@ -75,6 +77,7 @@ export const MainContent = styled.div `
     justify-content: space-between;
     gap: 1rem;
     overflow-x: auto;
+    max-height: 560px;
 
 `;
 
@@ -92,6 +95,7 @@ export const SearchContainer = styled.div `
         border-radius: 6px;
         width: 100%;
         font-size: 0.8rem;
+        background-color: white;
     }
 
     input::placeholder {

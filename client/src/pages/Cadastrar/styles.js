@@ -1,4 +1,42 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+export default createGlobalStyle `
+
+    body {
+        background-color: #F3F2F7;
+    }
+
+    input {
+        outline: none;
+        padding: 1.6rem 1.3rem .5rem 1.3rem;
+        width: 100%;
+        border-radius: 6px;
+        font-size: .8rem !important;
+    
+        background-color: #F1F6F8;
+        border: none;
+    }
+    
+    input::placeholder {
+        font-size: .8rem;
+        color: #a0a6ac;
+    }
+    
+    .form-label {
+        position: absolute;
+        color: #6C757D;
+        font-size: .7rem;
+        font-weight: 600;
+        top: .5rem;
+        left: 1.3rem;
+    }
+    
+    .form-item {
+        position: relative;
+        width: 100%;
+    }
+
+`;
 
 export const Container = styled.div `
     display: flex;
@@ -57,6 +95,13 @@ export const LabelError = styled.label `
 
     font-size: 14px;
     color: red;
+
+`;
+
+export const LabelSuccess = styled.label `
+
+    font-size: 14px;
+    color: green !important;
 
 `;
 

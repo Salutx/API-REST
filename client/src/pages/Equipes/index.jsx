@@ -1,6 +1,5 @@
 import React from 'react';
 import VerticalMenu from '../../components/VerticalMenu';
-import * as C from "./styles.js";
 import * as G from "../../styles/global"
 import Header from '../../components/Header';
 

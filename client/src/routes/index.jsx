@@ -1,16 +1,17 @@
 import { Fragment } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { ThemeContextProvider } from "../contexts/theme.js";
 import useAuth from "../hooks/useAuth.js";
 import Inicio from "../pages/Inicio";
-import Signin from "../pages/Signin";
-import Cadastrar from "../pages/Cadastrar/index.jsx";
+import Start from "../pages/Start";
+import Cadastrar from "../pages/Cadastrar/";
 import Equipes from "../pages/Equipes";
-import Usuarios from "../pages/Usuarios/index.jsx";
+import Usuarios from "../pages/Usuarios/";
+import PageNotFound from "../pages/PageNotFound/";
 
 const Private = ({ Item }) => {
     const { signed } = useAuth();
-    return signed > 0 ? <Item /> : <Signin />;
+    return signed > 0 ? <Item /> : <Start />;
 }
 
 const RoutesApp = () => {
@@ -19,11 +20,17 @@ const RoutesApp = () => {
             <Fragment>
                 <ThemeContextProvider>
                     <Routes>
-                        <Route path="/"                element={<Signin />} />
+                        {/* Global Routes */}
+                        <Route path="/start"     element={<Start />} />
+                        <Route path="/"          element={<Navigate to="/start" />} />
+                        <Route path="*"          element={<Navigate to="/404" />} />
+
+                        {/* Pages Routes */}
                         <Route exact path="/inicio"    element={<Private Item={Inicio} />} />
                         <Route exact path="/cadastrar" element={<Cadastrar />} />
                         <Route exact path="/equipes"   element={<Private Item={Equipes} />} />
                         <Route exact path="/usuarios"  element={<Usuarios />} />
+                        <Route exact path="/404"       element={<PageNotFound />} />
                     </Routes>
                 </ThemeContextProvider>
             </Fragment>

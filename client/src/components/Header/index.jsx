@@ -7,10 +7,7 @@ import { useThemeContext } from '../../contexts/theme';
 
 const Navbar = () => {
 
-    function urlNameCheck () {
-        const valor = window.location.href.split('/')[3].replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '');
-        return valor.charAt(0).toUpperCase() + valor.slice(1);
-    }
+    function urlNameCheck () {return window.location.pathname;}
 
     const { signout } = useAuth();
 	const navigate = useNavigate();

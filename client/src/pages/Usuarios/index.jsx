@@ -1,11 +1,8 @@
 import React, { Component } from "react"
-import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { Table } from 'react-bootstrap';
-import "./styles.css"
-import * as C from "./styles";
 import GlobalStyle from './styles';
+import * as C from "./styles";
 const apiConfig = require('../../base/api');
-
 class Usuarios extends Component {
 
     constructor(props) {

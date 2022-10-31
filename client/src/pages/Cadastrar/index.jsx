@@ -1,157 +1,179 @@
 import React, { useRef, useState } from 'react'
 import * as C from "./styles";
-import Input from '../../components/Input';
 import Button from '../../components/Button';
 const apiConfig = require('../../base/api');
 
 const Cadastrar = () => {
-    
-    const post_name = useRef(null);
-    const post_registroMatricula = useRef(null);
-    const post_senha = useRef(null);
-    const post_idade = useRef(null);
-    const post_email = useRef(null);
-    const post_telefone = useRef(null);
-    const post_dataNascimento = useRef(null);
-    const post_Instituicao_id = useRef(null);
 
-    const [postResult, setPostResult] = useState(null);
+    const refName = useRef("");
+    const refRegistroMatricula = useRef("");
+    const refSenha = useRef("");
+    const refIdade = useRef("");
+    const refEmail = useRef("");
+    const refTelefone = useRef("");
+    const refDataNascimento = useRef("");
+    const refInstituicaoId = useRef("");
 
-    const fortmatResponse = (res) => {
-        return JSON.stringify(res, null, 2);
-    }
+    const [error, setError] = useState("");
+    const [success, setSucess] = useState("");
 
-    async function createUsuario() {
+    function createUsuario() {
+
+        if(!refName.current.value | !refRegistroMatricula.current.value | !refSenha.current.value | !refIdade.current.value | !refEmail.current.value | !refTelefone.current.value | !refDataNascimento.current.value | !refInstituicaoId.current.value) {
+            setError("Preencha todos os campos!")
+            return;
+        }
+
         const createUsuario = {
-            name: post_name.current.value,
-            registroMatricula: post_registroMatricula.current.value,
-            senha: post_senha.current.value,
-            idade: post_idade.current.value,
-            email: post_email.current.value,
-            telefone: post_telefone.current.value,
-            dataNascimento: post_dataNascimento.current.value,
-            Instituicao_id: post_Instituicao_id.current.value
+            name: refName.current.value,
+            registroMatricula: refRegistroMatricula.current.value,
+            senha: refSenha.current.value,
+            idade: refIdade.current.value,
+            email: refEmail.current.value,
+            telefone: refTelefone.current.value,
+            dataNascimento: refDataNascimento.current.value,
+            Instituicao_id: refInstituicaoId.current.value
         };
 
         try {
-            const res = await fetch(apiConfig.urlAPI + "usuarios", {
+            fetch(apiConfig.urlAPI + "usuarios", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "x-access-token": "token-value",
                 },
                 body: JSON.stringify(createUsuario)
-            });
+            })
 
-            if(!res.ok) {
-                const message = `Ocorreu um erro: ${res.status} - ${res.statusText}`;
-                throw new Error(message);
-            }
+            .then((response) => response.json())
 
-            const data = await res.json();
-
-            const result = {
-                data
-            };
-
-            setPostResult(fortmatResponse(result));
+            .then(data => {
+                if(!data.ok) {
+                    const message = `${data.message}`;
+                    setError(message)
+                    throw new Error(message);
+                } else {
+                    const message = `${data.message}`;
+                    setSucess(message)
+                }
+            })
 
         } catch (err) {
-            setPostResult(err.message)
+            setError(err)
         }
     }
-
-    // const handleInputChange = (e) => {
-    //     const newdata = { ...data }
-    //     newdata[e.target.id] = e.target.value
-    //     setData(newdata)
-    // }
-
         return (
             <C.Container>
-                <C.Cadastro>
+                <C.Cadastro onSubmit={(e) => e.preventDefault()}>
                     <C.Label>CADASTRAR USUÁRIOS</C.Label>
                     <C.Main>
                         <C.Content>
-                            <Input
-                                LabelText="Registro de Matrícula"
-                                type="text"
-                                placeholder="00"
-                                ref={post_registroMatricula}
-                                name="registroMatricula"
-                                id="registroMatricula"
-                            />
+                            <div className='form-item'>
+                                <label className='form-label'>Registro de Matrícula</label>
+                                <input
+                                    type="text"
+                                    placeholder="00"
+                                    ref={refRegistroMatricula}
+                                    name="registroMatricula"
+                                    id="registroMatricula"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
+            
+                            <div className='form-item'>
+                                <label className='form-label'>Nome</label>
+                                <input
+                                    type="text"
+                                    placeholder="Jason Mary"
+                                    ref={refName}
+                                    name="name"
+                                    id="name"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
     
-                            <Input
-                                LabelText="Nome"
-                                type="text"
-                                placeholder="Jason Mary"
-                                ref={post_name}
-                                name="name"
-                                id="name"
-                            />
-    
-                            <Input
-                                LabelText="Email"
-                                type="email"
-                                placeholder="test@test.com"
-                                ref={post_email}
-                                name="email"
-                                id="email"
-                            />
-    
-                            <Input 
-                                LabelText="Senha"
-                                type="password"
-                                placeholder="********"
-                                ref={post_senha}
-                                name="password"
-                                id="password"
-                            />
+                            <div className='form-item'>
+                                <label className='form-label'>Email</label>
+                                <input
+                                    type="email"
+                                    placeholder="test@test.com"
+                                    ref={refEmail}
+                                    name="email"
+                                    id="email"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
+
+                            <div className='form-item'>
+                                <label className='form-label'>Senha</label>
+                                <input 
+                                    type="password"
+                                    placeholder="********"
+                                    ref={refSenha}
+                                    name="password"
+                                    id="password"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
     
                         </C.Content>
     
                         <C.Content>
-                            <Input 
-                                LabelText="Data de Nascimento"
-                                type="text"
-                                placeholder="00/00/0000"
-                                ref={post_dataNascimento}
-                                name="dataNascimento"
-                                id="dataNascimento"
-                            />
+                            <div className='form-item'>
+                                <label className='form-label'>Data de Nascimento</label>
+                                <input 
+                                    type="text"
+                                    placeholder="00/00/0000"
+                                    ref={refDataNascimento}
+                                    name="dataNascimento"
+                                    id="dataNascimento"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
+
+                            <div className='form-item'>
+                                <label className='form-label'>Idade</label>
+                                <input 
+                                    type="text"
+                                    placeholder="00"
+                                    ref={refIdade}
+                                    name="idade"
+                                    id="idade"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
+
     
-                            <Input 
-                                LabelText="Idade"
-                                type="text"
-                                placeholder="00"
-                                ref={post_idade}
-                                name="idade"
-                                id="idade"
-                            />
-    
-                            <Input
-                                LabelText="Telefone"
-                                type="text"
-                                placeholder="XX XXXX-XXXX"
-                                ref={post_telefone}
-                                name="telefone"
-                                id="telefone"
-                            />
-    
-                            <Input 
-                                LabelText="Cód. Instituição"
-                                type="text"
-                                placeholder="00"
-                                ref={post_Instituicao_id}
-                                name="codInstituicao"
-                                id="codInstituicao"
-                            />
+                            <div className='form-item'>
+                                <label className='form-label'>Telefone</label>
+                                <input
+                                    type="text"
+                                    placeholder="XX XXXX-XXXX"
+                                    ref={refTelefone}
+                                    name="telefone"
+                                    id="telefone"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
+
+
+                            <div className='form-item'>
+                                <label className='form-label'>Cód. Instituição</label>
+                                <input 
+                                    type="text"
+                                    placeholder="00"
+                                    ref={refInstituicaoId}
+                                    name="codInstituicao"
+                                    id="codInstituicao"
+                                    onChange={(e) => setError("")}
+                                />
+                            </div>
                         </C.Content>
                     </C.Main>
     
-                    <C.LabelError></C.LabelError>
-                    <Button Text="Cadastrar" onClick={createUsuario} />
+                    <C.LabelError>{ error }</C.LabelError>
+                    <C.LabelSuccess>{ success }</C.LabelSuccess>
+                    <Button Text="Cadastrar" onClick={ createUsuario } />
     
                 </C.Cadastro>
             </C.Container>

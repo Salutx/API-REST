@@ -8,6 +8,23 @@ export default createGlobalStyle`
         --primary-color-opacity: #00cdb51e;
         --title-color: #426C64;
         --secundary-color: #9799B0;
+        --dark-color: #0F1923;
+        scrollbar-width: auto;
+        scrollbar-color: var(--primary-color) #ffffff;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 25px;
+    }
+  
+    ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0);
     }
 
     * {
@@ -23,13 +40,15 @@ export default createGlobalStyle`
     body {
         width: 100vw;
         min-height: 100vh;
+        overflow: overlay;
     }
 
     a, button {
         transition: all .3s;
-        :hover {color: var(--primary-color);}
         cursor: pointer;
     }
+
+    button:hover { background-color: var(--primary-color-dark); color: white }
 
     button {outline: none; border: none; }
 
