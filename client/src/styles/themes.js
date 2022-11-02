@@ -7,6 +7,7 @@ export const lightTheme = {
     paragraph: "#6A6A6A",
     iconBackground: "rgba(15, 25, 35, 0.1)",
     boxShadow: "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;",
+    border: "2px solid #E7E7E7",
 };
 
 export const darkTheme = {
@@ -18,4 +19,5 @@ export const darkTheme = {
     paragraph: "#CBCBCB",
     iconBackground: "rgba(255, 255, 255, 0.1)",
     boxShadow: "0px 16px 50px 5px rgba(0, 205, 180, 0.2)",
+    border: "2px solid #252F38",
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../components/@media-query";
+import { device } from "../../../components/@media-query";
 
 export const LoginContainer = styled.div `
 

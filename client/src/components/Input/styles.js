@@ -6,14 +6,19 @@ export const Input = styled.input `
     padding: 1.6rem 1.3rem .5rem 1.3rem;
     width: 100%;
     border-radius: 6px;
+    border: ${props => props.theme.border};
     font-size: .8rem;
+    color: ${props => props.theme.title};
 
-    background-color: #EDEDED;
-    border: none;
+    background-color: ${props => props.theme.background};
 
     ::placeholder {
         font-size: .8rem;
         color: #a0a6ac;
+    }
+
+    :focus {
+        border: ${props => props.theme.border};
     }
 `;
 

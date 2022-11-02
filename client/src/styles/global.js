@@ -27,6 +27,10 @@ export default createGlobalStyle`
         background: rgba(0, 0, 0, 0);
     }
 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {-webkit-appearance: none;}
+    input[type=number] {-moz-appearance: textfield;}
+
     * {
         margin: 0;
         padding: 0;

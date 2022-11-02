@@ -1,38 +1,30 @@
+import { useState } from "react";
 import * as C from "./styles";
 import GlobalStyle from "./styles";
-import Logo from '../../components/Logo';
 import Thumbnail from '../../assets/images/app-thumb.svg';
-import { useThemeContext } from '../../contexts/theme';
-import { useState } from "react";
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "../../components/Modals/LoginForm";
+import LPHeader from "../../components/LandingPage/Header"
+import ThemeSwitch from '../../components/LandingPage/ThemeSwitch';
+import Container from "../../components/Container";
 
 const Signin = () => {
 
     const [openLoginForm, setOpenLoginForm] = useState(false);
-    const { changeTheme } = useThemeContext();
 
     return (
         <>
             <C.Main>
                 {openLoginForm && <LoginForm closeLogin={setOpenLoginForm} />}
                 <GlobalStyle />
-                <C.Header>
-                    <C.Container>
-                        <C.Navbar>
-                            <Logo />
-            
-                            <C.NavbarNav>
-                                <C.ThemeSwitch onClick={changeTheme}>
-                                    <i className="ri-sun-line"></i>
-                                </C.ThemeSwitch>
-                                <C.LoginButton onClick={() => {setOpenLoginForm(true)}}>
-                                    FAZER LOGIN
-                                </C.LoginButton>
-                            </C.NavbarNav>
-                        </C.Navbar>
-                    </C.Container>
-                </C.Header>
-                <C.Container>
+
+                <LPHeader>
+                    <ThemeSwitch/>
+                    <C.LoginButton onClick={() => {setOpenLoginForm(true)}}>
+                        FAZER LOGIN
+                    </C.LoginButton>
+                </LPHeader>
+
+                <Container>
                     <C.Hero>
                         <C.HeroDisplay>
                             Gestão escolar <br/>
@@ -81,10 +73,10 @@ const Signin = () => {
                     <C.Arrow>
                         <i className="ri-arrow-down-s-line"></i>
                     </C.Arrow>
-                </C.Container>
+                </Container>
             </C.Main>
             <C.Section>
-                <C.Container>
+                <Container>
                     <C.SectionContainer>
                         <C.GridLayout>  
                             
@@ -248,11 +240,11 @@ const Signin = () => {
                         </C.GridLayout>
 
                     </C.SectionContainer>
-                    </C.Container> 
+                    </Container> 
             </C.Section>
 
             <C.Footer>
-                <C.Container>
+                <Container>
                     <C.FooterContainer>
                         <C.FooterCreated>
                             Feito com 
@@ -263,7 +255,7 @@ const Signin = () => {
                             Copyright 2022, <strong>Mindset Student.</strong>
                         </C.FooterCopyright>
                     </C.FooterContainer>
-                </C.Container>
+                </Container>
             </C.Footer>
         </>
     )
