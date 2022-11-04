@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as C from './styles'
 import { useNavigate } from "react-router-dom";
 import LPHeader from '../../components/LandingPage/Header'
 import ThemeSwitch from '../../components/LandingPage/ThemeSwitch'
 import Container from '../../components/Container'
+import AdminUser from './AdminUser/index';
 
 const Admin = () => {
 	const navigate = useNavigate();
+	const [openAdminUser, setOpenAdminUser] = useState(false);
+
   	return (
 		<>
 			<C.Main>
+				{openAdminUser && <AdminUser closeUser={setOpenAdminUser} />}
 				<LPHeader>
 					<C.Badge>BETA</C.Badge>
 					<ThemeSwitch/>
@@ -41,7 +45,7 @@ const Admin = () => {
 										</C.ToolsBody>
 									</C.ToolsHeader>
 									
-									<C.btnTools>Usar</C.btnTools>
+									<C.btnTools onClick={() => {setOpenAdminUser(true)}}>Usar</C.btnTools>
 								</C.ToolsContent>
 							</C.ToolsItem>
 

@@ -1,8 +1,8 @@
 import React from "react";
 import * as C from "./styles";
 import Logo from '../../Logo';
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
+import Input from '../../Input';
+import Button from '../../Button';
 
 const LoginForm = ({ closeLogin }) => {
     return (

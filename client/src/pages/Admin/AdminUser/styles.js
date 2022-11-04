@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../@media-query";
+import { device } from "../../../components/@media-query";
 
 export const LoginContainer = styled.div `
 
@@ -22,7 +22,6 @@ position: fixed;
 export const LoginBody = styled.div `
 
     background: ${props => props.theme.background};
-    max-width: 955px;
     border-radius: 16px;
     padding: 2.5rem;
     display: flex;
@@ -57,6 +56,7 @@ export const LoginMain = styled.div `
     display: flex;
     gap: 2.7rem;
     align-items: center;
+    width: 100%;
 
     > h1 {
         font-size: 1rem;
@@ -160,12 +160,14 @@ export const SupportButton = styled.button `
 export const Content = styled.div`
     gap: 1rem;
     display: flex;
+    height: 100%;
     flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    max-width: 400px;
     border-radius: 6px;
     position: relative;
+    
+    :first-child {
+        max-width: 430px;
+    }
 
     h1 {
         color: ${props => props.theme.title};
@@ -178,6 +180,7 @@ export const Content = styled.div`
 `;
 
 export const Line = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -188,3 +191,4 @@ export const LabelError = styled.label `
     font-size: 14px;
     color: red;
 `;
+
