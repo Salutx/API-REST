@@ -16,7 +16,7 @@ const LoginForm = ({ closeLogin }) => {
     const [nascimento, setNascimento] = useState('');
     const [codInstituicao, setCodInstituicao] = useState('');
     const [senha, setSenha] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
     const url = 'http://localhost:3001/';
 
@@ -45,6 +45,7 @@ const LoginForm = ({ closeLogin }) => {
                 navigate("/inicio");
             }
         })
+        .catch(error => setError("Erro na autenticação."))
     }
 
     return (

@@ -4,7 +4,7 @@ const Auth = require('../middleare/auth')
 
 const UsuariosController = require('../controllers/usuarios-controller');
 
-router.get('/', UsuariosController.getUsuarios);
+router.get('/', UsuariosController.getUsuarios, Auth.required);
 router.post('/register', UsuariosController.postUsuarios);
 router.post('/login', UsuariosController.loginUser);
 router.get('/:id', UsuariosController.getUniqueUsuarios, Auth.required);
