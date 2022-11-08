@@ -185,6 +185,7 @@ export const Line = styled.div`
 `;
 
 export const LabelError = styled.label `
-    font-size: 14px;
-    color: red;
+    text-align: center;
+    font-size: 13px;
+    color: var(--secundary-color);
 `;

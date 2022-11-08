@@ -1,5 +1,8 @@
 const mysql = require('../mysql').pool;
+
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 exports.getUsuarios = (req, res, next) => {
     mysql.getConnection((error, conn) => {
@@ -17,7 +20,6 @@ exports.getUsuarios = (req, res, next) => {
                             registroMatricula: user.registroMatricula,
                             name: user.name,
                             senha: user.senha,
-                            idade: user.idade,
                             email: user.email,
                             telefone: user.telefone,
                             dataNascimento: user.dataNascimento,
@@ -25,7 +27,7 @@ exports.getUsuarios = (req, res, next) => {
                             request: {
                                 type: 'GET',
                                 description: 'Retorna todos os detalhes',
-                                url: 'http://localhost:3001/usuarios/' + user.id,
+                                url: 'http://localhost:3001/users/' + user.id,
                             }
                         }
                     })
@@ -35,6 +37,56 @@ exports.getUsuarios = (req, res, next) => {
         );
     })
 };
+
+exports.loginUser = (req, res, next) => {
+
+    const ConfirmarNascimento = req.body.dataNascimento;
+    const ConfirmarInstituicao = req.body.Instituicao_id;
+    const ConfirmarSenha = req.body.senha;
+    const ConfirmarEmail = req.body.email;
+
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send ({ error: error }) }
+        conn.query('SELECT * FROM usuario WHERE email = ?', [req.body.email], (error, result, fields) => {
+            conn.release();
+
+            var user = result[0];
+
+            if (!user) {
+                if (error) { return res.status(500).send ({ error: error }) }
+            } else {
+            var dbEmail = user.email;
+            var dbNascimento = user.dataNascimento;
+            var dbInstituicao_id = user.Instituicao_id;
+            var dbSenha = user.senha;
+
+                if(ConfirmarEmail == dbEmail && ConfirmarNascimento == dbNascimento && ConfirmarInstituicao == dbInstituicao_id) {
+                    bcrypt.compare(ConfirmarSenha, dbSenha, (err, data) => {
+                        if(err) {
+                            return res.status(401).send({ error: "Falha na autenticação."})
+                        }
+                        if(data) {
+                            const token = jwt.sign({
+                                userId: user.id,
+                                email: user.email
+                            }, 'w■ebúè0q◘φ',{expiresIn: "1h"})
+                            return res.status(200).send(
+                                {
+                                    message: "Autenticado!", 
+                                    token: token
+                                })
+                        } else {
+                            return res.status(401).send({ error: "Falha na autenticação."})
+                        }
+                        
+                    });
+                } else {
+                    return res.status(401).send({ error: "Falha na autenticação."})
+                }
+            }
+        });
+    });
+}
 
 exports.postUsuarios = (req, res, next) => {
     mysql.getConnection((error, conn) => {
@@ -46,20 +98,19 @@ exports.postUsuarios = (req, res, next) => {
             if(result.length > 0) {
                 res.status(409).send({ message: "Usuário já cadastrado!" });
             } else {
-                bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                bcrypt.hash(req.body.senha, saltRounds, (err, hash) => {
                     conn.query(
-                        'INSERT INTO usuario (registroMatricula, name, senha, idade, email, telefone, dataNascimento, Instituicao_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                        [req.body.registroMatricula, req.body.name, hash, req.body.idade, req.body.email, req.body.telefone, req.body.dataNascimento, req.body.Instituicao_id],
+                        'INSERT INTO usuario (registroMatricula, name, senha, email, telefone, dataNascimento, Instituicao_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                        [req.body.registroMatricula, req.body.name, hash, req.body.email, req.body.telefone, req.body.dataNascimento, req.body.Instituicao_id],
                         (error, result, field) => {
                             if (error) { return res.status(500).send ({ error: error }) }
                             const response = {
-                                message: 'Usuário inserido com sucesso',
+                                message: 'Usuário inserido com sucesso!',
                                 usuarioCriado: {
                                     id: result.insertId,
                                     registroMatricula: req.body.registroMatricula,
                                     name: req.body.name,
                                     senha: hash,
-                                    idade: req.body.idade,
                                     email: req.body.email,
                                     telefone: req.body.telefone,
                                     dataNascimento: req.body.dataNascimento,
@@ -67,14 +118,14 @@ exports.postUsuarios = (req, res, next) => {
                                     request: {
                                         type: 'POST',
                                         description: 'Ver todos os usuários',
-                                        url: 'http://localhost:3001/usuarios',
+                                        url: 'http://localhost:3001/users',
                                     }
                                 }
                             }
                             return res.status(201).send(response);
                         }
                     )
-                });
+                })
             }
         })
     });
@@ -103,7 +154,6 @@ exports.getUniqueUsuarios = (req, res, next) => {
                         registroMatricula: result[0].registroMatricula,
                         name: result[0].name,
                         senha: result[0].senha,
-                        idade: result[0].idade,
                         email: result[0].email,
                         telefone: result[0].telefone,
                         dataNascimento: result[0].dataNascimento,
@@ -111,7 +161,7 @@ exports.getUniqueUsuarios = (req, res, next) => {
                         request: {
                             type: 'GET',
                             description: 'Ver todos os usuários',
-                            url: 'http://localhost:3001/usuarios',
+                            url: 'http://localhost:3001/users',
                         }
                     }
                 }
@@ -126,12 +176,11 @@ exports.patchUsuarios = (req, res, next) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query(
-            `UPDATE usuario SET registroMatricula = ?, name = ?, senha = ?, idade = ?, email = ?, telefone = ?, dataNascimento = ?, Instituicao_id = ? WHERE id = ?`,
+            `UPDATE usuario SET registroMatricula = ?, name = ?, senha = ?, email = ?, telefone = ?, dataNascimento = ?, Instituicao_id = ? WHERE id = ?`,
                 [
                     req.body.registroMatricula, 
                     req.body.name, 
-                    req.body.senha, 
-                    req.body.idade, 
+                    req.body.senha,  
                     req.body.email, 
                     req.body.telefone, 
                     req.body.dataNascimento, 
@@ -149,7 +198,6 @@ exports.patchUsuarios = (req, res, next) => {
                         registroMatricula: req.body.registroMatricula,
                         name: req.body.name,
                         senha: req.body.senha,
-                        idade: req.body.idade,
                         email: req.body.email,
                         telefone: req.body.telefone,
                         dataNascimento: req.body.dataNascimento,
@@ -157,7 +205,7 @@ exports.patchUsuarios = (req, res, next) => {
                         request: {
                             type: 'GET',
                             description: 'Retorna todos os detalhes',
-                            url: 'http://localhost:3001/usuarios/' + req.body.id,
+                            url: 'http://localhost:3001/users/' + req.body.id,
                         }
                     }
                 }
@@ -171,23 +219,20 @@ exports.deleteUsuarios = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
-        conn.query(
-            `DELETE FROM usuario WHERE id = ?`, [req.body.id],
-            (error, result, field) => {
+        conn.query(`DELETE FROM usuario WHERE id = ?`, [req.body.id], (error, result, field) => {
                 conn.release();
                 if (error) { return res.status(500).send ({ error: error }) }
                 
                 const response = {
                     message: 'Usuário deletado com sucesso!',
                     request: {
-                        type: 'POST',
+                        type: 'DELETE',
                         description: 'Insere um usuário',
-                        url: 'http://localhost:3001/usuarios/',
+                        url: 'http://localhost:3001/users/registrar',
                         body: {
                             name: "String",
                             registroMatricula: "Integer",
                             senha: "String",
-                            idade: "Integer",
                             email: "String",
                             telefone: "String",
                             dataNascimento: "String",

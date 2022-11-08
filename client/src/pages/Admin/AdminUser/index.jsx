@@ -1,129 +1,152 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import Axios from 'axios';
 import * as C from "./styles";
+import GlobalStyle from "./styles"
 import Logo from '../../../components/Logo';
 import Button from '../../../components/Button';
-import './styles.css'
 import UsersTimeline from "./DisplayUsers";
 
 const AdminUser = ({ closeUser }) => {
     const [users, getUsers] = useState('');
+    const [nascimento, setNascimento] = useState('');
+    const [name, setName] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [registroMatricula, setRegistroMatricula] = useState('');
+    const [codInstituicao, setCodInstituicao] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmation, setConfirmation] = useState('');
+
 	const url = 'http://localhost:3001/';
 
 	useEffect(() => {
 		getAllUsers();
 	}, []);
-	
-	const getAllUsers = () => {
-		axios.get(`${url}usuarios`)
+
+    const getAllUsers = () => {
+		Axios.get(`${url}users`)
 		.then((response) => {
 			const allUsers = response.data.usuarios;
 			getUsers(allUsers);
 		})
 		.catch(error => console.log(`Error: ${error}`));
 	}
+
+    const registerUsers = () => {
+        Axios.post(`${url}users/register`, {
+            registroMatricula: registroMatricula,
+            name: name,
+            senha: senha,
+            email: email,
+            telefone: telefone,
+            dataNascimento: nascimento,
+            Instituicao_id: codInstituicao
+        })
+        .then((response) => {
+            setConfirmation(response.data.message);
+            getAllUsers();
+        })
+        .catch(error => setConfirmation("Usuário já cadastrado!"))
+    }
+
     
     return (
-        <C.LoginContainer>
-            <C.LoginBody>
-                <C.LoginHeader>
+        <C.AdminUserContainer>
+            <GlobalStyle />
+            <C.AdminBody>
+                <C.AdminHeader>
                     <Logo />
                     <button onClick={() => closeUser(false)}>
                         <i className="ri-close-line"></i>
                     </button>
-                </C.LoginHeader>
+                </C.AdminHeader>
 
-                <C.LoginMain>
+                <C.AdminMain>
                     <C.Content>
-                        <h1>Inserir usuário<span>.</span></h1>
+                        <h1>Cadastrar usuário<span>.</span></h1>
                         <C.Line>
-                            <div className="input-item short">
-                                <label>Nacimento</label>
-                                <div className="input-main">
+                            <C.InputItem className="short">
+                                <label>Nascimento</label>
+                                <C.InputMain>
                                     <i className="ri-calendar-line"></i>
-                                    <input type="text" placeholder="19/08/1988" />
-                                </div>
-                            </div>
+                                    <input type="text" placeholder="19/08/1988" onChange={(e) => {setNascimento(e.target.value); setConfirmation('')}} />
+                                </C.InputMain>
+                            </C.InputItem>
 
-                            <div className="input-item">
+                            <C.InputItem>
                                 <label>Nome completo</label>
-                                <div className="input-main">
+                                <C.InputMain>
                                     <i className="ri-calendar-line"></i>
-                                    <input type="text" placeholder="John Doe" />
-                                </div>
-                            </div>
+                                    <input type="text" placeholder="John Doe" onChange={(e) => {setName(e.target.value); setConfirmation('')}} />
+                                </C.InputMain>
+                            </C.InputItem>
                         </C.Line>
 
                         <C.Line>
-                            <div className="input-item">
+                            <C.InputItem>
                                 <label>Telefone</label>
-                                <div className="input-main">
-                                    <input type="text" placeholder="(XX) XXXX-XXXX" />
-                                </div>
-                            </div>
+                                <C.InputMain>
+                                    <input type="text" placeholder="(XX) XXXX-XXXX" onChange={(e) => {setTelefone(e.target.value); setConfirmation('')}} />
+                                </C.InputMain>
+                            </C.InputItem>
                         </C.Line>
 
                         <C.Line>
-                            <div className="input-item">
+                            <C.InputItem>
                                 <label>RM</label>
-                                <div className="input-main">
-                                    <input type="number" placeholder="00" />
-                                </div>
-                            </div>
+                                <C.InputMain>
+                                    <input type="number" placeholder="00" onChange={(e) => {setRegistroMatricula(e.target.value); setConfirmation('')}} />
+                                </C.InputMain>
+                            </C.InputItem>
 
-                            <div className="input-item">
+                            <C.InputItem>
                                 <label>Cód. Instituição</label>
-                                <div className="input-main">
-                                    <input type="number" placeholder="230" />
-                                </div>
-                            </div>
+                                <C.InputMain>
+                                    <input type="number" placeholder="230" onChange={(e) => {setCodInstituicao(e.target.value); setConfirmation('')}} />
+                                </C.InputMain>
+                            </C.InputItem>
                         </C.Line>
 
                         <C.Line>
-                            <div className="input-item">
+                            <C.InputItem>
                                 <label>Email</label>
-                                <div className="input-main">
-                                    <input type="text" placeholder="230" />
-                                </div>
-                            </div>
+                                <C.InputMain>
+                                    <input type="text" placeholder="test@etec.sp.gov.br" onChange={(e) => {setEmail(e.target.value); setConfirmation('')}} />
+                                </C.InputMain>
+                            </C.InputItem>
                         </C.Line>
 
                         <C.Line className="flex-end">
-                            <div className="input-item">
+                            <C.InputItem>
                                 <label>Senha</label>
-                                <div className="input-main">
-                                    <input type="password" placeholder="********" />
+                                <C.InputMain>
+                                    <input type="password" placeholder="********" onChange={(e) => {setSenha(e.target.value); setConfirmation('')}} />
                                     <i className="ri-eye-line"></i>
-                                </div>
-                            </div>
-                            <button className="btnGerar">Gerar</button>
+                                </C.InputMain>
+                            </C.InputItem>
+                            <C.btnGerar>Gerar</C.btnGerar>
                         </C.Line>
 
-                        <C.LabelError></C.LabelError>
-                        <Button Text="Continuar" />
+                        <C.LabelConfirmation>{confirmation}</C.LabelConfirmation>
+                        <Button Text="Continuar" onClick={registerUsers} />
                     </C.Content>
 
                     <C.Content>
-                        <div className="content-header">
+                        <C.ContentHeader>
                             <h1>Lista de usuários</h1>
-                            <div className="content-icons">
-                                <i className="ri-refresh-line"></i>
+                            <C.ContentIcons>
+                                <i className="ri-refresh-line" onClick={() => getAllUsers()} ></i>
                                 <i className="ri-search-line"></i>
-                            </div>
-                        </div>
+                            </C.ContentIcons>
+                        </C.ContentHeader>
 
-                        <div className="user-list">
-                            <div className="user-item">
-                                <UsersTimeline users={users} />
-                                <button className="btnUser">
-                                    <i className="ri-more-line"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <C.UserList>
+                            <UsersTimeline users={users}/>
+                        </C.UserList>
                     </C.Content>
-                </C.LoginMain>
-            </C.LoginBody>
-        </C.LoginContainer>
+                </C.AdminMain>
+            </C.AdminBody>
+        </C.AdminUserContainer>
     )
 }
 

@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Instituicao` (
   `endereco_cep` VARCHAR(8) NOT NULL,
   `endereco_cidade` VARCHAR(255) NOT NULL,
   `endereco_rua` VARCHAR(255) NOT NULL,
-  `telefonePrimario` INT NOT NULL,
-  `telefoneSecundario` INT NULL,
+  `telefonePrimario` VARCHAR(14) NOT NULL,
+  `telefoneSecundario` VARCHAR(14) NULL,
   `email` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
@@ -28,10 +28,9 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Usuario` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
   `registroMatricula` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
-  `senha` VARCHAR(16) NOT NULL,
-  `idade` INT NOT NULL,
+  `senha` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `telefone` INT NOT NULL,
+  `telefone` VARCHAR(14) NOT NULL,
   `dataNascimento` VARCHAR(8) NOT NULL,
   `Instituicao_id` SMALLINT(5) NOT NULL,
   PRIMARY KEY (`id`, `Instituicao_id`),

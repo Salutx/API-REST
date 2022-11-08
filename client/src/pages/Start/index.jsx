@@ -8,7 +8,6 @@ import ThemeSwitch from '../../components/LandingPage/ThemeSwitch';
 import Container from "../../components/Container";
 
 const Signin = () => {
-
     const [openLoginForm, setOpenLoginForm] = useState(false);
 
     return (
