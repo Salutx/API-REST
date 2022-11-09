@@ -6,7 +6,7 @@ export const GridLayout = styled.div `
     display: grid; 
     grid-template-columns: 1.3fr 1fr 0.7fr; 
     grid-template-rows: repeat(3, 1fr); 
-    gap: 1.5rem; 
+    gap: 1rem; 
     grid-template-areas: 
       "welcome-area gadgets-area gadgets-area"
       "tasks-area tasks-area user-area"
@@ -42,7 +42,7 @@ export const GadgetsArea = styled.div `
     display: grid; 
     grid-template-columns: 1fr 1fr; 
     grid-template-rows: 1fr; 
-    gap: 1.5rem; 
+    gap: 1rem; 
     grid-template-areas: 
         ". ."; 
     grid-area: gadgets-area; 
@@ -93,8 +93,6 @@ export const GadgetsIcon = styled.div `
     width: 25%;
     font-size: 20px;
     color: #00B2FF;
-
-
 `;
 
 export const GadgetsMain = styled.div `

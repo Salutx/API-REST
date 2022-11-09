@@ -1,18 +1,10 @@
 import styled from "styled-components";
 
-export const Header = styled.header `
-
-    height: 52px;
-    background-color: ${props => props.theme.body};
-
-`
+export const Header = styled.header ``;
 
 export const Container = styled.div `
-
     height: 100%;
     margin: 0 auto;
-    padding: 0 1rem;
-
 `;
 
 export const Navbar = styled.div `
@@ -25,17 +17,20 @@ export const Navbar = styled.div `
     
 `;
 
-export const Breadcrumb = styled.div `
+export const HeaderTitle = styled.div `
 
     display: flex;
     align-items: center;
-    gap: .3rem;
-    font-size: .8rem;
-    color: var(--secundary-color);
+    gap: .5rem;
+    font-size: 12px;
+    color: white;
     flex: 0 0 25%;
 
-    p:last-child {color: var(--primary-color);}
+`;
 
+export const Breadcumb = styled.p `
+    color: var(--secundary-color) !important;
+    font-weight: bold;
 `;
 
 export const SearchContainer = styled.div `
@@ -43,7 +38,6 @@ export const SearchContainer = styled.div `
     display: flex;
     align-items: center;
     gap: 1rem;
-    flex: 0 0 60%;
 
 `;
 
@@ -51,17 +45,19 @@ export const NavbarSearch = styled.div `
 
     display: flex;
     align-items: center;
-    background-color: ${props => props.theme.background};
-    padding: .4rem;
-    border-radius: 4px;
-    overflow: hidden;
+    background-color: #252F38;
+    padding: .8rem .8rem;
+    border-radius: 8px;
     gap: .5rem;
     color: var(--secundary-color);
 
-    a {
+    button {
         padding: 0 .2rem;
         cursor: pointer;
         display: flex;
+        background-color: transparent;
+        color: var(--secundary-color);
+        font-size: 16px;
     }
 
     input {
@@ -83,8 +79,8 @@ export const NavbarTools = styled.div `
 
     display: flex;
     align-items: center;
-    gap: .8rem;
-    color: var(--secundary-color);
+    gap: 1.5rem;
+    color: white;
 
     button {
         all: unset;
@@ -94,20 +90,6 @@ export const NavbarTools = styled.div `
         align-items: center
     }
 
-`;
-
-export const NavbarLogout = styled.div `
-
-    flex: 0 0 0;
-
-    button {
-        font-size: .8rem;
-        display: flex;
-        align-items: center;
-        gap: .3rem;
-        border: none;
-        background-color: transparent;
-        color: var(--secundary-color);
-    }
+    button:hover {color: var(--primary-color);}
 
 `;

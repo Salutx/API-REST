@@ -9,6 +9,7 @@ export default createGlobalStyle`
         --title-color: #426C64;
         --secundary-color: #9799B0;
         --dark-color: #0F1923;
+        --lightred: #FB6483;
         scrollbar-width: auto;
         scrollbar-color: var(--primary-color) #ffffff;
     }
@@ -71,9 +72,13 @@ export const Content = styled.div `
 
 export const Main = styled.main `
 
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     width: 100%;
     height: 100%;
     background: ${props => props.theme.background};
+    padding: 16px 24px 24px 24px;
 
 `;
 
@@ -81,7 +86,6 @@ export const Section = styled.section `
 
     width: 100%;
     max-height: calc(100% - 52px);
-    padding: 1.5rem;
     background: transparent;
     overflow: auto;
 

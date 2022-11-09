@@ -55,6 +55,7 @@ exports.loginUser = (req, res, next) => {
             if (!user) {
                 if (error) { return res.status(500).send ({ error: error }) }
             } else {
+                
             var dbEmail = user.email;
             var dbNascimento = user.dataNascimento;
             var dbInstituicao_id = user.Instituicao_id;

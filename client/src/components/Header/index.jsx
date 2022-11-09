@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import useAuth from '../../hooks/useAuth';
 import GlobalStyle from '../../styles/global';
 import * as C from "./styles.js";
 import { useThemeContext } from '../../contexts/theme';
@@ -8,34 +7,20 @@ import { useThemeContext } from '../../contexts/theme';
 const Navbar = () => {
 
     function urlNameCheck () {return window.location.pathname;}
-
-    const { signout } = useAuth();
-	const navigate = useNavigate();
-
     const { changeTheme } = useThemeContext();
 
     return (
         <C.Header>
             <C.Container>
                 <C.Navbar>
-                    <C.Breadcrumb>
-                        <p>Você está em:</p>
-                        <p>{urlNameCheck()}</p>
-                    </C.Breadcrumb>
+                    <C.HeaderTitle>
+                        <h1>Dashboard</h1>
+                        <C.Breadcumb>/ PÁGINA INICIAL</C.Breadcumb>
+                    </C.HeaderTitle>
                     
                     <GlobalStyle />
 
                     <C.SearchContainer>
-                        <C.NavbarSearch>
-                            <a>
-                                <i className="ri-search-2-line"></i>
-                            </a>
-                            <input type="text" placeholder="Pesquisar por nome, grupo, assunto..."/>
-                            
-                            <a>
-                                <i className="ri-arrow-down-s-line"></i>
-                            </a>
-                        </C.NavbarSearch>
                         <C.NavbarTools>
                             <button>
                                 <i className="ri-notification-2-line"></i>
@@ -44,14 +29,18 @@ const Navbar = () => {
                                 <i className="ri-moon-line"></i>
                             </button>
                         </C.NavbarTools>
-                    </C.SearchContainer>
+                        <C.NavbarSearch>
+                            <button>
+                                <i className="ri-search-2-line"></i>
+                            </button>
 
-                    <C.NavbarLogout>
-                        <button onClick={() => [signout(), navigate("/")]}>
-                            Sair
-                            <i className="ri-arrow-right-line"></i>
-                        </button>
-                    </C.NavbarLogout>
+                            <input type="text" placeholder="Pesquisar por nome, grupo, assunto..."/>
+                            
+                            <button>
+                                <i className="ri-arrow-down-s-line"></i>
+                                </button>
+                        </C.NavbarSearch>
+                    </C.SearchContainer>
                 </C.Navbar>
             </C.Container>
         </C.Header>
