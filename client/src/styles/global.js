@@ -85,7 +85,7 @@ export const Main = styled.main `
 export const Section = styled.section `
 
     width: 100%;
-    max-height: calc(100% - 52px);
+    height: 100%;
     background: transparent;
     overflow: auto;
 

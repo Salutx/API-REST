@@ -8,13 +8,11 @@ export const Container = styled.div `
 `;
 
 export const Navbar = styled.div `
-
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
     width: 100%;
-    
 `;
 
 export const HeaderTitle = styled.div `
@@ -24,7 +22,6 @@ export const HeaderTitle = styled.div `
     gap: .5rem;
     font-size: 12px;
     color: white;
-    flex: 0 0 25%;
 
 `;
 
@@ -37,7 +34,9 @@ export const SearchContainer = styled.div `
 
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 1rem;
+    width: 30%;
 
 `;
 
@@ -73,6 +72,12 @@ export const NavbarSearch = styled.div `
         color: var(--secundary-color);
     }
 
+    @media (max-width: 1378px) {
+        width: auto;
+        input{display: none;}
+        button:last-child {display: none;}
+    }
+
 `;
 
 export const NavbarTools = styled.div `
@@ -87,7 +92,8 @@ export const NavbarTools = styled.div `
         cursor: pointer; 
         font-size: 16px;
         display: flex;
-        align-items: center
+        align-items: center;
+        background-color: transparent;
     }
 
     button:hover {color: var(--primary-color);}

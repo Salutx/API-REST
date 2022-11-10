@@ -6,6 +6,7 @@ import LoginForm from "../../components/Modals/LoginForm";
 import LPHeader from "../../components/LandingPage/Header"
 import ThemeSwitch from '../../components/LandingPage/ThemeSwitch';
 import Container from "../../components/Container";
+import SupportButton from "../../components/SupportButton";
 
 const Signin = () => {
     const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -145,7 +146,7 @@ const Signin = () => {
                                     <h1>Sempre preparados para atender suas <strong>necessidades.</strong></h1>
                                 </C.SupportHeader>
 
-                                <C.SupportButton>Contatar Suporte</C.SupportButton>
+                                <SupportButton>Contatar suporte</SupportButton>
                             </C.SupportArea>
 
                             <C.FunctionsArea className="card card-black">
@@ -234,7 +235,7 @@ const Signin = () => {
                                     <h1>Temos atualmente <strong>38</strong> instituições e <strong>247</strong> usuários.</h1>
                                 </C.CounterMain>
 
-                                <C.SupportButton>Fazer Login</C.SupportButton>
+                                <SupportButton>Fazer Login</SupportButton>
                             </C.SectionCounter>
                         </C.GridLayout>
 

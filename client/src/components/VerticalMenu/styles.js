@@ -10,7 +10,7 @@ export const VerticalMenu = styled.aside `
     height: 100%;
     padding: 24px;
     gap: 1.5rem;
-    border-radius: 0px 16px 16px 0px;
+    border-radius: 0px 8px 8px 0px;
 
 `;
 
@@ -76,13 +76,15 @@ export const NavMenu = styled.div `
 
 export const NavItem = styled.div `
 
+    border-radius: 4px;
+    overflow: hidden;
+
     button {
         width: 100%;
         padding: 8px 10px;
         display: flex;
         align-items: center;
         gap: 10px;
-        border-radius: 4px;
         font-size: .8rem;
         color: ${props => props.status ? "var(--primary-color)" : "var(--secundary-color)"};
         background-color: ${props => props.status ? "var(--primary-color-opacity)" : "transparent" };
@@ -97,6 +99,13 @@ export const NavItem = styled.div `
         align-items: center;
         justify-content: center;
     }
+
+    :hover > button {
+        background-color: var(--primary-color-opacity);
+        color: white;
+    }
+
+    :hover > button, :hover > button > i {color: white !important;}
 
 `;
 

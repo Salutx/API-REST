@@ -1,9 +1,11 @@
 import React from 'react'
 import VerticalMenu from '../../components/VerticalMenu';
-import TitleSection from '../../components/TitleSection';
 import * as G from "../../styles/global"
 import * as C from "./styles";
 import Header from '../../components/Header';
+import Brasao from '../../assets/images/cps-branco.png';
+import SupportButton from '../../components/SupportButton';
+import './styles.css'
 
 const Inicio = () => {
 	return (
@@ -13,55 +15,97 @@ const Inicio = () => {
 				<Header />
 				<G.Section>
 					<C.GridLayout>
-						<C.WelcomeArea className='section'>
-							<h1>Bem-vindo de volta,</h1>
-							<p>25 de Setembro de 2022</p>
-						</C.WelcomeArea>
 						
-						<C.GadgetsArea>
-							
-							<C.GadgetsContainer>
-								<C.GadgetsIcon>
-									<i className="ri-user-location-line"></i>
-								</C.GadgetsIcon>
-								<C.GadgetsMain>
-									<h1>Bimestral</h1>
-									<p id='frequencia-counter' className='counter'>98,8%</p>
-									<p id='frequencia-priority'className='priority normal'>Controlado</p>
-								</C.GadgetsMain>
-							</C.GadgetsContainer>
+						<div class="welcome-area section">
+							<div class="welcome-header">
+								<div class="welcome-title">
+									<h1>Hey, John!</h1>
+									<p>Bem-vindo(a) de volta! Fique atento nas atividades e notificações.</p>
+								</div>
 
-							<C.GadgetsContainer>
-								<C.GadgetsIcon>
-									<i className="ri-line-chart-line"></i>
-								</C.GadgetsIcon>
-								<C.GadgetsMain>
-									<h1>Ocorrências</h1>
-									<p id='frequencia-counter' className='counter'>0</p>
-									<p id='frequencia-priority' className='priority normal'>Controlado</p>
-									</C.GadgetsMain>
-							</C.GadgetsContainer>
-						</C.GadgetsArea>
+								<div class="welcome-brand">
+									<img src={ Brasao } alt="" />
+								</div>
+							</div>
 
-						<C.TasksArea className='section'>
-							<TitleSection 
-								title="Avaliações Previstas" 
-								icon="ri-file-list-3-line" 
-								navigateTo="tarefas"
-							/>
-						</C.TasksArea>
+							<div class="welcome-info">
+								<div class="info-section">
+									<p class="info-title">Instituição:</p>
+									<button class="btnInfo">
+										ETEC Uirapuru
+										<i class="ri-external-link-line"></i>
+									</button>
+								</div>
 
-						<C.TeamsArea className='section'>
-							<TitleSection 
-								title="Equipes" 
-								icon="ri-team-line" 
-								navigateTo="equipes"
-							/>
-						</C.TeamsArea>
+								<div class="info-section">
+									<p class="info-title">Membros:</p>
+									<div class="members">
+										<div class="members-list">
+											teste
+										</div>
+										<div class="members-label">
+											+147
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-						<C.UserArea className='section'>
-							4
-						</C.UserArea>
+						<div class="tarefas-area section">
+							<div class="section-header">
+								<div class="section-title">
+									<i class="ri-file-list-3-line"></i>
+									<div class="section-info">
+										<p>Tarefas Previstas</p>
+										<i class="ri-information-line"></i>
+									</div>
+								</div>
+
+								<button className='btnSection'>
+									Ver mais
+									<i class="ri-arrow-right-s-line"></i>
+								</button>
+							</div>
+
+							<div class="tarefas-container">
+								Inserir tabela aqui
+							</div>
+						</div>
+
+						<div class="info-area section">
+							<div class="info-header">
+								<div class="info-title">
+									<h1>Porcentagem de entregas</h1>
+									<p>Tarefas - Novembro</p>
+								</div>
+								<div class="info-percent">
+									<p>95,5%</p>
+								</div>
+							</div>
+
+							<div class="info-container">
+								Inserir gráfico aqui
+							</div>
+						</div>
+
+						<div class="frequency-area section">
+							<div class="section-header">
+								<div class="section-title">
+									<i class="ri-pie-chart-2-line"></i>
+									<div class="section-info">
+										<p>Frequências e Ocorrências</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="frequency-container">
+								Inserir gráficos aqui
+							</div>
+						</div>
+						<div class="support-area section">
+							<h1>Algum problema com a plataforma?</h1>
+							<SupportButton>Contatar suporte</SupportButton>
+						</div>
 						
 					</C.GridLayout>
                 </G.Section>

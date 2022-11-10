@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom";
 import GlobalStyle from '../../styles/global';
 import * as C from "./styles.js";
 import { useThemeContext } from '../../contexts/theme';
@@ -11,14 +10,13 @@ const Navbar = () => {
 
     return (
         <C.Header>
+            <GlobalStyle />
             <C.Container>
                 <C.Navbar>
                     <C.HeaderTitle>
                         <h1>Dashboard</h1>
                         <C.Breadcumb>/ PÁGINA INICIAL</C.Breadcumb>
                     </C.HeaderTitle>
-                    
-                    <GlobalStyle />
 
                     <C.SearchContainer>
                         <C.NavbarTools>
@@ -38,7 +36,7 @@ const Navbar = () => {
                             
                             <button>
                                 <i className="ri-arrow-down-s-line"></i>
-                                </button>
+                            </button>
                         </C.NavbarSearch>
                     </C.SearchContainer>
                 </C.Navbar>
