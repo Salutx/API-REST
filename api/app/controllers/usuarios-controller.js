@@ -143,7 +143,7 @@ exports.getUniqueUsuarios = (req, res, next) => {
                 conn.release();
                 if (error) { return res.status(500).send ({ error: error }) }
                 
-                if (result.length === "0") {
+                if (result.length < 1) {
                     return res.status(404).send({
                         message: "Não foi encontrado o usuário com este ID"
                     });

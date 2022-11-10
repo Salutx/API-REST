@@ -4,8 +4,6 @@ import * as C from "./styles.js";
 import { useThemeContext } from '../../contexts/theme';
 
 const Navbar = () => {
-
-    function urlNameCheck () {return window.location.pathname;}
     const { changeTheme } = useThemeContext();
 
     return (

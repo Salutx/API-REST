@@ -16,13 +16,11 @@ export const Navbar = styled.div `
 `;
 
 export const HeaderTitle = styled.div `
-
     display: flex;
     align-items: center;
     gap: .5rem;
     font-size: 12px;
     color: white;
-
 `;
 
 export const Breadcumb = styled.p `
@@ -41,7 +39,6 @@ export const SearchContainer = styled.div `
 `;
 
 export const NavbarSearch = styled.div `
-
     display: flex;
     align-items: center;
     background-color: #252F38;
@@ -54,7 +51,7 @@ export const NavbarSearch = styled.div `
         padding: 0 .2rem;
         cursor: pointer;
         display: flex;
-        background-color: transparent;
+        background-color: transparent !important;
         color: var(--secundary-color);
         font-size: 16px;
     }
@@ -77,7 +74,6 @@ export const NavbarSearch = styled.div `
         input{display: none;}
         button:last-child {display: none;}
     }
-
 `;
 
 export const NavbarTools = styled.div `

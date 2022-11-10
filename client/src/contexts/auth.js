@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState } from "react";
+
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+
     const [user, setUser] = useState('');
 
     const token = localStorage.getItem("access-token");
@@ -10,7 +12,6 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (token && instituicao) {
             const hasUser = token;
-            console.log(hasUser);
         if (hasUser) setUser(hasUser);
         }
     }, []);

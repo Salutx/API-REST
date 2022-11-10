@@ -34,18 +34,16 @@ const LoginForm = ({ closeLogin }) => {
         .then((response) => {
             if(!response) {
                 setError(response.data);
-                console.log(response.data);
                 return;
             } else {
-                const token = response.data.token
+                const token = response.data.token;
                 signin(token)
-                localStorage.setItem("access-token", token)
-                localStorage.setItem("access-inst", codInstituicao)
-                console.log(response);
+                localStorage.setItem("access-token", token);
+                localStorage.setItem("access-inst", codInstituicao);
                 navigate("/inicio");
             }
         })
-        .catch(error => setError("Erro na autenticação."))
+        .catch(error => setError(`Erro na autenticação. ${error}`))
     }
 
     return (

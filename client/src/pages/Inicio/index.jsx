@@ -1,13 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import VerticalMenu from '../../components/VerticalMenu';
 import * as G from "../../styles/global"
 import * as C from "./styles";
 import Header from '../../components/Header';
 import Brasao from '../../assets/images/cps-branco.png';
 import SupportButton from '../../components/SupportButton';
+import Axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import './styles.css'
 
 const Inicio = () => {
+
+    const [name, setName] = useState('');
+	
+	const url = 'http://localhost:3001/';
+	const token = localStorage.getItem('access-token');
+	const decoded = jwt_decode(token);
+
+	useEffect(() => {
+		getUserDetails();
+	}, []);
+
+	const getUserDetails = () => {	
+		Axios.get(`${url}users/${decoded.userId}`)
+		.then((response) => {
+			var nomeCompleto = (response.data.usuario.name);
+			var nome = nomeCompleto.split(" ")[0];
+
+			setName(nome);
+		})
+		.catch(error => console.log(`Error: ${error}`));
+	}
+
 	return (
 		<G.Content>
 			<VerticalMenu />
@@ -19,7 +43,7 @@ const Inicio = () => {
 						<div class="welcome-area section">
 							<div class="welcome-header">
 								<div class="welcome-title">
-									<h1>Hey, John!</h1>
+									<h1>Hey, {name}.</h1>
 									<p>Bem-vindo(a) de volta! Fique atento nas atividades e notificações.</p>
 								</div>
 
