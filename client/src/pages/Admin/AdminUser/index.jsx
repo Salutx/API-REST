@@ -15,6 +15,7 @@ const AdminUser = ({ closeUser }) => {
     const [codInstituicao, setCodInstituicao] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [avatar, setAvatar] = useState();
     const [confirmation, setConfirmation] = useState('');
 
 	const url = 'http://localhost:3001/';
@@ -32,24 +33,33 @@ const AdminUser = ({ closeUser }) => {
 		.catch(error => console.log(`Error: ${error}`));
 	}
 
-    const registerUsers = () => {
-        Axios.post(`${url}users/register`, {
-            registroMatricula: registroMatricula,
-            name: name,
-            senha: senha,
-            email: email,
-            telefone: telefone,
-            dataNascimento: nascimento,
-            Instituicao_id: codInstituicao
-        })
-        .then((response) => {
-            setConfirmation(response.data.message);
+    const registerUsers = async() => {
+        const formData = new FormData();
+        formData.append('registroMatricula', registroMatricula);
+        formData.append('name', name);
+        formData.append('senha', senha);
+        formData.append('email', email);
+        formData.append('telefone', telefone);
+        formData.append('dataNascimento', nascimento);
+        formData.append('avatar', avatar);
+        formData.append('Instituicao_id', codInstituicao);
+        console.log(formData);
+
+        try {
+            await Axios.post(`${url}users/register`, formData)
+            setConfirmation('Usuário registrado com sucesso!')
             getAllUsers();
-        })
-        .catch(error => setConfirmation("Usuário já cadastrado!"))
+        } catch (error) {
+            setConfirmation('Houve um erro no registro.')
+            console.log(error)
+        }
+        
     }
 
-    
+    const changeHandler = (event) => {
+        return setAvatar(event.target.files[0]);
+    }
+
     return (
         <C.AdminUserContainer>
             <GlobalStyle />
@@ -62,7 +72,7 @@ const AdminUser = ({ closeUser }) => {
                 </C.AdminHeader>
 
                 <C.AdminMain>
-                    <C.Content>
+                    <C.Content enctype="multipart/form-data">
                         <h1>Cadastrar usuário<span>.</span></h1>
                         <C.Line>
                             <C.InputItem className="short">
@@ -125,6 +135,15 @@ const AdminUser = ({ closeUser }) => {
                                 </C.InputMain>
                             </C.InputItem>
                             <C.btnGerar>Gerar</C.btnGerar>
+                        </C.Line>
+
+                        <C.Line className="flex-end">
+                            <C.InputItem>
+                                <label>Avatar</label>
+                                <C.InputMain>
+                                    <input type="file" name="file" onChange={changeHandler} />
+                                </C.InputMain>
+                            </C.InputItem>
                         </C.Line>
 
                         <C.LabelConfirmation>{confirmation}</C.LabelConfirmation>

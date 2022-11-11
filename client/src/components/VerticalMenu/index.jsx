@@ -1,16 +1,44 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Logo from '../../assets/images/NewLogo.png';
 import AvatarExample from '../../assets/images/avatarexample.png';
 import { useNavigate } from "react-router-dom";
 import useAuth from '../../hooks/useAuth';
+import Axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import * as C from "./styles.js";
 
 const VerticalMenu = () => {
+
+	const [name, setName] = useState('');
+	const [avatar, setAvatar] = useState();
 
 	const navigate = useNavigate();
 	const { signout } = useAuth();
 
 	function urlCheck ( check ) {if(window.location.href.indexOf(check) > -1) {return "active";}}
+
+	const url = 'http://localhost:3001/';
+	const token = localStorage.getItem('access-token');
+	const decoded = jwt_decode(token);
+
+	useEffect(() => {
+		getUserDetails();
+	}, []);
+
+	const getUserDetails = () => {	
+		Axios.get(`${url}users/${decoded.userId}`)
+		.then((response) => {
+			var nomeCompleto = (response.data.usuario.name);
+			var nome = nomeCompleto.split(" ")[0] + " " + nomeCompleto.split(" ")[1];
+			var avatarBd = response.data.usuario.avatar;
+
+			setAvatar(avatarBd);
+			setName(nome);
+
+			console.log(avatarBd)
+		})
+		.catch(error => console.log(`Error: ${error}`));
+	}
 
   	return (
 		<C.VerticalMenu>
@@ -84,9 +112,9 @@ const VerticalMenu = () => {
 
 				<C.NavUser>
 					<C.NavUserLeft>
-						<img src={ AvatarExample } alt="" />
+						<img src={ avatar } alt="" />
 						<C.UserDetails>
-							<p>Mary Jane</p>
+							<p>{name}</p>
 							<p>Aluno(a)</p>
 						</C.UserDetails>
 					</C.NavUserLeft>

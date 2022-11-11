@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 exports.getUsuarios = (req, res, next) => {
+    
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
@@ -23,6 +24,7 @@ exports.getUsuarios = (req, res, next) => {
                             email: user.email,
                             telefone: user.telefone,
                             dataNascimento: user.dataNascimento,
+                            avatar: user.avatar, 
                             Instituicao_id: user.Instituicao_id,
                             request: {
                                 type: 'GET',
@@ -90,6 +92,9 @@ exports.loginUser = (req, res, next) => {
 }
 
 exports.postUsuarios = (req, res, next) => {
+
+    console.log(req.file.path)
+
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
         
@@ -101,8 +106,16 @@ exports.postUsuarios = (req, res, next) => {
             } else {
                 bcrypt.hash(req.body.senha, saltRounds, (err, hash) => {
                     conn.query(
-                        'INSERT INTO usuario (registroMatricula, name, senha, email, telefone, dataNascimento, Instituicao_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                        [req.body.registroMatricula, req.body.name, hash, req.body.email, req.body.telefone, req.body.dataNascimento, req.body.Instituicao_id],
+                        'INSERT INTO usuario (registroMatricula, name, senha, email, telefone, dataNascimento, avatar, Instituicao_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                        [
+                            req.body.registroMatricula, 
+                            req.body.name, hash, 
+                            req.body.email, 
+                            req.body.telefone, 
+                            req.body.dataNascimento, 
+                            req.file.path,
+                            req.body.Instituicao_id
+                        ],
                         (error, result, field) => {
                             if (error) { return res.status(500).send ({ error: error }) }
                             const response = {
@@ -115,6 +128,7 @@ exports.postUsuarios = (req, res, next) => {
                                     email: req.body.email,
                                     telefone: req.body.telefone,
                                     dataNascimento: req.body.dataNascimento,
+                                    avatar: req.file.path,
                                     Instituicao_id: req.body.Instituicao_id,
                                     request: {
                                         type: 'POST',
@@ -158,6 +172,7 @@ exports.getUniqueUsuarios = (req, res, next) => {
                         email: result[0].email,
                         telefone: result[0].telefone,
                         dataNascimento: result[0].dataNascimento,
+                        avatar: result[0].avatar,
                         Instituicao_id: result[0].Instituicao_id,
                         request: {
                             type: 'GET',

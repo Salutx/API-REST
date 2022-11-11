@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', usuarioRouter);
+app.use('/uploads', express.static('uploads'));
 
 app.use((req, res, next) => {
     const error = new Error('/users');

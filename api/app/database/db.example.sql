@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Usuario` (
   `email` VARCHAR(255) NOT NULL,
   `telefone` VARCHAR(14) NOT NULL,
   `dataNascimento` VARCHAR(8) NOT NULL,
+  `avatar` VARCHAR(500) NOT NULL,
   `Instituicao_id` SMALLINT(5) NOT NULL,
   PRIMARY KEY (`id`, `Instituicao_id`),
   INDEX `fk_Usuario_Instituicao1_idx` (`Instituicao_id` ASC),

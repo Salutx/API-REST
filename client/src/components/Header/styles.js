@@ -89,7 +89,7 @@ export const NavbarTools = styled.div `
         font-size: 16px;
         display: flex;
         align-items: center;
-        background-color: transparent;
+        background-color: transparent !important;
     }
 
     button:hover {color: var(--primary-color);}

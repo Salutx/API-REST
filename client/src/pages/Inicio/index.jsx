@@ -12,6 +12,7 @@ import './styles.css'
 const Inicio = () => {
 
     const [name, setName] = useState('');
+	const [total, setTotal] = useState('');
 	
 	const url = 'http://localhost:3001/';
 	const token = localStorage.getItem('access-token');
@@ -26,7 +27,6 @@ const Inicio = () => {
 		.then((response) => {
 			var nomeCompleto = (response.data.usuario.name);
 			var nome = nomeCompleto.split(" ")[0];
-
 			setName(nome);
 		})
 		.catch(error => console.log(`Error: ${error}`));
