@@ -20,12 +20,12 @@ export const HeaderTitle = styled.div `
     align-items: center;
     gap: .5rem;
     font-size: 12px;
-    color: white;
+    color: ${props => props.theme.titleAssets};
 `;
 
 export const Breadcumb = styled.p `
-    color: var(--secundary-color) !important;
-    font-weight: bold;
+    color: ${props => props.theme.title} !important;
+    font-weight: 600;
 `;
 
 export const SearchContainer = styled.div `
@@ -41,18 +41,18 @@ export const SearchContainer = styled.div `
 export const NavbarSearch = styled.div `
     display: flex;
     align-items: center;
-    background-color: #252F38;
+    background-color: ${props => props.theme.card};
     padding: .8rem .8rem;
     border-radius: 8px;
     gap: .5rem;
-    color: var(--secundary-color);
+    color: ${props => props.theme.paragraph};
 
     button {
         padding: 0 .2rem;
         cursor: pointer;
         display: flex;
         background-color: transparent !important;
-        color: var(--secundary-color);
+        color: ${props => props.theme.paragraph};
         font-size: 16px;
     }
 
@@ -66,7 +66,7 @@ export const NavbarSearch = styled.div `
 
     input::placeholder {
         font-size: .7rem;
-        color: var(--secundary-color);
+        color: ${props => props.theme.paragraph};
     }
 
     @media (max-width: 1378px) {
@@ -81,7 +81,7 @@ export const NavbarTools = styled.div `
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    color: white;
+    color: ${props => props.theme.title};
 
     button {
         all: unset;

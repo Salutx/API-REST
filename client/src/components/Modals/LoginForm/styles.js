@@ -3,7 +3,7 @@ import { device } from "../../@media-query";
 
 export const LoginContainer = styled.div `
 
-position: fixed;
+    position: fixed;
     width: 100%;
     height: 100%;
     
@@ -13,8 +13,16 @@ position: fixed;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.25);
 
+    animation-name: opacity-animation;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+
+    @keyframes opacity-animation{
+        0% {opacity: 0%;}
+        100% {opacity: 100%;}
+    }
+
     z-index: 150;
-    transition: all .2s linear;
     backdrop-filter: blur(4px);
 
 `;

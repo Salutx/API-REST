@@ -67,6 +67,7 @@ export const Content = styled.div `
     width: 100%;
     height: 100vh;
     transition: all .25s linear;
+    background-color: ${props => props.theme.background};
 
 `;
 

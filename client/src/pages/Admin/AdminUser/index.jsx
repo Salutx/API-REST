@@ -43,7 +43,6 @@ const AdminUser = ({ closeUser }) => {
         formData.append('dataNascimento', nascimento);
         formData.append('avatar', avatar);
         formData.append('Instituicao_id', codInstituicao);
-        console.log(formData);
 
         try {
             await Axios.post(`${url}users/register`, formData)
@@ -51,7 +50,6 @@ const AdminUser = ({ closeUser }) => {
             getAllUsers();
         } catch (error) {
             setConfirmation('Houve um erro no registro.')
-            console.log(error)
         }
         
     }

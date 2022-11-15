@@ -15,7 +15,7 @@ const PageNotFound = () => {
                 </div>
 
                 <div className='error-footer'>
-                    <p onClick={() => navigate("/start")}>Voltar para página anterior</p>
+                    <p onClick={() => navigate("/start")}>Voltar para página principal</p>
                 </div>
             </div>
         </>

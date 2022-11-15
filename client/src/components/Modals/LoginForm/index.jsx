@@ -5,6 +5,7 @@ import * as C from "./styles";
 import Logo from '../../Logo';
 import Input from '../../Input';
 import Button from '../../Button';
+import Loader from "../../Loaders";
 import Axios from 'axios';
 
 const LoginForm = ({ closeLogin }) => {
@@ -17,13 +18,13 @@ const LoginForm = ({ closeLogin }) => {
     const [codInstituicao, setCodInstituicao] = useState('');
     const [senha, setSenha] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const url = 'http://localhost:3001/';
 
     const login = () => {
         if(!nascimento | !codInstituicao | !email | !senha) {
             setError("Preencha todos os campos!");
-            return;
         }
         Axios.post(`${url}users/login`, {
             email: email,
@@ -32,22 +33,25 @@ const LoginForm = ({ closeLogin }) => {
             senha: senha
         })
         .then((response) => {
-            if(!response) {
-                setError(response.data);
-                return;
-            } else {
-                const token = response.data.token;
-                signin(token)
-                localStorage.setItem("access-token", token);
-                localStorage.setItem("access-inst", codInstituicao);
-                navigate("/inicio");
-            }
+            const token = response.data.token;
+            signin(token)
+            localStorage.setItem("access-token", token);
+            localStorage.setItem("access-inst", codInstituicao);
+            navigate("/inicio");
         })
-        .catch(error => setError(`Erro na autenticação. ${error}`))
+        .catch(error => setError(`Erro na autenticação.`))
+    }
+
+    const LoginCheck = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            login();
+        }, 800); 
     }
 
     return (
-        <C.LoginContainer>
+        <C.LoginContainer status={closeLogin}>
             <C.LoginBody>
                 <C.LoginHeader>
                     <Logo />
@@ -90,7 +94,10 @@ const LoginForm = ({ closeLogin }) => {
                         />
 
                         <C.LabelError>{ error }</C.LabelError>
-                        <Button Text="Continuar" onClick={login} />
+                        <Button onClick={() => [LoginCheck()]}>
+                            {loading ? <Loader/> : "Continuar"}
+                        </Button>
+                        
                     </C.Content>
 
                     <C.LoginDivider>ou</C.LoginDivider>

@@ -8,16 +8,15 @@ USE `mindset_db` ;
 DROP TABLE IF EXISTS `mindset_db`.`Instituicao` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Instituicao` (
-  `id` SMALLINT(5) NOT NULL,
-  `nome` VARCHAR(255) NOT NULL,
+  `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
   `endereco_cep` VARCHAR(8) NOT NULL,
   `endereco_cidade` VARCHAR(255) NOT NULL,
   `endereco_rua` VARCHAR(255) NOT NULL,
   `telefonePrimario` VARCHAR(14) NOT NULL,
-  `telefoneSecundario` VARCHAR(14) NULL,
+  `telefoneSecundario` VARCHAR(14),
   `email` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
-
 
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Usuario`
@@ -61,7 +60,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Agenda` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Batepapo`
 -- -----------------------------------------------------
@@ -69,11 +67,10 @@ DROP TABLE IF EXISTS `mindset_db`.`Batepapo` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Batepapo` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `dataCriacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`));
-
 
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Curso`
@@ -82,9 +79,8 @@ DROP TABLE IF EXISTS `mindset_db`.`Curso` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Curso` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
-
 
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Aluno`
@@ -93,7 +89,7 @@ DROP TABLE IF EXISTS `mindset_db`.`Aluno` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Aluno` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `serie` VARCHAR(255) NOT NULL,
   `Usuario_id` SMALLINT(5) NOT NULL,
   `Curso_id` SMALLINT(5) NOT NULL,
@@ -111,7 +107,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Aluno` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Notificacao`
 -- -----------------------------------------------------
@@ -119,7 +114,7 @@ DROP TABLE IF EXISTS `mindset_db`.`Notificacao` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Notificacao` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `descricao` VARCHAR(255) NULL,
   `horaEnvio` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Usuario_id` SMALLINT(5) NOT NULL,
@@ -132,7 +127,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Notificacao` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Boletim`
 -- -----------------------------------------------------
@@ -142,7 +136,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Boletim` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`));
 
-
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Professor`
 -- -----------------------------------------------------
@@ -150,7 +143,7 @@ DROP TABLE IF EXISTS `mindset_db`.`Professor` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Professor` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `Usuario_id` SMALLINT(5) NOT NULL,
   PRIMARY KEY (`id`, `Usuario_id`),
   INDEX `fk_Professor_Usuario1_idx` (`Usuario_id` ASC),
@@ -160,7 +153,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Professor` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Materia`
 -- -----------------------------------------------------
@@ -168,7 +160,7 @@ DROP TABLE IF EXISTS `mindset_db`.`Materia` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Materia` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `media` INT NULL,
   `Curso_id` SMALLINT(5) NOT NULL,
   `Boletim_id` SMALLINT(5) NOT NULL,
@@ -194,7 +186,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Materia` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Atividade`
 -- -----------------------------------------------------
@@ -202,7 +193,7 @@ DROP TABLE IF EXISTS `mindset_db`.`Atividade` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Atividade` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `descricao` VARCHAR(255) NULL DEFAULT CURRENT_TIMESTAMP,
   `mencao` INT NULL,
   `prazo` DATETIME NULL,
@@ -219,7 +210,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Atividade` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Aviso`
 -- -----------------------------------------------------
@@ -227,7 +217,7 @@ DROP TABLE IF EXISTS `mindset_db`.`Aviso` ;
 
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Aviso` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `descricao` VARCHAR(32) NOT NULL,
   `horaEnvio` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `prioridade` INT NOT NULL,
@@ -240,7 +230,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Aviso` (
     REFERENCES `mindset_db`.`Usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
 
 -- -----------------------------------------------------
 -- Table `mindset_db`.`Batepapo_has_Usuario`
@@ -265,5 +254,5 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Batepapo_has_Usuario` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-INSERT INTO instituicao (nome, endereco_cep, endereco_cidade, endereco_rua, telefonePrimario, telefoneSecundario, email)
+INSERT INTO instituicao (name, endereco_cep, endereco_cidade, endereco_rua, telefonePrimario, telefoneSecundario, email)
 VALUES ("ETEC UIRAPURU", "05565060", "Sâo Paulo", "Rua Nazir Miguel", "123", "321", "uirapuru@etec.sp.gov.br")

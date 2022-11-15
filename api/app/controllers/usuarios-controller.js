@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 exports.getUsuarios = (req, res, next) => {
-    
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
@@ -79,12 +78,12 @@ exports.loginUser = (req, res, next) => {
                                     token: token
                                 })
                         } else {
-                            return res.status(401).send({ error: "Falha na autenticação."})
+                            return res.status(401).send({ error: error})
                         }
                         
                     });
                 } else {
-                    return res.status(401).send({ error: "Falha na autenticação."})
+                    return res.status(401).send({ error: error})
                 }
             }
         });
@@ -92,9 +91,6 @@ exports.loginUser = (req, res, next) => {
 }
 
 exports.postUsuarios = (req, res, next) => {
-
-    console.log(req.file.path)
-
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
         

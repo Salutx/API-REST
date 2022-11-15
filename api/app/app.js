@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 
 const usuarioRouter = require('./routes/usuarios.routes.js');
+const instituicaoRouter = require('./routes/instituicoes.routes.js');
 
 app.use(cookieParser());
 app.use(cors());
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', usuarioRouter);
+app.use('/instituicoes', instituicaoRouter);
 app.use('/uploads', express.static('uploads'));
 
 app.use((req, res, next) => {

@@ -14,6 +14,9 @@ export const Button = styled.button `
     font-weight: 600;
     font-size: .8rem;
     transition: all .5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     :hover {
         background-color: var(--primary-color-dark);

@@ -14,7 +14,7 @@ const Signin = () => {
     return (
         <>
             <C.Main>
-                {openLoginForm && <LoginForm closeLogin={setOpenLoginForm} />}
+                {openLoginForm && <LoginForm closeLogin={setOpenLoginForm}/>}
                 <GlobalStyle />
 
                 <LPHeader>

@@ -6,7 +6,7 @@ export const VerticalMenu = styled.aside `
     flex-direction: column;
     align-items: center;
     min-width: 280px;
-    background-color: ${props => props.theme.body};
+    background-color: #252F38;
     height: 100%;
     padding: 24px;
     gap: 1.5rem;
@@ -61,7 +61,7 @@ export const NavHeader = styled.p `
     font-size: 0.7rem;
     margin: 0 !important;
     padding: .8rem 0;
-    color: white;
+    color: #CBCBCB;
 
 `;
 
@@ -86,12 +86,12 @@ export const NavItem = styled.div `
         align-items: center;
         gap: 10px;
         font-size: .8rem;
-        color: ${props => props.status ? "var(--primary-color)" : "var(--secundary-color)"};
+        color: ${props => props.status ? "var(--primary-color)" : "#CBCBCB"};
         background-color: ${props => props.status ? "var(--primary-color-opacity)" : "transparent" };
     }
 
     button > i {
-        color: ${props => props.status ? "var(--primary-color)" : "var(--secundary-color)" };
+        color: ${props => props.status ? "var(--primary-color)" : "#CBCBCB" };
         font-size: 22px;
         height: 32px;
         width: 32px;
@@ -105,7 +105,7 @@ export const NavItem = styled.div `
         color: white;
     }
 
-    :hover > button, :hover > button > i {color: white !important;}
+    :hover > button, :hover > button > i {color: var(--primary-color) !important;}
 
 `;
 
