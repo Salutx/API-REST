@@ -92,13 +92,13 @@ exports.loginUser = (req, res, next) => {
 
 exports.postUsuarios = (req, res, next) => {
     mysql.getConnection((error, conn) => {
-        if (error) { return res.status(500).send ({ error: error }) }
+        if (error) { return res.status(200).send ({ error: error }) }
         
         conn.query('SELECT * FROM usuario WHERE registroMatricula = ?', [req.body.registroMatricula], (error, result) => {
             conn.release();
-            if (error) { return res.status(500).send ({ error: error }) }
-            if(result.length > 0) {
-                res.status(409).send({ message: "Usuário já cadastrado!" });
+            if (error) { return res.status(200).send ({ error: error }) }
+            if (result.length >= 1) {
+                return res.status(409).send({ message: "Usuário já cadastrado!" });
             } else {
                 bcrypt.hash(req.body.senha, saltRounds, (err, hash) => {
                     conn.query(
@@ -113,7 +113,7 @@ exports.postUsuarios = (req, res, next) => {
                             req.body.Instituicao_id
                         ],
                         (error, result, field) => {
-                            if (error) { return res.status(500).send ({ error: error }) }
+                            if (error) { return res.status(200).send ({ error: error }) }
                             const response = {
                                 message: 'Usuário inserido com sucesso!',
                                 usuarioCriado: {

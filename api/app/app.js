@@ -34,7 +34,7 @@ app.use('/instituicoes', instituicaoRouter);
 app.use('/uploads', express.static('uploads'));
 
 app.use((req, res, next) => {
-    const error = new Error('/users');
+    const error = new Error('/users, /instituicoes');
     error.status = 404;
     next(error);
 });

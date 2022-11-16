@@ -31,6 +31,7 @@ export const LoginBody = styled.div `
 
     background: ${props => props.theme.background};
     max-width: 955px;
+    width: 100%;
     border-radius: 16px;
     padding: 2.5rem;
     display: flex;

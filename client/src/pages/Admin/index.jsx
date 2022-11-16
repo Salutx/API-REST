@@ -4,16 +4,20 @@ import { useNavigate } from "react-router-dom";
 import LPHeader from '../../components/LandingPage/Header'
 import ThemeSwitch from '../../components/LandingPage/ThemeSwitch'
 import Container from '../../components/Container'
-import AdminUser from './AdminUser/index';
+import CreateUser from './UserTools/CreateUser';
+import ListUser from './UserTools/ListUser';
 
 const Admin = () => {
 	const navigate = useNavigate();
-	const [openAdminUser, setOpenAdminUser] = useState(false);
+
+	const [openCreateUser, setOpenCreateUser] = useState(false);
+	const [openListUser, setOpenListUser] = useState(false);
 
   	return (
 		<>
 			<C.Main>
-				{openAdminUser && <AdminUser closeUser={setOpenAdminUser} />}
+				{openCreateUser && <CreateUser closeCreateUser={setOpenCreateUser} />}
+				{openListUser && <ListUser closeListUser={setOpenListUser} />}
 				<LPHeader>
 					<C.Badge>BETA</C.Badge>
 					<ThemeSwitch/>
@@ -32,8 +36,6 @@ const Admin = () => {
 						<h1>Ferramentas</h1>
 						<C.ToolsContainer>
 							<C.ToolsItem>
-								<C.ToolsDifficulty>Básico</C.ToolsDifficulty>
-
 								<C.ToolsContent>
 									<C.ToolsHeader>
 										<C.ToolsIcon>
@@ -45,13 +47,52 @@ const Admin = () => {
 										</C.ToolsBody>
 									</C.ToolsHeader>
 									
-									<C.btnTools onClick={() => {setOpenAdminUser(true)}}>Usar</C.btnTools>
+									<C.ToolsButtons>
+										<C.btnTools onClick={() => {setOpenCreateUser(true)}}>CADASTRAR</C.btnTools>
+										<C.btnTools onClick={() => {setOpenListUser(true)}}>LISTAR USUÁRIOS</C.btnTools>
+									</C.ToolsButtons>
 								</C.ToolsContent>
 							</C.ToolsItem>
 
 							<C.ToolsItem>
-								<C.ToolsDifficulty>Avançado</C.ToolsDifficulty>
+								<C.ToolsContent>
+									<C.ToolsHeader>
+										<C.ToolsIcon>
+											<i className="ri-user-line"></i>
+										</C.ToolsIcon>
+										<C.ToolsBody>
+											<h1>Ferramenta de Instituições</h1>
+											<p>Liste, crie, delete e atualize os usuários da sua instituição.</p>
+										</C.ToolsBody>
+									</C.ToolsHeader>
+									
+									<C.ToolsButtons>
+										<C.btnTools>CADASTRAR</C.btnTools>
+										<C.btnTools>LISTAR INSTITUIÇÕES</C.btnTools>
+									</C.ToolsButtons>
+								</C.ToolsContent>
+							</C.ToolsItem>
 
+							<C.ToolsItem>
+								<C.ToolsContent>
+									<C.ToolsHeader>
+										<C.ToolsIcon>
+											<i className="ri-user-line"></i>
+										</C.ToolsIcon>
+										<C.ToolsBody>
+											<h1>Ferramenta de Tarefas</h1>
+											<p>Liste, crie, delete e atualize os usuários da sua instituição.</p>
+										</C.ToolsBody>
+									</C.ToolsHeader>
+									
+									<C.ToolsButtons>
+										<C.btnTools>CADASTRAR</C.btnTools>
+										<C.btnTools>LISTAR TAREFAS</C.btnTools>
+									</C.ToolsButtons>
+								</C.ToolsContent>
+							</C.ToolsItem>
+
+							{/* <C.ToolsItem>
 								<C.ToolsContent>
 									<C.ToolsHeader>
 										<C.ToolsIcon>
@@ -68,8 +109,6 @@ const Admin = () => {
 							</C.ToolsItem>
 
 							<C.ToolsItem>
-								<C.ToolsDifficulty>Intermediário</C.ToolsDifficulty>
-
 								<C.ToolsContent>
 									<C.ToolsHeader>
 										<C.ToolsIcon>
@@ -83,7 +122,7 @@ const Admin = () => {
 									
 									<C.btnTools>Verificar</C.btnTools>
 								</C.ToolsContent>
-							</C.ToolsItem>
+							</C.ToolsItem> */}
 						</C.ToolsContainer>
 					</C.Tools>
 				</Container>

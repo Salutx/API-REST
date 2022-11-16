@@ -12,7 +12,7 @@ const UsersTimeline = (props) => {
         const {users} = props;
         if (users.length > 0) {
             return (
-                users.map((usuario) => {
+                users.map((usuario) => { 
                     return (
                         <C.UserItem key={usuario.id}>
                             <C.UserName>
@@ -24,7 +24,7 @@ const UsersTimeline = (props) => {
                                 trigger="click"
                                 placement="bottom"
                                 overlay={
-                                    <Popover id={`popover-positioned-bottom`} onClick={() => deleteUser(usuario.id)}>
+                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteUser(usuario.id)}}>
                                         <Popover.Body>
                                             Deletar
                                         </Popover.Body>
@@ -44,7 +44,7 @@ const UsersTimeline = (props) => {
         }
     }
 
-  return (
+    return (
     <>
         {displayNotes(props)}
     </>
