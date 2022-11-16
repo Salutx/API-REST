@@ -302,6 +302,25 @@ export const InputItem = styled.div `
     .short {width: 60%;}
 `;
 
+export const InputSelect = styled.select `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--dark-color);
+    padding: 16px 24px 16px 12px;
+    border: 2px solid #252F38;
+    border-radius: 4px;
+    color: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+`;
+
 export const InputMain = styled.div `
     display: flex;
     background-color: var(--dark-color);

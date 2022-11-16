@@ -4,6 +4,7 @@ import * as C from "./styles";
 import GlobalStyle from "./styles"
 import Logo from '../../../components/Logo';
 import Button from '../../../components/Button';
+import Loader from "../../../components/Loaders";
 
 const CreateUser = ({ closeCreateUser }) => {
     const url = 'http://localhost:3001/';
@@ -17,7 +18,9 @@ const CreateUser = ({ closeCreateUser }) => {
     const [senha, setSenha] = useState('');
     const [avatar, setAvatar] = useState();
     const [instituicoes, setInstituicoes] = useState(null);
+
     const [confirmation, setConfirmation] = useState('');
+    const [loading, setLoading] = useState(false);
     
     useEffect(() => {
         getInstituicoes();
@@ -26,10 +29,9 @@ const CreateUser = ({ closeCreateUser }) => {
     const getInstituicoes = async () => {
         try {
             const response = await Axios.get(`${url}instituicoes/`)
-            console.log(response.data.instituicoes)
             return setInstituicoes(response.data.instituicoes);
         } catch (error) {
-            console.log(error)
+            return console.log(error)
         }
     }
 
@@ -50,8 +52,9 @@ const CreateUser = ({ closeCreateUser }) => {
         formData.append('Instituicao_id', codInstituicao);
 
         try {
-            await Axios.post(`${url}users/register`, formData)
-            return setConfirmation('Usuário registrado com sucesso!')
+            setConfirmation('Usuário registrado com sucesso!');
+            await Axios.post(`${url}users/register`, formData);
+            return;
         } catch (err) {
             return setConfirmation(err.response.data.message);
         }
@@ -59,6 +62,14 @@ const CreateUser = ({ closeCreateUser }) => {
 
     const changeHandler = (event) => {
         return setAvatar(event.target.files[0]);
+    }
+
+    const checkRegister = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            registerUsers();
+        }, 800); 
     }
 
     return (
@@ -114,24 +125,22 @@ const CreateUser = ({ closeCreateUser }) => {
 
                                 <C.InputItem>
                                     <label>Cód. Instituição</label>
-                                    <C.InputMain>
-                                        <select onChange={(e) => {setCodInstituicao(e.target.value); setConfirmation('')}}>
-                                            {
-                                                instituicoes?.map((instituicao) => {
-                                                    return (
-                                                        <option 
-                                                            key={instituicao.id} 
-                                                            value={instituicao.id}>
+                                    <C.InputSelect onChange={(e) => {setCodInstituicao(e.target.value); setConfirmation('')}}>
+                                        {
+                                            instituicoes?.map((instituicao) => {
+                                                return (
+                                                    <option 
+                                                        key={instituicao.id} 
+                                                        value={instituicao.id}>
 
-                                                            {instituicao.name}
-                                                        </option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
+                                                        {instituicao.name}
+                                                    </option>
+                                                )
+                                            })
+                                        }
+                                    </C.InputSelect>
 
                                         {/* <input type="number" placeholder="230" onChange={(e) => {setCodInstituicao(e.target.value); setConfirmation('')}} /> */}
-                                    </C.InputMain>
                                 </C.InputItem>
                             </C.Line>
                         </C.DividerArea>
@@ -169,7 +178,9 @@ const CreateUser = ({ closeCreateUser }) => {
                             </C.Line>
 
                             <C.LabelConfirmation>{confirmation}</C.LabelConfirmation>
-                            <Button Text="Continuar" onClick={registerUsers} />
+                            <Button onClick={() => checkRegister()} >
+                                {loading ? <Loader/> : "Continuar"}
+                            </Button>
                         </C.DividerArea>
                     </C.Body> 
                     </C.Content>
