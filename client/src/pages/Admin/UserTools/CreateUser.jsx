@@ -68,7 +68,7 @@ const CreateUser = ({ closeCreateUser }) => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            registerUsers();
+            return registerUsers();
         }, 800); 
     }
 
@@ -126,6 +126,7 @@ const CreateUser = ({ closeCreateUser }) => {
                                 <C.InputItem>
                                     <label>Cód. Instituição</label>
                                     <C.InputSelect onChange={(e) => {setCodInstituicao(e.target.value); setConfirmation('')}}>
+                                        <option value="">Selecione</option>
                                         {
                                             instituicoes?.map((instituicao) => {
                                                 return (

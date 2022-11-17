@@ -3,10 +3,12 @@ import Axios from 'axios';
 import * as C from "./styles";
 import GlobalStyle from "./styles"
 import Logo from '../../../components/Logo';
+import Loader from "../../../components/Loaders";
 import UsersTimeline from "./DisplayUsers";
 
 const ListUser = ({ closeListUser }) => {
     const [users, getUsers] = useState('');
+    const [loading, setLoading] = useState(false);
 
 	const url = 'http://localhost:3001/';
 
@@ -23,6 +25,15 @@ const ListUser = ({ closeListUser }) => {
 		.catch(error => console.log(`Error: ${error}`));
 	}
 
+    const checkUsers = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            return getAllUsers();
+        }, 400); 
+    }
+
+
     return (
         <C.AdminUserContainer>
             <GlobalStyle />
@@ -38,13 +49,13 @@ const ListUser = ({ closeListUser }) => {
                     <C.ContentHeader>
                         <h1>Lista de usuários</h1>
                         <C.ContentIcons>
-                            <i className="ri-refresh-line" onClick={() => getAllUsers()} ></i>
+                            <i className="ri-refresh-line" onClick={() => checkUsers()} ></i>
                             <i className="ri-search-line"></i>
                         </C.ContentIcons>
                     </C.ContentHeader>
 
                     <C.UserList>
-                        <UsersTimeline users={users}/>
+                        {loading ? <Loader/> : <UsersTimeline users={users}/>}
                     </C.UserList>
                 </C.Content>
             </C.AdminBody>
