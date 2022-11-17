@@ -1,5 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
-import { device } from "../../components/@media-query";
+import styled from "styled-components";
 import gradient from "../../assets/images/gradient2.svg"
 
 export const GridLayout = styled.div `
@@ -7,7 +6,7 @@ export const GridLayout = styled.div `
     display: grid; 
     grid-auto-columns: 1fr; 
     grid-template-columns: 1fr 403px .5fr; 
-    grid-template-rows: 0.9fr 1.1fr 1fr; 
+    grid-template-rows: 0.8fr 1fr 1fr; 
     gap: 24px 24px; 
     grid-template-areas: 
         "welcome-area welcome-area info-area"
@@ -232,7 +231,7 @@ export const InfoAreaBackground = styled.div `
 export const InfoAreaFooter = styled.div `
     width: 100%;
     background: url(${gradient});
-    height: 100px;
+    height: 35px;
     position: absolute;
     bottom: 0;
     left: 0;
