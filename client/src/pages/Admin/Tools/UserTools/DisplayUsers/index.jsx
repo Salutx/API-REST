@@ -1,5 +1,5 @@
 import React from 'react';
-import * as C from '../styles';
+import * as C from '../../styles';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Axios from 'axios';

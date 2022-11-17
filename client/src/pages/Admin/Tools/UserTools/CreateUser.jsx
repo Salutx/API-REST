@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Axios from 'axios';
-import * as C from "./styles";
-import GlobalStyle from "./styles"
-import Logo from '../../../components/Logo';
-import Button from '../../../components/Button';
-import Loader from "../../../components/Loaders";
+import * as C from "../styles";
+import GlobalStyle from "../styles"
+import Logo from '../../../../components/Logo';
+import Button from '../../../../components/Button';
+import Loader from "../../../../components/Loaders";
 
 const CreateUser = ({ closeCreateUser }) => {
     const url = 'http://localhost:3001/';
@@ -36,11 +36,11 @@ const CreateUser = ({ closeCreateUser }) => {
     }
 
     const registerUsers = async() => {
-
         if (!registroMatricula | !name | !senha | !email | !telefone | !nascimento | !avatar | !codInstituicao ) {
             setConfirmation("Preencha todos os campos!")
             return;
         } 
+        
         const formData = new FormData();
         formData.append('registroMatricula', registroMatricula);
         formData.append('name', name);
@@ -53,9 +53,9 @@ const CreateUser = ({ closeCreateUser }) => {
 
         try {
             setConfirmation('Usuário registrado com sucesso!');
-            await Axios.post(`${url}users/register`, formData);
-            return;
+            return await Axios.post(`${url}users/register`, formData);
         } catch (err) {
+            console.log(err)
             return setConfirmation(err.response.data.message);
         }
     }

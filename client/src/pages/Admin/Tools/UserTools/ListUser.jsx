@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios';
-import * as C from "./styles";
-import GlobalStyle from "./styles"
-import Logo from '../../../components/Logo';
-import Loader from "../../../components/Loaders";
+import * as C from "../styles";
+import GlobalStyle from "../styles"
+import Logo from '../../../../components/Logo';
+import Loader from "../../../../components/Loaders";
 import UsersTimeline from "./DisplayUsers";
 
 const ListUser = ({ closeListUser }) => {

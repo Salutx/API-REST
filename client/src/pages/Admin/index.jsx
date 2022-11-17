@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import LPHeader from '../../components/LandingPage/Header'
 import ThemeSwitch from '../../components/LandingPage/ThemeSwitch'
 import Container from '../../components/Container'
-import CreateUser from './UserTools/CreateUser';
-import ListUser from './UserTools/ListUser';
+
+import CreateUser from './Tools/UserTools/CreateUser';
+import ListUser from './Tools/UserTools/ListUser';
+
+import CreateInstitution from './Tools/InstitutionTools/createInstitution';
 
 const Admin = () => {
 	const navigate = useNavigate();
@@ -13,11 +16,16 @@ const Admin = () => {
 	const [openCreateUser, setOpenCreateUser] = useState(false);
 	const [openListUser, setOpenListUser] = useState(false);
 
+	const [openCreateInstitution, setOpenCreateInstitution] = useState(false);
+	const [openListInstitution, setOpenListInstitution] = useState(false);
+
   	return (
 		<>
 			<C.Main>
 				{openCreateUser && <CreateUser closeCreateUser={setOpenCreateUser} />}
 				{openListUser && <ListUser closeListUser={setOpenListUser} />}
+				
+				{openCreateInstitution && <CreateInstitution closeCreateInstitution={setOpenCreateInstitution} />}
 				<LPHeader>
 					<C.Badge>BETA</C.Badge>
 					<ThemeSwitch/>
@@ -58,16 +66,16 @@ const Admin = () => {
 								<C.ToolsContent>
 									<C.ToolsHeader>
 										<C.ToolsIcon>
-											<i className="ri-user-line"></i>
+											<i className="ri-community-line"></i>
 										</C.ToolsIcon>
 										<C.ToolsBody>
 											<h1>Ferramenta de Instituições</h1>
-											<p>Liste, crie, delete e atualize os usuários da sua instituição.</p>
+											<p>Ferramentas para criação da sua instituição na plataforma.</p>
 										</C.ToolsBody>
 									</C.ToolsHeader>
 									
 									<C.ToolsButtons>
-										<C.btnTools>CADASTRAR</C.btnTools>
+										<C.btnTools onClick={() => {setOpenCreateInstitution(true)}}>CADASTRAR</C.btnTools>
 										<C.btnTools>LISTAR INSTITUIÇÕES</C.btnTools>
 									</C.ToolsButtons>
 								</C.ToolsContent>
