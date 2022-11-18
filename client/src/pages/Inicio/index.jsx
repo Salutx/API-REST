@@ -28,8 +28,10 @@ const Inicio = () => {
 	const avatarImg = avatar.substring(16);
 
 	return (
+		<>
+		<PermissionGate permissions={['1', '2']}>
 		<G.Content>
-			<PermissionGate permissions={['1', '2']}>
+			
 			<VerticalMenu />
 				<G.Main>
 					<Header />
@@ -175,11 +177,13 @@ const Inicio = () => {
 						</C.GridLayout>
 					</G.Section>
 				</G.Main>
-			</PermissionGate>
-			<PermissionGate permissions={['0']}>
-				<Admin/>
-			</PermissionGate>
-		</G.Content>
+				</G.Content>
+		</PermissionGate>
+		
+		<PermissionGate permissions={['0']}>
+			<Admin/>
+		</PermissionGate>
+		</>
 	)
 }
 	

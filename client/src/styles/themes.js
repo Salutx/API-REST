@@ -23,8 +23,8 @@ export const lightTheme = {
 
 export const darkTheme = {
     // START
-    background: "#21252A",
-    backgroundStart: "#0F1923",
+    background: "#202329",
+    backgroundStart: "#202329",
     title: "#FFFFFF",
 
     // ASSETS

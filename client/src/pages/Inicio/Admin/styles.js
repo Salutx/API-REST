@@ -3,16 +3,7 @@ import styled from "styled-components";
 export const Main = styled.main `
     width: 100%;
     min-height: 100vh;
-    padding-top: 4rem;
     background-color: ${props => props.theme.background};
-`;
-
-export const Badge = styled.h1 `
-    background-color: #F1D22E;
-    font-size: 12px !important;
-    color: ${props => props.theme.background} !important;
-    border-radius: 8px;
-    padding: .1rem 1.3rem;
 `;
 
 export const Hint = styled.div `
@@ -58,7 +49,7 @@ export const ToolsItem = styled.div `
     background-color: ${props => props.theme.card};
     width: 330px;
     height: 350px;
-    border-radius: 16px;
+    border-radius: 4px;
     text-align: center;
     padding: 2rem;
     

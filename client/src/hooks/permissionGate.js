@@ -7,7 +7,6 @@ const useGetUserPermissions = () => {
 
     useEffect(() => {
 		response.then((result) => {
-            console.log(result.usuario)
 			setPermissions(result.usuario.user_permissions)
 		});
 	}, []);
