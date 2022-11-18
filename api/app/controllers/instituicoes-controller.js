@@ -48,9 +48,9 @@ exports.postInstituicao = (req, res, next) => {
                     'INSERT INTO instituicao (name, endereco_cep, endereco_cidade, endereco_rua, telefonePrimario, telefoneSecundario, email) VALUES (?, ?, ?, ?, ?, ?, ?)',
                     [
                         req.body.name,
-                        req.body.enderecoCEP,
-                        req.body.enderecoCIDADE, 
-                        req.body.enderecoRUA, 
+                        req.body.endereco_cep,
+                        req.body.endereco_cidade, 
+                        req.body.endereco_rua, 
                         req.body.telefonePrimario, 
                         req.body.telefoneSecundario,
                         req.body.email

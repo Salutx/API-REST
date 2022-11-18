@@ -6,7 +6,7 @@ export const VerticalMenu = styled.aside `
     flex-direction: column;
     align-items: center;
     min-width: 280px;
-    background-color: #252F38;
+    background-color: #2D3339;
     height: 100%;
     padding: 24px;
     gap: 1.5rem;

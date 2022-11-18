@@ -23,7 +23,7 @@ export const lightTheme = {
 
 export const darkTheme = {
     // START
-    background: "#0F1923",
+    background: "#21252A",
     backgroundStart: "#0F1923",
     title: "#FFFFFF",
 
@@ -32,7 +32,7 @@ export const darkTheme = {
     backgroundStartAssets: "#ffffff",
     body: "#252F38",
     titleAssets: "#FFFFFF",
-    card: "#252F38",
+    card: "#2D3339",
     paragraph: "#CBCBCB",
     iconBackground: "rgba(255, 255, 255, 0.1)",
     boxShadow: "0px 16px 50px 5px rgba(0, 205, 180, 0.2)",

@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS `mindset_db`.`Instituicao` ;
 CREATE TABLE IF NOT EXISTS `mindset_db`.`Instituicao` (
   `id` SMALLINT(5) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
-  `endereco_cep` VARCHAR(8) NOT NULL,
+  `endereco_cep` VARCHAR(255) NOT NULL,
   `endereco_cidade` VARCHAR(255) NOT NULL,
   `endereco_rua` VARCHAR(255) NOT NULL,
   `telefonePrimario` VARCHAR(14) NOT NULL,
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Usuario` (
   `dataNascimento` VARCHAR(8) NOT NULL,
   `avatar` VARCHAR(500) NOT NULL,
   `Instituicao_id` SMALLINT(5) NOT NULL,
+  `user_permissions` SMALLINT(5) NOT NULL,
   PRIMARY KEY (`id`, `Instituicao_id`),
   INDEX `fk_Usuario_Instituicao1_idx` (`Instituicao_id` ASC),
   CONSTRAINT `fk_Usuario_Instituicao1`
@@ -255,4 +256,4 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Batepapo_has_Usuario` (
     ON UPDATE NO ACTION);
 
 INSERT INTO instituicao (name, endereco_cep, endereco_cidade, endereco_rua, telefonePrimario, telefoneSecundario, email)
-VALUES ("ETEC UIRAPURU", "05565060", "Sâo Paulo", "Rua Nazir Miguel", "123", "321", "uirapuru@etec.sp.gov.br")
+VALUES ("ETEC UIRAPURU", "05565060", "Sâo Paulo", "Rua Nazir Miguel", "123", "321", "uirapuru@etec.sp.gov.br");

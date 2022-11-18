@@ -4,27 +4,27 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Axios from 'axios';
 
-const UsersTimeline = (props) => {
+const InstitutionsTimeline = (props) => {
     const url = 'http://localhost:3001';
-    const deleteUser = (value) => {Axios.delete(`${url}/users/delete`, { data: {id: value}} )}
+    const deleteInstitution = (value) => {Axios.delete(`${url}/instituicoes/delete`, { data: {id: value}} )}
 
     const displayNotes = (props) => {
-        const {users} = props;
-        if (users.length > 0) {
+        const {institutions} = props;
+        if (institutions.length > 0) {
             return (
-                users.map((usuario) => { 
+                institutions.map((institution) => { 
                     return (
-                        <C.UserItem key={usuario.id}>
+                        <C.UserItem key={institution.id}>
                             <C.UserName>
                                 <i className="ri-checkbox-blank-circle-fill"></i>
-                                <p>{usuario.name} (Perm: {usuario.user_permissions})</p>
+                                <p>{institution.name} ({institution.id})</p>
                             </C.UserName>
                             <OverlayTrigger
                                 rootClose
                                 trigger="click"
                                 placement="bottom"
                                 overlay={
-                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteUser(usuario.id)}}>
+                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteInstitution(institution.id)}}>
                                         <Popover.Body>
                                             Deletar
                                         </Popover.Body>
@@ -40,7 +40,7 @@ const UsersTimeline = (props) => {
                 })
             )
         } else {
-            return (<p className='enought'>Não há usuários cadastrados.</p>)
+            return (<p className='enought'>Não há instituições cadastradas.</p>)
         }
     }
 
@@ -51,4 +51,4 @@ const UsersTimeline = (props) => {
   )
 }
 
-export default UsersTimeline
+export default InstitutionsTimeline

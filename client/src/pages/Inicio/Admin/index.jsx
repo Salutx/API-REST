@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import * as C from './styles'
 import { useNavigate } from "react-router-dom";
-import LPHeader from '../../components/LandingPage/Header'
-import ThemeSwitch from '../../components/LandingPage/ThemeSwitch'
-import Container from '../../components/Container'
+import Container from '../../../components/Container'
 
 import CreateUser from './Tools/UserTools/CreateUser';
 import ListUser from './Tools/UserTools/ListUser';
@@ -28,22 +26,10 @@ const Admin = () => {
 				
 				{openCreateInstitution && <CreateInstitution closeCreateInstitution={setOpenCreateInstitution} />}
 				{openListInstitution && <ListInstitution closeListInstitution={setOpenListInstitution} />}
-				<LPHeader>
-					<C.Badge>BETA</C.Badge>
-					<ThemeSwitch/>
-					<h1>Painel Administrativo</h1>
-				</LPHeader>
-
-				<Container>
-					<C.Hint>
-						<i className="ri-shield-user-fill"></i>
-						<h1>Painel administrativo para a plataforma.</h1>
-					</C.Hint>
-				</Container>
 				
 				<Container>
 					<C.Tools>
-						<h1>Ferramentas</h1>
+						<h1>Painel Administrativo</h1>
 						<C.ToolsContainer>
 							<C.ToolsItem>
 								<C.ToolsContent>
@@ -101,38 +87,6 @@ const Admin = () => {
 									</C.ToolsButtons>
 								</C.ToolsContent>
 							</C.ToolsItem>
-
-							{/* <C.ToolsItem>
-								<C.ToolsContent>
-									<C.ToolsHeader>
-										<C.ToolsIcon>
-											<i className="ri-file-chart-line"></i>
-										</C.ToolsIcon>
-										<C.ToolsBody>
-											<h1>Avançado</h1>
-											<p>Faça o monitoramento de desempenho dos usuários da instituição.</p>
-										</C.ToolsBody>
-									</C.ToolsHeader>
-									
-									<C.btnTools>Verificar</C.btnTools>
-								</C.ToolsContent>
-							</C.ToolsItem>
-
-							<C.ToolsItem>
-								<C.ToolsContent>
-									<C.ToolsHeader>
-										<C.ToolsIcon>
-											<i className="ri-lock-2-line"></i>
-										</C.ToolsIcon>
-										<C.ToolsBody>
-											<h1>Segurança</h1>
-											<p>Verifique os termos de privacidade estipulados pelas instituições.</p>
-										</C.ToolsBody>
-									</C.ToolsHeader>
-									
-									<C.btnTools>Verificar</C.btnTools>
-								</C.ToolsContent>
-							</C.ToolsItem> */}
 						</C.ToolsContainer>
 					</C.Tools>
 				</Container>
@@ -144,4 +98,4 @@ const Admin = () => {
 	)
 }
 
-export default Admin
+export default Admin;

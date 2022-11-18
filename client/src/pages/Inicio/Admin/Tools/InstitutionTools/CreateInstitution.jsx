@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Axios from 'axios';
 import * as C from "../styles";
 import GlobalStyle from "../styles"
-import Logo from '../../../../components/Logo';
-import Button from '../../../../components/Button';
-import Loader from "../../../../components/Loaders";
+import Logo from '../../../../../components/Logo';
+import Button from '../../../../../components/Button';
+import Loader from "../../../../../components/Loaders";
 
 const CreateInstitution = ({ closeCreateInstitution }) => {
     const url = 'http://localhost:3001/';

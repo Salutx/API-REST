@@ -23,7 +23,9 @@ const VerticalMenu = () => {
 		});
 	}, []);
 
-	const nameSemiFully = name.split(' ')[0] + " " + name.split(' ')[1];
+	const firstName = name.split(' ')[0]
+	const secundaryName =  name.split(' ')[1] ? name.split(' ')[1] : '';
+	const firstSecundary = firstName + " " + secundaryName;
 	const avatarImg = avatar.substring(16);
 
   	return (
@@ -100,7 +102,7 @@ const VerticalMenu = () => {
 					<C.NavUserLeft>
 						<img src={avatarImg} alt="" />
 						<C.UserDetails>
-							<p>{nameSemiFully}</p>
+							<p>{firstSecundary}</p>
 							<p>Aluno(a)</p>
 						</C.UserDetails>
 					</C.NavUserLeft>

@@ -23,7 +23,8 @@ exports.getUsuarios = (req, res, next) => {
                             email: user.email,
                             telefone: user.telefone,
                             dataNascimento: user.dataNascimento,
-                            avatar: user.avatar, 
+                            avatar: user.avatar,
+                            user_permissions: user.user_permissions,
                             Instituicao_id: user.Instituicao_id,
                             request: {
                                 type: 'GET',
@@ -102,14 +103,16 @@ exports.postUsuarios = (req, res, next) => {
             } else {
                 bcrypt.hash(req.body.senha, saltRounds, (err, hash) => {
                     conn.query(
-                        'INSERT INTO usuario (registroMatricula, name, senha, email, telefone, dataNascimento, avatar, Instituicao_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                        'INSERT INTO usuario (registroMatricula, name, senha, email, telefone, dataNascimento, avatar, user_permissions, Instituicao_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
                         [
                             req.body.registroMatricula, 
-                            req.body.name, hash, 
+                            req.body.name, 
+                            hash, 
                             req.body.email, 
                             req.body.telefone, 
                             req.body.dataNascimento, 
                             req.file.path,
+                            req.body.user_permissions, 
                             req.body.Instituicao_id
                         ],
                         (error, result, field) => {
@@ -125,6 +128,7 @@ exports.postUsuarios = (req, res, next) => {
                                     telefone: req.body.telefone,
                                     dataNascimento: req.body.dataNascimento,
                                     avatar: req.file.path,
+                                    user_permissions: req.body.permissons,
                                     Instituicao_id: req.body.Instituicao_id,
                                     request: {
                                         type: 'POST',
@@ -169,6 +173,7 @@ exports.getUniqueUsuarios = (req, res, next) => {
                         telefone: result[0].telefone,
                         dataNascimento: result[0].dataNascimento,
                         avatar: result[0].avatar,
+                        user_permissions: result[0].user_permissions,
                         Instituicao_id: result[0].Instituicao_id,
                         request: {
                             type: 'GET',
