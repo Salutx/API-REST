@@ -257,3 +257,6 @@ CREATE TABLE IF NOT EXISTS `mindset_db`.`Batepapo_has_Usuario` (
 
 INSERT INTO instituicao (name, endereco_cep, endereco_cidade, endereco_rua, telefonePrimario, telefoneSecundario, email)
 VALUES ("ETEC UIRAPURU", "05565060", "Sâo Paulo", "Rua Nazir Miguel", "123", "321", "uirapuru@etec.sp.gov.br");
+
+INSERT INTO usuario (registroMatricula, name, senha, email, telefone, dataNascimento, avatar, Instituicao_id, user_permissions)
+VALUES ("0", "0", "$2a$10$.9yHPHjOx1W1Rfi0ny6pvOcqlOwaC/6mrO1hr627.aLh11.O32GxO", "admin@admin", "0", "00000000", "0", "1", "0")
