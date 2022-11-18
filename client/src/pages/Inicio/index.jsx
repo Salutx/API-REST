@@ -8,6 +8,7 @@ import { fetchData } from '../../hooks/fetchData';
 import qrcode from '../../assets/images/qrcode.svg'
 import PermissionGate from '../../hooks/permissionGate';
 import Admin from './Admin';
+import Preloader from '../../components/Preloader';
 
 const Inicio = () => {
 	const response = fetchData();
@@ -29,9 +30,10 @@ const Inicio = () => {
 
 	return (
 		<>
+		<C.TestLoader>
+		<Preloader/>
 		<PermissionGate permissions={['1', '2']}>
 		<G.Content>
-			
 			<VerticalMenu />
 				<G.Main>
 					<Header />
@@ -182,7 +184,8 @@ const Inicio = () => {
 		
 		<PermissionGate permissions={['0']}>
 			<Admin/>
-		</PermissionGate>
+		</PermissionGate>		
+		</C.TestLoader>
 		</>
 	)
 }
