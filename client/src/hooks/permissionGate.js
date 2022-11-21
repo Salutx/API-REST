@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {fetchData} from './fetchData';
+import { urlAPI } from '../base/api';
+import Axios from 'axios';
 
-const useGetUserPermissions = () => {
-    const response = fetchData();
+const useGetUserPermissions = async () => {
     const [permissions, setPermissions] = useState('');
 
-    useEffect(() => {
-		response.then((result) => {
-			setPermissions(result.usuario.user_permissions)
-		});
-	}, []);
+	const response = await Axios.get(`${urlAPI}categorys/usertypes`, {});
+    setPermissions(response.data.user_types[0]);
     
+    console.log(permissions)
     return [`${permissions}`];
 }
 

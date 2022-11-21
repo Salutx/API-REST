@@ -6,9 +6,9 @@ export const fetchData = async () => {
 	let response;
 	const token = localStorage.getItem('access-token');
 	const decoded = jwt_decode(token);	
-
+	
 	try {
-		response = await Axios.get(`${urlAPI}users/${decoded.userId}`, {});
+		response = await Axios.get(`${urlAPI}categorys/userdetails/${decoded.userId}`, {});
 	} catch (e) {
 		throw new Error(e.message)
 	} 

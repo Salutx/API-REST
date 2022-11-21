@@ -6,8 +6,10 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 
-const usuarioRouter = require('./routes/usuarios.routes.js');
-const instituicaoRouter = require('./routes/instituicoes.routes.js');
+const institutionRouter = require('./routes/institutions.routes.js');
+const studentRouter = require('./routes/students.routes.js');
+const teacherRouter = require('./routes/teachers.routes.js');
+const categorysRouter = require('./routes/categorys.routes.js');
 
 app.use(cookieParser());
 app.use(cors());
@@ -29,12 +31,14 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/users', usuarioRouter);
-app.use('/instituicoes', instituicaoRouter);
+app.use('/institutions', institutionRouter);
+app.use('/students', studentRouter);
+app.use('/teachers', teacherRouter);
+app.use('/categorys', categorysRouter);
 app.use('/uploads', express.static('uploads'));
 
 app.use((req, res, next) => {
-    const error = new Error('/users, /instituicoes');
+    const error = new Error('/users, /institution');
     error.status = 404;
     next(error);
 });

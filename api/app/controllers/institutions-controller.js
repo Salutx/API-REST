@@ -1,29 +1,26 @@
 const mysql = require('../mysql').pool;
 
-exports.getInstituicao = (req, res, next) => {
+exports.getInstitutions = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query( 
-            'SELECT * from instituicao;',
+            'SELECT * from institution;',
             (error, result, fields) => {
                 if (error) { return res.status(500).send ({ error: error }) }
                 const response = {
-                    quantidade: result.length,
-                    instituicoes: result.map(instituicao => {
+                    quantity: result.length,
+                    institutions: result.map(institution => {
                         return {
-                            id: instituicao.id,
-                            name: instituicao.name,
-                            enderecoCEP: instituicao.endereco_cep,
-                            enderecoCIDADE: instituicao.endereco_cidade,
-                            enderecoRUA: instituicao.endereco_rua,
-                            telefonePrimario: instituicao.telefonePrimario,
-                            telefoneSecundario: instituicao.telefoneSecundario,
-                            email: instituicao.email, 
+                            id: institution.id,
+                            name: institution.name,
+                            telefonePrimario: institution.telefonePrimario,
+                            telefoneSecundario: institution.telefoneSecundario,
+                            email: institution.email,
                             request: {
                                 type: 'GET',
                                 description: 'Retorna todos os detalhes',
-                                url: 'http://localhost:3001/instituicoes/' + instituicao.id,
+                                url: 'http://localhost:3001/institutions/' + institution.id,
                             }
                         }
                     })
@@ -34,18 +31,18 @@ exports.getInstituicao = (req, res, next) => {
     })
 };
 
-exports.postInstituicao = (req, res, next) => {
+exports.postInstitution = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
         
-        conn.query('SELECT * FROM instituicao WHERE email = ?', [req.body.email], (error, result) => {
+        conn.query('SELECT * FROM institution WHERE email = ?', [req.body.email], (error, result) => {
             conn.release();
             if (error) { return res.status(500).send ({ error: error }) }
             if(result.length > 0) {
                 res.status(409).send({ message: "Instituição já cadastrada!" });
             } else {
                 conn.query(
-                    'INSERT INTO instituicao (name, endereco_cep, endereco_cidade, endereco_rua, telefonePrimario, telefoneSecundario, email) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                    'INSERT INTO institution (name, endereco_cep, endereco_cidade, endereco_rua, telefonePrimario, telefoneSecundario, email) VALUES (?, ?, ?, ?, ?, ?, ?)',
                     [
                         req.body.name,
                         req.body.endereco_cep,
@@ -53,7 +50,7 @@ exports.postInstituicao = (req, res, next) => {
                         req.body.endereco_rua, 
                         req.body.telefonePrimario, 
                         req.body.telefoneSecundario,
-                        req.body.email
+                        req.body.email,
                     ],
                     (error, result, field) => {
                         if (error) { return res.status(500).send ({ error: error }) }
@@ -68,10 +65,11 @@ exports.postInstituicao = (req, res, next) => {
                                 telefonePrimario: req.body.telefonePrimario,
                                 telefoneSecundario: req.body.telefoneSecundario,
                                 email: req.body.email,
+                                created_at: req.body.created_at,
                                 request: {
                                     type: 'POST',
                                     description: 'Ver todas as instituições',
-                                    url: 'http://localhost:3001/instituicoes',
+                                    url: 'http://localhost:3001/institutions',
                                 }
                             }
                         }
@@ -83,12 +81,12 @@ exports.postInstituicao = (req, res, next) => {
     });
 };
 
-exports.getUniqueInstituicao = (req, res, next) => {
+exports.getUniqueInstitution = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query(
-            'SELECT * FROM instituicao WHERE id = ?;',
+            'SELECT * FROM institution WHERE id = ?;',
             [req.params.id],
             (error, result, field) => {
                 conn.release();
@@ -101,19 +99,21 @@ exports.getUniqueInstituicao = (req, res, next) => {
                 }
                 
                 const response = {
-                    instituicao: {
+                    institution: {
                         id: result[0].id,
                         name: result[0].name,
-                        enderecoCEP: result[0].endereco_cep,
-                        enderecoCIDADE: result[0].endereco_cidade,
-                        enderecoRUA: result[0].endereco_rua,
+                        endereco_cep: result[0].endereco_cep,
+                        endereco_cidade: result[0].endereco_cidade,
+                        endereco_rua: result[0].endereco_rua,
                         telefonePrimario: result[0].telefonePrimario,
                         telefoneSecundario: result[0].telefoneSecundario,
                         email: result[0].email,
+                        created_at: result[0].created_at,
+                        updated_at: result[0].updated_at,
                         request: {
                             type: 'GET',
                             description: 'Ver todas as instituições',
-                            url: 'http://localhost:3001/instituicoes',
+                            url: 'http://localhost:3001/institutions',
                         }
                     }
                 }
@@ -123,20 +123,21 @@ exports.getUniqueInstituicao = (req, res, next) => {
     });
 };
 
-exports.patchInstituicao = (req, res, next) => {
+exports.patchInstitution = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query(
-            `UPDATE usuario SET name = ?, endereco_cep = ?, endereco_cidade = ?, endereco_rua = ?, telefonePrimario = ?, telefoneSecundario = ?, email = ? WHERE id = ?`,
+            `UPDATE institution SET name = ?, endereco_cep = ?, endereco_cidade = ?, endereco_rua = ?, telefonePrimario = ?, telefoneSecundario = ?, email = ?, updated_at = ? WHERE id = ?`,
                 [
                     req.body.name,
-                    req.body.enderecoCEP,
-                    req.body.enderecoCIDADE,
-                    req.body.enderecoRUA,
+                    req.body.endereco_cep,
+                    req.body.endereco_cidade,
+                    req.body.endereco_rua,
                     req.body.telefonePrimario,
                     req.body.telefoneSecundario,
-                    req.body.email
+                    req.body.email,
+                    req.body.updated_at
                 ],
             (error, result, field) => {
                 conn.release();
@@ -147,15 +148,17 @@ exports.patchInstituicao = (req, res, next) => {
                     usuarioAtualizado: {
                         id: req.body.id,
                         name: req.body.name,
-                        endereco_cep: req.body.enderecoCEP,
-                        endereco_cidade: req.body.enderecoCIDADE,
+                        endereco_cep: req.body.endereco_cep,
+                        endereco_cidade: req.body.endereco_cidade,
                         telefonePrimario: req.body.telefonePrimario,
                         telefoneSecundario: req.body.telefoneSecundario,
                         email: req.body.email,
+                        created_at: req.body.created_at,
+                        updated_at: req.body.updated_at,
                         request: {
                             type: 'PATCH',
                             description: 'Retorna todas as instituicoes',
-                            url: 'http://localhost:3001/instituicoes/' + req.body.id,
+                            url: 'http://localhost:3001/institutions/' + req.body.id,
                         }
                     }
                 }
@@ -165,20 +168,20 @@ exports.patchInstituicao = (req, res, next) => {
     });
 };
 
-exports.deleteInstituicao = (req, res, next) => {
+exports.deleteInstitution = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
-        conn.query(`DELETE FROM instituicao WHERE id = ?`, [req.body.id], (error, result, field) => {
+        conn.query(`DELETE FROM institution WHERE id = ?`, [req.body.id], (error, result, field) => {
                 conn.release();
                 if (error) { return res.status(500).send ({ error: error }) }
                 
                 const response = {
-                    message: 'Instituicao deletado com sucesso!',
+                    message: 'Institutição deletada com sucesso!',
                     request: {
                         type: 'DELETE',
-                        description: 'Insere um usuário',
-                        url: 'http://localhost:3001/users/registrar',
+                        description: 'Insere uma instituição',
+                        url: 'http://localhost:3001/institution/registrar',
                     }
                 }
                 return res.status(202).send(response);

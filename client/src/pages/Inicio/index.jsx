@@ -17,23 +17,23 @@ const Inicio = () => {
 	const [name, setName] = useState('');
 	const [avatar, setAvatar] = useState('');
 
-	useEffect(() => {
-		response.then((result) => {
-			setUserData(result.usuario); 
-			setName(result.usuario.name)
-			setAvatar(result.usuario.avatar)
-		});
-	}, []);
+	// useEffect(() => {
+	// 	response.then((result) => {
+	// 		setUserData(result.usuario); 
+	// 		setName(result.usuario.name)
+	// 		setAvatar(result.usuario.avatar)
+	// 	});
+	// }, []);
 
-	const firstName = name.split(' ')[0];
-	const secundaryName = name.split(' ')[1] ? name.split(' ')[1] : '';
-	const avatarImg = avatar.substring(16);
+	const firstName = "enable";
+	const secundaryName = "enable";
+	const avatarImg = null;
 
 	return (
 		<>
 		<C.TestLoader>
 		<Preloader/>
-		<PermissionGate permissions={['1', '2']}>
+		<PermissionGate permissions={['Aluno']}>
 		<G.Content>
 			<VerticalMenu />
 				<G.Main>
@@ -135,7 +135,6 @@ const Inicio = () => {
 										</C.IdCardQrcode>
 									</C.IdCardContent>
 								</C.InfoContainer>
-								{/* <C.InfoAreaFooter></C.InfoAreaFooter> */}
 							</C.InfoArea>
 
 							<C.FrequencyArea className="section">
@@ -163,7 +162,7 @@ const Inicio = () => {
 				</G.Content>
 		</PermissionGate>
 		
-		<PermissionGate permissions={['0']}>
+		<PermissionGate permissions={['Admin']}>
 			<Admin/>
 		</PermissionGate>		
 		</C.TestLoader>

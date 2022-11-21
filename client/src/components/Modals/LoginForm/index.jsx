@@ -26,13 +26,14 @@ const LoginForm = ({ closeLogin }) => {
         if(!nascimento | !codInstituicao | !email | !senha) {
             setError("Preencha todos os campos!");
         }
-        Axios.post(`${url}users/login`, {
+        Axios.post(`${url}categorys/login`, {
             email: email,
-            dataNascimento: nascimento,
-            Instituicao_id: codInstituicao,
-            senha: senha
+            birth_date: nascimento,
+            institution_id: codInstituicao,
+            passwordHash: senha
         })
         .then((response) => {
+            console.log(response);
             const token = response.data.token;
             signin(token)
             localStorage.setItem("access-token", token);
