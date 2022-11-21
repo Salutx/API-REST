@@ -16,7 +16,7 @@ export const lightTheme = {
     paragraph: "#949494",
     iconBackground: "rgba(15, 25, 35, 0.1)",
     boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
-    boxShadowCard: "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
+    boxShadowCard: "",
     banner: `${blackBanner}`,
     border: "1px solid #E7E7E7",
 };
@@ -38,5 +38,5 @@ export const darkTheme = {
     boxShadow: "0px 16px 50px 5px rgba(0, 205, 180, 0.2)",
     boxShadowCard: "",
     banner: `${whiteBanner}`,
-    border: "1px solid #303030",
+    border: "1px solid #424242",
 };

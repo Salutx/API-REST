@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import "../../../node_modules/video-react/dist/video-react.css";
+import { Player, ControlBar, VolumeMenuButton } from 'video-react';
 import VerticalMenu from '../../components/VerticalMenu';
 import * as G from "../../styles/global"
 import * as C from "./styles";
 import Header from '../../components/Header';
-import SupportButton from '../../components/SupportButton';
 import { fetchData } from '../../hooks/fetchData';
 import qrcode from '../../assets/images/qrcode.svg'
 import PermissionGate from '../../hooks/permissionGate';
@@ -40,37 +41,17 @@ const Inicio = () => {
 					<G.Section>
 						<C.GridLayout>
 							<C.WelcomeArea className='section'>
-								<C.WelcomeHeader>
-									<C.WelcomeTitle>
-										<h1>Bom dia, {firstName}!</h1>
-										<p>Fique atento(a) nas atividades e notificações.</p>
-									</C.WelcomeTitle>
-
-									<C.WelcomeBrand></C.WelcomeBrand>
-								</C.WelcomeHeader>
-
-								<C.WelcomeInfo>
-									<C.InfoSection>
-										<C.InfoTitle>Instituição:</C.InfoTitle>
-										<C.InfoButton>
-											ETEC Uirapuru
-											<i className="ri-external-link-line"></i>
-										</C.InfoButton>
-									</C.InfoSection>
-
-									<C.InfoSection>
-										<C.InfoTitle>Membros:</C.InfoTitle>
-										<C.InfoMembers>
-											<C.MembersList>
-												teste
-											</C.MembersList>
-											<C.MembersLabel>
-												+147
-											</C.MembersLabel>
-										</C.InfoMembers>
-									</C.InfoSection>
-								</C.WelcomeInfo>
-							</C.WelcomeArea>
+							<Player
+								fluid={false}
+								poster="/assets/poster.png"
+								src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+								width="100%"
+								height="100%"
+								muted
+								autoPlay
+								preload="auto"
+							/>
+							</C.WelcomeArea> 
 
 							<C.TarefasArea className='section'>
 								<C.SectionHeader>
@@ -171,10 +152,10 @@ const Inicio = () => {
 									Inserir gráficos aqui
 								</C.FrequencyContainer>
 							</C.FrequencyArea>
-							<C.SupportArea className="section">
+							{/* <C.SupportArea className="section">
 								<h1>Algum problema com a plataforma?</h1>
 								<SupportButton>Contatar suporte</SupportButton>
-							</C.SupportArea>
+							</C.SupportArea> */}
 							
 						</C.GridLayout>
 					</G.Section>

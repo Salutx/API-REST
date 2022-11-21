@@ -12,8 +12,8 @@ const Navbar = () => {
             <C.Container>
                 <C.Navbar>
                     <C.HeaderTitle>
-                        <h1>Dashboard</h1>
-                        <C.Breadcumb>/ PÁGINA INICIAL</C.Breadcumb>
+                        <h1>Dashboard </h1>
+                        <C.Breadcumb>- Bom dia, Lucas!</C.Breadcumb>
                     </C.HeaderTitle>
 
                     <C.SearchContainer>

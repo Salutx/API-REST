@@ -19,13 +19,18 @@ export const HeaderTitle = styled.div `
     display: flex;
     align-items: center;
     gap: .5rem;
-    font-size: 12px;
-    color: ${props => props.theme.titleAssets};
+    font-size: 13px;
+
+    h1 {
+        font-weight: 500;
+        color: ${props => props.theme.backgroundStartAssets};
+    }
+    
 `;
 
 export const Breadcumb = styled.p `
     color: ${props => props.theme.title} !important;
-    font-weight: 600;
+    font-weight: 400;
 `;
 
 export const SearchContainer = styled.div `

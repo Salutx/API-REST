@@ -1,0 +1,9 @@
+Script Hierarchy
+1 - institution
+2 - course_level
+3 - course
+4 - student
+5 - teacher
+6 - matter
+7 - assignment
+8 - matter_avarege

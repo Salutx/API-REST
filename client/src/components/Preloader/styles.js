@@ -13,6 +13,17 @@ export const LoaderContainer = styled.div `
 `;
 
 export const Loader = styled.div `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: var(--primary-color) !important;
     z-index: 999;
+    gap: 1rem;
+
+    > h1 {
+        text-transform: uppercase;
+        font-size: 12px;
+        color: ${props => props.theme.title};
+    }
 `;

@@ -1,0 +1,9 @@
+[
+    {"type":"header","version":"5.2.0","comment":"Export to JSON plugin for PHPMyAdmin"},
+    {"type":"database","name":"mindset_db2"},
+    {"type":"table","name":"institution","database":"mindset_db2","data":
+    [
+        {"id":"1","name":"ETEC Uirapuru","endereco_cep":"05565060","endereco_cidade":"São Paulo","endereco_rua":"Rua Nazir Miguel","telefonePrimario":"11947478751","telefoneSecundario":null,"email":"uirapuru@etec.sp.gov.br","created_at":"2022-11-20 19:06:30","updated_at":null}
+    ]
+}
+]

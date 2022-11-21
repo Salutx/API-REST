@@ -1,0 +1,9 @@
+[
+    {"type":"header","version":"5.2.0","comment":"Export to JSON plugin for PHPMyAdmin"},
+    {"type":"database","name":"mindset_db2"},
+    {"type":"table","name":"assignment","database":"mindset_db2","data":
+    [
+        {"id":"1","title":"Equações de 2° Grau","description":"Faça equações de 2° grau com o material de apoio que deixei pra vocês. Boa sorte!","mention":null,"term":"2022-11-23","is_delivered":"0","create_at":"2022-11-20 19:26:34","update_at":null,"matter_id":"1","student_id":"1"}
+    ]
+}
+]

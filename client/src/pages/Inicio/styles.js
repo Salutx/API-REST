@@ -9,19 +9,19 @@ export const GridLayout = styled.div `
 
     display: grid; 
     grid-auto-columns: 1fr; 
-    grid-template-columns: 1fr 403px .5fr; 
+    grid-template-columns: 1fr 1fr .7fr; 
     grid-template-rows: 0.8fr 1fr 1fr; 
     gap: 24px 24px; 
     grid-template-areas: 
         "welcome-area welcome-area info-area"
-        "tarefas-area tarefas-area info-area"
-        "frequency-area support-area info-area";
+        "welcome-area welcome-area info-area"
+        "tarefas-area frequency-area info-area";
 
     height: 100%;
 
     .section {
         background-color: ${props => props.theme.card};
-        border-radius: 4px;
+        border-radius: 8px;
         padding: 2rem;
         gap: 1rem;
         box-shadow: ${props => props.theme.boxShadowCard};
@@ -41,6 +41,9 @@ export const WelcomeArea = styled.div `
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem !important;
+    padding: 0 !important;
+    overflow: auto;
+    border: ${props => props.theme.border};
 `;
 
 export const WelcomeHeader = styled.div `
