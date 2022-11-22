@@ -49,7 +49,7 @@ const CreateStudent = ({ closeCreateStudent }) => {
         }
     }
 
-    const registerStudents = async() => {
+    const registerStudents = async () => {
         if (!registroMatricula | !name | !senha | !email | !telefone | !nascimento | !avatar | !codInstitution) {
             setConfirmation("Preencha todos os campos!")
             return;
