@@ -6,7 +6,7 @@ import Axios from 'axios';
 
 const InstitutionsTimeline = (props) => {
     const url = 'http://localhost:3001';
-    const deleteInstitution = (value) => {Axios.delete(`${url}/instituicoes/delete`, { data: {id: value}} )}
+    const deleteInstitution = (value) => {Axios.delete(`${url}/institutions/delete`, { data: {id: value}} )}
 
     const displayNotes = (props) => {
         const {institutions} = props;
@@ -16,7 +16,6 @@ const InstitutionsTimeline = (props) => {
                     return (
                         <C.UserItem key={institution.id}>
                             <C.UserName>
-                                <i className="ri-checkbox-blank-circle-fill"></i>
                                 <p>{institution.name} ({institution.id})</p>
                             </C.UserName>
                             <OverlayTrigger

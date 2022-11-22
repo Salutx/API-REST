@@ -12,7 +12,7 @@ exports.login = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
-        conn.query('SELECT * FROM ( SELECT registroMatricula, birth_date, institution_id, email, passwordHash FROM mindset_db2.student UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash FROM mindset_db2.teacher ) N WHERE email = ?', [req.body.email], (error, result, fields) => {
+        conn.query('SELECT * FROM ( SELECT registroMatricula, birth_date, institution_id, email, passwordHash FROM mindset_db2.student UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash FROM mindset_db2.teacher UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash FROM mindset_db2.institution_admin ) N WHERE email = ?', [req.body.email], (error, result, fields) => {
             conn.release();
 
             var user = result[0];
@@ -59,7 +59,7 @@ exports.getUserTypes = (req, res, next) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query( 
-            'SELECT * FROM ( SELECT user_type FROM mindset_db2.student UNION ALL SELECT user_type FROM mindset_db2.teacher ) N GROUP BY user_type;',
+            'SELECT * FROM ( SELECT user_type FROM mindset_db2.student UNION ALL SELECT user_type FROM mindset_db2.teacher UNION ALL SELECT user_type FROM mindset_db2.institution_admin ) N GROUP BY user_type;',
             (error, result, fields) => {
                 if (error) { return res.status(500).send ({ error: error }) }
                 const response = {
@@ -80,7 +80,7 @@ exports.getUserDetails = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
         conn.query( 
-            'SELECT * FROM ( SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name FROM mindset_db2.student UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name FROM mindset_db2.teacher ) N WHERE registroMatricula = ?;',
+            'SELECT * FROM ( SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type FROM mindset_db2.student UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type FROM mindset_db2.teacher UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type FROM mindset_db2.institution_admin ) N WHERE registroMatricula = ?;',
             [req.params.id],
             (error, result, fields) => {
                 conn.release();
@@ -97,6 +97,7 @@ exports.getUserDetails = (req, res, next) => {
                         last_name: result[0].last_name,
                         birth_date: result[0].birth_date,
                         registroMatricula: result[0].registroMatricula,
+                        user_type: result[0].user_type
                     }
                 }
                 return res.status(200).send(response);

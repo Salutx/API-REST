@@ -9,35 +9,36 @@ import Loader from "../../../../../components/Loaders";
 const CreateUser = ({ closeCreateUser }) => {
     const url = 'http://localhost:3001/';
 
+    const [selectedValue, setSelectedValue] = ('');
     const [nascimento, setNascimento] = useState('');
     const [name, setName] = useState('');
     const [telefone, setTelefone] = useState('');
     const [registroMatricula, setRegistroMatricula] = useState('');
-    const [codInstituicao, setCodInstituicao] = useState('');
+    const [codInstitution, setCodInstitution] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [avatar, setAvatar] = useState();
     const [permissions, setPermissions] = useState();
-    const [instituicoes, setInstituicoes] = useState(null);
+    const [institutions, setInstitutions] = useState(null);
 
     const [confirmation, setConfirmation] = useState('');
     const [loading, setLoading] = useState(false);
     
     useEffect(() => {
-        getInstituicoes();
+        getInstitutions();
 	}, []);
 
-    const getInstituicoes = async () => {
+    const getInstitutions = async () => {
         try {
-            const response = await Axios.get(`${url}instituicoes/`)
-            return setInstituicoes(response.data.instituicoes);
+            const response = await Axios.get(`${url}institutions/`)
+            return setInstitutions(response.data.institutions);
         } catch (error) {
             return console.log(error)
         }
     }
 
     const registerUsers = async() => {
-        if (!registroMatricula | !name | !senha | !email | !telefone | !nascimento | !avatar | !codInstituicao | !permissions ) {
+        if (!registroMatricula | !name | !senha | !email | !telefone | !nascimento | !avatar | !codInstitution | !permissions) {
             setConfirmation("Preencha todos os campos!")
             return;
         } else {
@@ -50,7 +51,7 @@ const CreateUser = ({ closeCreateUser }) => {
             formData.append('dataNascimento', nascimento);
             formData.append('avatar', avatar);
             formData.append('user_permissions', permissions);
-            formData.append('Instituicao_id', codInstituicao);
+            formData.append('instituicao_id', codInstitution);
     
             return await Axios.post(`${url}users/register`, formData)
             .then((response) => {
@@ -91,6 +92,20 @@ const CreateUser = ({ closeCreateUser }) => {
                         <C.DividerArea>
                             <h1>Dados pessoais</h1>
                             <C.Line>
+                                <C.InputItem>
+                                    <label>Usuário</label>
+                                    <C.InputSelect onChange={(e) => {setSelectedValue(e.target.value)}}>
+                                        <option value="">Selecione</option>
+                                        <option value="1">Aluno</option>
+                                        <option value="2">Professor</option>
+                                    </C.InputSelect>
+                                </C.InputItem>
+                            </C.Line>
+
+                            {
+                            }
+
+                            <C.Line>
                                 <C.InputItem className="short">
                                     <label>Nascimento</label>
                                     <C.InputMain>
@@ -127,23 +142,21 @@ const CreateUser = ({ closeCreateUser }) => {
 
                                 <C.InputItem>
                                     <label>Cód. Instituição</label>
-                                    <C.InputSelect onChange={(e) => {setCodInstituicao(e.target.value); setConfirmation('')}}>
+                                    <C.InputSelect onChange={(e) => {setCodInstitution(e.target.value); setConfirmation('')}}>
                                         <option value="">Selecione</option>
                                         {
-                                            instituicoes?.map((instituicao) => {
+                                            institutions?.map((institution) => {
                                                 return (
                                                     <option 
-                                                        key={instituicao.id} 
-                                                        value={instituicao.id}>
+                                                        key={institution.id} 
+                                                        value={institution.id}>
 
-                                                        {instituicao.name}
+                                                        {institution.name}
                                                     </option>
                                                 )
                                             })
                                         }
                                     </C.InputSelect>
-
-                                        {/* <input type="number" placeholder="230" onChange={(e) => {setCodInstituicao(e.target.value); setConfirmation('')}} /> */}
                                 </C.InputItem>
                             </C.Line>
                         </C.DividerArea>
@@ -177,20 +190,6 @@ const CreateUser = ({ closeCreateUser }) => {
                                     <C.InputMain>
                                         <input type="file" name="file" onChange={changeHandler} />
                                     </C.InputMain>
-                                </C.InputItem>
-                            </C.Line>
-
-                            <C.Line>
-                                <C.InputItem>
-                                    <label>Permissões</label>
-                                    <C.InputSelect onChange={(e) => {setPermissions(e.target.value); setConfirmation('')}}>
-                                        <option value="">Selecione</option>
-                                        <option value="4">Secretaria</option>
-                                        <option value="3">Coordenador</option>
-                                        <option value="2">Professor</option>
-                                        <option value="1">Aluno</option>
-                                        <option value="0">Administrador</option>
-                                    </C.InputSelect>
                                 </C.InputItem>
                             </C.Line>
 

@@ -33,7 +33,6 @@ const LoginForm = ({ closeLogin }) => {
             passwordHash: senha
         })
         .then((response) => {
-            console.log(response);
             const token = response.data.token;
             signin(token)
             localStorage.setItem("access-token", token);

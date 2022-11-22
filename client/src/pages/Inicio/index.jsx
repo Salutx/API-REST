@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import "../../../node_modules/video-react/dist/video-react.css";
-import { Player, ControlBar, VolumeMenuButton } from 'video-react';
+import { Player } from 'video-react';
 import VerticalMenu from '../../components/VerticalMenu';
 import * as G from "../../styles/global"
 import * as C from "./styles";
@@ -12,28 +12,22 @@ import Admin from './Admin';
 import Preloader from '../../components/Preloader';
 
 const Inicio = () => {
-	const response = fetchData();
 	const [userData, setUserData] = useState([]);
-	const [name, setName] = useState('');
-	const [avatar, setAvatar] = useState('');
 
-	// useEffect(() => {
-	// 	response.then((result) => {
-	// 		setUserData(result.usuario); 
-	// 		setName(result.usuario.name)
-	// 		setAvatar(result.usuario.avatar)
-	// 	});
-	// }, []);
-
-	const firstName = "enable";
-	const secundaryName = "enable";
+	useEffect(() => {
+		const response = fetchData();
+		response.then((result) => {
+			setUserData(result.user); 
+		});
+	}, []);
+	
 	const avatarImg = null;
 
 	return (
 		<>
 		<C.TestLoader>
 		<Preloader/>
-		<PermissionGate permissions={['Aluno']}>
+		<PermissionGate permissions={['Aluno', 'Professor']}>
 		<G.Content>
 			<VerticalMenu />
 				<G.Main>
@@ -83,7 +77,7 @@ const Inicio = () => {
 									</C.IdCardAvatar>
 									<C.IdCardContent>
 										<C.IdCardHeader>
-											<h1>{firstName} <span>{secundaryName}</span></h1>
+											<h1>{userData.first_name} <span>{userData.last_name}</span></h1>
 											<p>Desen. de Sistemas</p>
 										</C.IdCardHeader>
 										<C.IdCardBody>

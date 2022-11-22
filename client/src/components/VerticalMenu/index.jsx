@@ -7,26 +7,22 @@ import { fetchData } from '../../hooks/fetchData';
 
 const VerticalMenu = () => {
 
-	const response = fetchData();
 	const navigate = useNavigate();
 	const { signout } = useAuth();
 
-	const [name, setName] = useState('');
+	const [userData, setUserData] = useState([]);
 	const [avatar, setAvatar] = useState('');
 
 	const urlCheck = ( check ) => {if(window.location.href.indexOf(check) > -1) {return "active";}}
 
 	useEffect(() => {
+		const response = fetchData();
 		response.then((result) => {
-			setName(result.usuario.name)
-			setAvatar(result.usuario.avatar)
+			setUserData(result.user)
 		});
 	}, []);
 
-	const firstName = name.split(' ')[0]
-	const secundaryName =  name.split(' ')[1] ? name.split(' ')[1] : '';
-	const firstSecundary = firstName + " " + secundaryName;
-	const avatarImg = avatar.substring(16);
+	const name = userData.first_name + " " + userData.last_name;
 
   	return (
 		<C.VerticalMenu>
@@ -100,10 +96,10 @@ const VerticalMenu = () => {
 
 				<C.NavUser>
 					<C.NavUserLeft>
-						<img src={avatarImg} alt="" />
+						<img src={avatar} alt="" />
 						<C.UserDetails>
-							<p>{firstSecundary}</p>
-							<p>Aluno(a)</p>
+							<p>{name}</p>
+							<p>{userData.user_type}(a)</p>
 						</C.UserDetails>
 					</C.NavUserLeft>
 					<C.NavUserRight onClick={() => [signout(), navigate("/")]}>

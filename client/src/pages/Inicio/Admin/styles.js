@@ -22,10 +22,11 @@ export const Hint = styled.div `
 `;
 
 export const Tools = styled.section `
-    width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 4rem;
     align-items: center;
+    text-align: center;
 
     > h1 {
         padding: 3rem 0;
@@ -41,8 +42,28 @@ export const ToolsContainer = styled.div `
     justify-content: center;
     flex-wrap: wrap;
     transition: all .5s;
-    width: 100%;
     gap: 1rem;
+`;
+
+export const ToolsMain = styled.div `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    > h2 {
+        color: var(--primary-color);
+        font-weight: bold;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+`;
+
+export const ToolsDivider = styled.div `
+    height: 1px;
+    width: 100%;
+    border-radius: 32px;
+    background-color: var(--primary-color-opacity);
 `;
 
 export const ToolsItem = styled.div `

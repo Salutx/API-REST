@@ -17,9 +17,9 @@ const ListInstitution = ({ closeListInstitution }) => {
 	}, []);
 
     const getAllInstitutions = () => {
-		Axios.get(`${url}instituicoes`)
+		Axios.get(`${url}institutions`)
 		.then((response) => {
-			const allInstitutions = response.data.instituicoes;
+			const allInstitutions = response.data.institutions;
 			getInstitutions(allInstitutions);
 		})
 		.catch(error => console.log(`Error: ${error}`));

@@ -25,7 +25,7 @@ const CreateInstitution = ({ closeCreateInstitution }) => {
             setConfirmation("Preencha todos os campos!")
             return;
         } else {
-            return Axios.post(`${url}instituicoes/register`, {
+            return Axios.post(`${url}institutions/register`, {
                 'name': name,
                 'endereco_cep': cep,
                 'endereco_cidade': cidade,
