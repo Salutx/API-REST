@@ -3,17 +3,17 @@ import * as C from './styles'
 import { useNavigate } from "react-router-dom";
 import Container from '../../../components/Container'
 
-import CreateUser from './Tools/UserTools/CreateUser';
-import ListUser from './Tools/UserTools/ListUser';
+import CreateStudent from './Tools/Student/CreateStudent';
+import ListStudent from './Tools/Student/ListStudent';
 
-import CreateInstitution from './Tools/InstitutionTools/CreateInstitution';
-import ListInstitution from './Tools/InstitutionTools/ListInstitution';
+import CreateInstitution from './Tools/Institution/CreateInstitution';
+import ListInstitution from './Tools/Institution/ListInstitution';
 
 const Admin = () => {
 	const navigate = useNavigate();
 
-	const [openCreateUser, setOpenCreateUser] = useState(false);
-	const [openListUser, setOpenListUser] = useState(false);
+	const [openCreateStudent, setOpenCreateStudent] = useState(false);
+	const [openListStudent, setOpenListStudent] = useState(false);
 
 	const [openCreateInstitution, setOpenCreateInstitution] = useState(false);
 	const [openListInstitution, setOpenListInstitution] = useState(false);
@@ -21,8 +21,8 @@ const Admin = () => {
   	return (
 		<>
 			<C.Main>
-				{openCreateUser && <CreateUser closeCreateUser={setOpenCreateUser} />}
-				{openListUser && <ListUser closeListUser={setOpenListUser} />}
+				{openCreateStudent && <CreateStudent closeCreateStudent={setOpenCreateStudent} />}
+				{openListStudent && <ListStudent closeListStudent={setOpenListStudent} />}
 				
 				{openCreateInstitution && <CreateInstitution closeCreateInstitution={setOpenCreateInstitution} />}
 				{openListInstitution && <ListInstitution closeListInstitution={setOpenListInstitution} />}

@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 
 const institutionRouter = require('./routes/institutions.routes.js');
+const courseRouter = require('./routes/courses.routes.js');
 const studentRouter = require('./routes/students.routes.js');
 const teacherRouter = require('./routes/teachers.routes.js');
 const categorysRouter = require('./routes/categorys.routes.js');
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/institutions', institutionRouter);
+app.use('/courses', courseRouter);
 app.use('/students', studentRouter);
 app.use('/teachers', teacherRouter);
 app.use('/categorys', categorysRouter);

@@ -4,32 +4,32 @@ import * as C from "../styles";
 import GlobalStyle from "../styles"
 import Logo from '../../../../../components/Logo';
 import Loader from "../../../../../components/Loaders";
-import UsersTimeline from "./DisplayUsers";
+import StudentsTimeline from "./DisplayStudents";
 
-const ListUser = ({ closeListUser }) => {
-    const [users, getUsers] = useState('');
+const ListStudent = ({ closeListStudent }) => {
+    const [students, getStudents] = useState('');
     const [loading, setLoading] = useState(false);
 
 	const url = 'http://localhost:3001/';
 
 	useEffect(() => {
-		getAllUsers();
+		getAllStudents();
 	}, []);
 
-    const getAllUsers = () => {
-		Axios.get(`${url}users`)
+    const getAllStudents = () => {
+		Axios.get(`${url}students`)
 		.then((response) => {
-			const allUsers = response.data.usuarios;
-			getUsers(allUsers);
+			const allStudents = response.data.students;
+			getStudents(allStudents);
 		})
 		.catch(error => console.log(`Error: ${error}`));
 	}
 
-    const checkUsers = () => {
+    const checkStudents = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            return getAllUsers();
+            return getAllStudents();
         }, 400); 
     }
 
@@ -40,7 +40,7 @@ const ListUser = ({ closeListUser }) => {
             <C.AdminBody>
                 <C.AdminHeader>
                     <Logo />
-                    <button onClick={() => closeListUser(false)}>
+                    <button onClick={() => closeListStudent(false)}>
                         <i className="ri-close-line"></i>
                     </button>
                 </C.AdminHeader>
@@ -49,13 +49,13 @@ const ListUser = ({ closeListUser }) => {
                     <C.ContentHeader>
                         <h1>Lista de usuários</h1>
                         <C.ContentIcons>
-                            <i className="ri-refresh-line" onClick={() => checkUsers()} ></i>
+                            <i className="ri-refresh-line" onClick={() => checkStudents()} ></i>
                             <i className="ri-search-line"></i>
                         </C.ContentIcons>
                     </C.ContentHeader>
 
                     <C.UserList>
-                        {loading ? <Loader/> : <UsersTimeline users={users}/>}
+                        {loading ? <Loader/> : <StudentsTimeline students={students}/>}
                     </C.UserList>
                 </C.Content>
             </C.AdminBody>
@@ -63,4 +63,4 @@ const ListUser = ({ closeListUser }) => {
     )
 }
 
-export default ListUser;
+export default ListStudent;

@@ -4,27 +4,27 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Axios from 'axios';
 
-const UsersTimeline = (props) => {
+const StudentsTimeline = (props) => {
     const url = 'http://localhost:3001';
-    const deleteUser = (value) => {Axios.delete(`${url}/users/delete`, { data: {id: value}} )}
+    const deleteStudent = (value) => {Axios.delete(`${url}/students/delete`, { data: {id: value}} )}
 
     const displayNotes = (props) => {
-        const {users} = props;
-        if (users.length > 0) {
+        const {students} = props;
+        if (students.length > 0) {
             return (
-                users.map((usuario) => { 
+                students.map((student) => { 
                     return (
-                        <C.UserItem key={usuario.id}>
+                        <C.UserItem key={student.id}>
                             <C.UserName>
                                 <i className="ri-checkbox-blank-circle-fill"></i>
-                                <p>{usuario.name} (Perm: {usuario.user_permissions})</p>
+                                <p>{student.name} (Perm: {student.user_permissions})</p>
                             </C.UserName>
                             <OverlayTrigger
                                 rootClose
                                 trigger="click"
                                 placement="bottom"
                                 overlay={
-                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteUser(usuario.id)}}>
+                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteStudent(student.id)}}>
                                         <Popover.Body>
                                             Deletar
                                         </Popover.Body>
@@ -40,7 +40,7 @@ const UsersTimeline = (props) => {
                 })
             )
         } else {
-            return (<p className='enought'>Não há usuários cadastrados.</p>)
+            return (<p className='enought'>Não há alunos cadastrados.</p>)
         }
     }
 
@@ -51,4 +51,4 @@ const UsersTimeline = (props) => {
   )
 }
 
-export default UsersTimeline
+export default StudentsTimeline

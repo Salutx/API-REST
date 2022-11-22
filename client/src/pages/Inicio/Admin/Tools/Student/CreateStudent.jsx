@@ -6,7 +6,7 @@ import Logo from '../../../../../components/Logo';
 import Button from '../../../../../components/Button';
 import Loader from "../../../../../components/Loaders";
 
-const CreateUser = ({ closeCreateUser }) => {
+const CreateStudent = ({ closeCreateStudent }) => {
     const url = 'http://localhost:3001/';
 
     const [selectedValue, setSelectedValue] = ('');
@@ -19,13 +19,16 @@ const CreateUser = ({ closeCreateUser }) => {
     const [senha, setSenha] = useState('');
     const [avatar, setAvatar] = useState();
     const [permissions, setPermissions] = useState();
+
     const [institutions, setInstitutions] = useState(null);
+    const [courses, setCourses] = useState(null);
 
     const [confirmation, setConfirmation] = useState('');
     const [loading, setLoading] = useState(false);
     
     useEffect(() => {
         getInstitutions();
+        getCourses();
 	}, []);
 
     const getInstitutions = async () => {
@@ -37,8 +40,17 @@ const CreateUser = ({ closeCreateUser }) => {
         }
     }
 
-    const registerUsers = async() => {
-        if (!registroMatricula | !name | !senha | !email | !telefone | !nascimento | !avatar | !codInstitution | !permissions) {
+    const getCourses = async () => {
+        try {
+            const response = await Axios.get(`${url}courses/`)
+            return setInstitutions(response.data.curses);
+        } catch (error) {
+            return console.log(error)
+        }
+    }
+
+    const registerStudents = async() => {
+        if (!registroMatricula | !name | !senha | !email | !telefone | !nascimento | !avatar | !codInstitution) {
             setConfirmation("Preencha todos os campos!")
             return;
         } else {
@@ -50,10 +62,9 @@ const CreateUser = ({ closeCreateUser }) => {
             formData.append('telefone', telefone);
             formData.append('dataNascimento', nascimento);
             formData.append('avatar', avatar);
-            formData.append('user_permissions', permissions);
             formData.append('instituicao_id', codInstitution);
     
-            return await Axios.post(`${url}users/register`, formData)
+            return await Axios.post(`${url}students/register`, formData)
             .then((response) => {
                 return setConfirmation(response.data.message);
             })
@@ -71,7 +82,7 @@ const CreateUser = ({ closeCreateUser }) => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            return registerUsers();
+            return registerStudents();
         }, 800); 
     }
 
@@ -81,7 +92,7 @@ const CreateUser = ({ closeCreateUser }) => {
             <C.AdminBody>
                 <C.AdminHeader>
                     <Logo />
-                    <button onClick={() => closeCreateUser(false)}>
+                    <button onClick={() => closeCreateStudent(false)}>
                         <i className="ri-close-line"></i>
                     </button>
                 </C.AdminHeader>
@@ -91,20 +102,6 @@ const CreateUser = ({ closeCreateUser }) => {
                     <C.Body>
                         <C.DividerArea>
                             <h1>Dados pessoais</h1>
-                            <C.Line>
-                                <C.InputItem>
-                                    <label>Usuário</label>
-                                    <C.InputSelect onChange={(e) => {setSelectedValue(e.target.value)}}>
-                                        <option value="">Selecione</option>
-                                        <option value="1">Aluno</option>
-                                        <option value="2">Professor</option>
-                                    </C.InputSelect>
-                                </C.InputItem>
-                            </C.Line>
-
-                            {
-                            }
-
                             <C.Line>
                                 <C.InputItem className="short">
                                     <label>Nascimento</label>
@@ -142,6 +139,26 @@ const CreateUser = ({ closeCreateUser }) => {
 
                                 <C.InputItem>
                                     <label>Cód. Instituição</label>
+                                    <C.InputSelect onChange={(e) => {setCodInstitution(e.target.value); setConfirmation('')}}>
+                                        <option value="">Selecione</option>
+                                        {
+                                            institutions?.map((institution) => {
+                                                return (
+                                                    <option 
+                                                        key={institution.id} 
+                                                        value={institution.id}>
+
+                                                        {institution.name}
+                                                    </option>
+                                                )
+                                            })
+                                        }
+                                    </C.InputSelect>
+                                </C.InputItem>
+                            </C.Line>
+                            <C.Line>
+                                <C.InputItem>
+                                    <label>Curso</label>
                                     <C.InputSelect onChange={(e) => {setCodInstitution(e.target.value); setConfirmation('')}}>
                                         <option value="">Selecione</option>
                                         {
@@ -205,4 +222,4 @@ const CreateUser = ({ closeCreateUser }) => {
     )
 }
 
-export default CreateUser;
+export default CreateStudent;
