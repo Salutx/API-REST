@@ -17,7 +17,7 @@ const StudentsTimeline = (props) => {
                         <C.UserItem key={student.id}>
                             <C.UserName>
                                 <i className="ri-checkbox-blank-circle-fill"></i>
-                                <p>{student.name} (Perm: {student.user_permissions})</p>
+                                <p>{student.first_name} {student.last_name} ({student.user_type})</p>
                             </C.UserName>
                             <OverlayTrigger
                                 rootClose

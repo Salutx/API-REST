@@ -6,7 +6,6 @@ import Inicio from "../pages/Inicio";
 import Start from "../pages/Start";
 import Equipes from "../pages/Equipes";
 import PageNotFound from "../pages/PageNotFound/";
-import Admin from "../pages/Admin/index.jsx";
 
 const Private = ({ Item }) => {
     const { signed } = useAuth();
@@ -27,7 +26,6 @@ const RoutesApp = () => {
                         {/* Pages Routes */}
                         <Route exact path="/inicio"    element={<Private Item={Inicio} />} />
                         <Route exact path="/equipes"   element={<Private Item={Equipes} />} />
-                        <Route exact path="/admin"     element={<Admin />}  />
                         <Route exact path="/404"       element={<PageNotFound />} />
                     </Routes>
                 </ThemeContextProvider>
