@@ -6,11 +6,9 @@ export const VerticalMenu = styled.aside `
     flex-direction: column;
     align-items: center;
     min-width: 280px;
-    background-color: #2D3339;
+    background-color: #1C1D22;
     height: 100%;
-    padding: 24px;
-    gap: 1.5rem;
-    border-radius: 0px 8px 8px 0px;
+    border-right: 1px solid #2F3037;
 
 `;
 
@@ -23,6 +21,7 @@ export const NavLogo = styled.div `
     font-size: 14px;
     text-transform: uppercase;
     color: white;
+    padding: 2rem;
 
     img {
         line-height: 0;
@@ -52,16 +51,16 @@ export const NavContainer = styled.div `
 
 `;
 
-export const NavSection = styled.div ``;
+export const NavSection = styled.div `
+`;
 
 export const NavHeader = styled.p `
 
-    text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 0.7rem;
     margin: 0 !important;
-    padding: .8rem 0;
-    color: #CBCBCB;
+    color: #636270;
+    padding: .8rem 2rem;
 
 `;
 
@@ -78,21 +77,25 @@ export const NavItem = styled.div `
 
     border-radius: 4px;
     overflow: hidden;
+    padding: 0 2rem;
+    border-left: ${props => props.status ? "1px solid var(--primary-color)" : "1px solid transparent"};
 
     button {
         width: 100%;
-        padding: 8px 10px;
+        padding: 8px 0;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         font-size: .8rem;
-        color: ${props => props.status ? "var(--primary-color)" : "#CBCBCB"};
-        background-color: ${props => props.status ? "var(--primary-color-opacity)" : "transparent" };
+        color: ${props => props.status ? "white" : "#636270"};
+        background-color: transparent;
+        font-weight: 500;
     }
 
     button > i {
-        color: ${props => props.status ? "var(--primary-color)" : "#CBCBCB" };
+        color: ${props => props.status ? "var(--primary-color)" : "#636270" };
         font-size: 22px;
+        font-weight: normal;
         height: 32px;
         width: 32px;
         display: flex;
@@ -101,22 +104,29 @@ export const NavItem = styled.div `
     }
 
     :hover > button {
-        background-color: var(--primary-color-opacity);
-        color: white;
+        color: white !important;
+        background-color: transparent !important;
     }
 
-    :hover > button, :hover > button > i {color: var(--primary-color) !important;}
+    :hover > button, :hover > button > i {color: color !important;}
 
 `;
+
+export const UserContainer = styled.div `
+    display: flex;
+    width: 100%;
+    padding: 1.5rem;
+`
 
 export const NavUser = styled.div `
 
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     gap: .7rem;
     font-size: .8rem;
-    background-color: var(--primary-color-opacity);
+    background-color: #14151A;
     padding: 10px 14px;
     border-radius: 4px;
 

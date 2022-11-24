@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `mindset_db2`.`course_level` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mindset_db2`.`course` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
+  `course_name` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL,
   `course_level_id` INT NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `mindset_db2`.`student` (
   `user_type` VARCHAR(30) NOT NULL,
   `telefone` VARCHAR(255) NOT NULL,
   `avatar` VARCHAR(255) NULL,
-  `is_active` TINYINT(5) NOT NULL,
+  `is_active` VARCHAR(7) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL,
   `course_id` INT NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `mindset_db2`.`teacher` (
   `user_type` VARCHAR(30) NOT NULL,
   `telefone` VARCHAR(255) NOT NULL,
   `avatar` VARCHAR(255) NULL,
-  `is_active` TINYINT(5) NOT NULL,
+  `is_active` VARCHAR(7) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL,
   `institution_id` INT NOT NULL,

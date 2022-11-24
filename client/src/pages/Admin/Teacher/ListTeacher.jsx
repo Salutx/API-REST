@@ -2,34 +2,34 @@ import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 import * as C from "../styles";
 import GlobalStyle from "../styles"
-import Logo from '../../../../../components/Logo';
-import Loader from "../../../../../components/Loaders";
-import InstitutionsTimeline from "./DisplayInstitutions";
+import Logo from '../../../../components/Logo';
+import Loader from "../../../../components/Loaders";
+import TeachersTimeline from "./DisplayTeachers";
 
-const ListInstitution = ({ closeListInstitution }) => {
-    const [institutions, getInstitutions] = useState('');
+const ListTeacher = ({ closeListTeacher }) => {
+    const [teachers, getTeachers] = useState('');
     const [loading, setLoading] = useState(false);
 
 	const url = 'http://localhost:3001/';
 
 	useEffect(() => {
-		getAllInstitutions();
+		getAllTeachers();
 	}, []);
 
-    const getAllInstitutions = () => {
-		Axios.get(`${url}institutions`)
+    const getAllTeachers = () => {
+		Axios.get(`${url}teachers`)
 		.then((response) => {
-			const allInstitutions = response.data.institutions;
-			getInstitutions(allInstitutions);
+			const allTeachers = response.data.teachers;
+			getTeachers(allTeachers);
 		})
 		.catch(error => console.log(`Error: ${error}`));
 	}
 
-    const checkInstitutions = () => {
+    const checkTeachers = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            return getAllInstitutions();
+            return getAllTeachers();
         }, 400); 
     }
 
@@ -40,22 +40,22 @@ const ListInstitution = ({ closeListInstitution }) => {
             <C.AdminBody>
                 <C.AdminHeader>
                     <Logo />
-                    <button onClick={() => closeListInstitution(false)}>
+                    <button onClick={() => closeListTeacher(false)}>
                         <i className="ri-close-line"></i>
                     </button>
                 </C.AdminHeader>
 
                 <C.Content>
                     <C.ContentHeader>
-                        <h1>Lista de usuários</h1>
+                        <h1>Professores cadastrados ({teachers.length})</h1>
                         <C.ContentIcons>
-                            <i className="ri-refresh-line" onClick={() => checkInstitutions()} ></i>
+                            <i className="ri-refresh-line" onClick={() => checkTeachers()} ></i>
                             <i className="ri-search-line"></i>
                         </C.ContentIcons>
                     </C.ContentHeader>
 
                     <C.UserList>
-                        {loading ? <Loader/> : <InstitutionsTimeline institutions={institutions}/>}
+                        {loading ? <Loader/> : <TeachersTimeline teachers={teachers}/>}
                     </C.UserList>
                 </C.Content>
             </C.AdminBody>
@@ -63,4 +63,4 @@ const ListInstitution = ({ closeListInstitution }) => {
     )
 }
 
-export default ListInstitution;
+export default ListTeacher;

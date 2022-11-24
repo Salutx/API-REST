@@ -3,12 +3,12 @@ const mysql = require('../mysql').pool;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-exports.getStudents = (req, res, next) => {
+exports.getStudents = async (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query( 
-            'SELECT * from student;',
+            'SELECT student.*, course.course_name, course.abbr, course_level.level FROM student LEFT JOIN course ON student.course_id = course.id LEFT JOIN course_level ON course.course_level_id = course_level.id',
             (error, result, fields) => {
                 if (error) { return res.status(500).send ({ error: error }) }
                 const response = {
@@ -19,12 +19,19 @@ exports.getStudents = (req, res, next) => {
                             registroMatricula: student.registroMatricula,
                             first_name: student.first_name,
                             last_name: student.last_name,
+                            email: student.email,
                             birth_date: student.birth_date,
                             user_type: student.user_type,
                             telefone: student.telefone,
                             is_active: student.is_active,
-                            course_id: student.course_id,
-                            institution_id: student.institution_id,
+                            avatar: student.avatar,
+                            course: {
+                                course_id: student.course_id,
+                                course_name: student.course_name,
+                                course_abbr: student.abbr,
+                                course_level: student.level,
+                                institution_id: student.institution_id,
+                            },
                             request: {
                                 type: 'GET',
                                 description: 'Retorna todos os detalhes',
@@ -47,7 +54,7 @@ exports.postStudent = (req, res, next) => {
             conn.release();
             if (error) { return res.status(200).send ({ error: error }) }
             if (result.length >= 1) {
-                return res.status(409).send({ message: "Student já cadastrado!" });
+                return res.status(409).send({ message: "Aluno já cadastrado!" });
             } else {
                 bcrypt.hash(req.body.passwordHash, saltRounds, (err, hash) => {
                     conn.query(
@@ -60,8 +67,8 @@ exports.postStudent = (req, res, next) => {
                             req.body.email,
                             hash, 
                             req.body.user_type, 
-                            req.body.telefone, 
-                            req.body.avatar,
+                            req.body.telefone,
+                            req.file.path,
                             req.body.is_active,
                             req.body.course_id,
                             req.body.institution_id
@@ -69,7 +76,7 @@ exports.postStudent = (req, res, next) => {
                         (error, result, field) => {
                             if (error) { return res.status(200).send ({ error: error }) }
                             const response = {
-                                message: 'Student inserido com sucesso!',
+                                message: 'Aluno inserido com sucesso!',
                                 studentCriado: {
                                     id: result.insertId,
                                     registroMatricula: req.body.registroMatricula,
@@ -80,14 +87,14 @@ exports.postStudent = (req, res, next) => {
                                     passwordHash: hash,
                                     user_type: req.body.user_type,
                                     telefone: req.body.telefone,
-                                    avatar: req.body.avatar,
+                                    avatar: req.path.file,
                                     is_active: req.body.is_active,
                                     created_at: req.body.created_at,
                                     course_id: req.body.course_id,
                                     institution_id: req.body.institution_id,
                                     request: {
                                         type: 'POST',
-                                        description: 'Ver todos os students',
+                                        description: 'Ver todos os alunos',
                                         url: 'http://localhost:3001/students',
                                     }
                                 }
@@ -105,15 +112,15 @@ exports.getUniqueStudent = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
         conn.query(
-            'SELECT * FROM student WHERE id = ?;',
-            [req.params.id],
+            'SELECT student.*, course.course_name, course.abbr, course_level.level FROM student LEFT JOIN course ON student.course_id = course.id LEFT JOIN course_level ON course.course_level_id = course_level.id WHERE registroMatricula = ?;',
+            [req.params.id, req.params.id],
             (error, result, field) => {
                 conn.release();
                 if (error) { return res.status(500).send ({ error: error }) }
                 
                 if (result.length < 1) {
                     return res.status(404).send({
-                        message: "Não foi encontrado o student com este ID"
+                        message: "Não foi encontrado o aluno com este ID"
                     });
                 }
                 
@@ -132,8 +139,13 @@ exports.getUniqueStudent = (req, res, next) => {
                         is_active: result[0].is_active,
                         created_at: result[0].created_at,
                         updated_at: result[0].updated_at,
-                        course_id: result[0].course_id,
-                        institution_id: result[0].institution_id,
+                        course: {
+                            course_id: result[0].course_id,
+                            course_level: result[0].level,
+                            course_name: result[0].course_name,
+                            course_abbr: result[0].abbr,
+                            institution_id: result[0].institution_id,
+                        },
                         request: {
                             type: 'GET',
                             description: 'Ver todos os students',
@@ -172,7 +184,7 @@ exports.patchStudent = (req, res, next) => {
                 if (error) { return res.status(500).send ({ error: error }) }
                 
                 const response = {
-                    message: 'Student atualizado com sucesso!',
+                    message: 'Aluno atualizado com sucesso!',
                     usuarioAtualizado: {
                         id: req.body.id,
                         last_name: req.body.last_name, 

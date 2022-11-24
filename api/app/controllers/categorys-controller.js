@@ -34,7 +34,7 @@ exports.login = (req, res, next) => {
                         if(data) {
                             const token = jwt.sign({
                                 userId: user.registroMatricula,
-                                email: user.email
+                                email: user.email,
                             }, 'w■ebúè0q◘φ',{expiresIn: "1h"})
                             return res.status(200).send(
                                 {
@@ -97,7 +97,7 @@ exports.getUserDetails = (req, res, next) => {
                         last_name: result[0].last_name,
                         birth_date: result[0].birth_date,
                         registroMatricula: result[0].registroMatricula,
-                        user_type: result[0].user_type
+                        user_type: result[0].user_type,
                     }
                 }
                 return res.status(200).send(response);

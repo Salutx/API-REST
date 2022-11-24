@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 import * as C from "../styles";
 import GlobalStyle from "../styles"
-import Logo from '../../../../../components/Logo';
-import Loader from "../../../../../components/Loaders";
+import Loader from "../../../components/Loaders";
 import StudentsTimeline from "./DisplayStudents";
 
-const ListStudent = ({ closeListStudent }) => {
+const ListStudent = () => {
     const [students, getStudents] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -33,32 +32,24 @@ const ListStudent = ({ closeListStudent }) => {
         }, 400); 
     }
 
-
     return (
         <C.AdminUserContainer>
             <GlobalStyle />
-            <C.AdminBody>
-                <C.AdminHeader>
-                    <Logo />
-                    <button onClick={() => closeListStudent(false)}>
-                        <i className="ri-close-line"></i>
-                    </button>
-                </C.AdminHeader>
-
-                <C.Content>
+            <C.Content className="list-content">
+                <C.AdminBody>
                     <C.ContentHeader>
-                        <h1>Lista de usuários</h1>
+                        <h1>Alunos cadastrados<span>.</span> <small>({students.length})</small></h1>
                         <C.ContentIcons>
                             <i className="ri-refresh-line" onClick={() => checkStudents()} ></i>
                             <i className="ri-search-line"></i>
                         </C.ContentIcons>
                     </C.ContentHeader>
 
-                    <C.UserList>
+                    <C.TableAround>
                         {loading ? <Loader/> : <StudentsTimeline students={students}/>}
-                    </C.UserList>
-                </C.Content>
-            </C.AdminBody>
+                    </C.TableAround>
+                </C.AdminBody>
+            </C.Content>
         </C.AdminUserContainer>
     )
 }

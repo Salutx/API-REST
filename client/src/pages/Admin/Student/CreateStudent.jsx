@@ -2,38 +2,35 @@ import React, { useState, useEffect } from "react";
 import Axios from 'axios';
 import * as C from "../styles";
 import GlobalStyle from "../styles"
-import Logo from '../../../../../components/Logo';
-import Button from '../../../../../components/Button';
-import Loader from "../../../../../components/Loaders";
+import Button from '../../../components/Button';
+import Loader from "../../../components/Loaders";
+import Inicio from "../../Inicio";
 
-const CreateStudent = ({ closeCreateStudent }) => {
+const CreateStudent = () => {
     const url = 'http://localhost:3001/';
 
-    const [selectedValue, setSelectedValue] = ('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [nascimento, setNascimento] = useState('');
-    const [name, setName] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [registroMatricula, setRegistroMatricula] = useState('');
     const [codInstitution, setCodInstitution] = useState('');
+    const [curso, setCurso] = useState('');
+    const [serie, setSerie] = useState('');
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [registroMatricula, setRegistroMatricula] = useState('');
+    const [password, setPassword] = useState('');
     const [avatar, setAvatar] = useState();
-    const [permissions, setPermissions] = useState();
 
-    const [institutions, setInstitutions] = useState(null);
-    const [courses, setCourses] = useState(null);
+    const [institutions, setInstitutions] = useState([]);
+    const [courses, setCourses] = useState([]);
+    const [coursesLevels, setCoursesLevels] = useState([]);
 
     const [confirmation, setConfirmation] = useState('');
     const [loading, setLoading] = useState(false);
-    
-    useEffect(() => {
-        getInstitutions();
-        getCourses();
-	}, []);
 
     const getInstitutions = async () => {
         try {
-            const response = await Axios.get(`${url}institutions/`)
+            const response = await Axios.get(`${url}institutions/`);
             return setInstitutions(response.data.institutions);
         } catch (error) {
             return console.log(error)
@@ -43,35 +40,54 @@ const CreateStudent = ({ closeCreateStudent }) => {
     const getCourses = async () => {
         try {
             const response = await Axios.get(`${url}courses/`)
-            return setInstitutions(response.data.curses);
+            return setCourses(response.data.courses);
         } catch (error) {
             return console.log(error)
         }
     }
 
+    const getCoursesLevels = async () => {
+        try {
+            const response = await Axios.get(`${url}courses/levels`)
+            return setCoursesLevels(response.data.levels);
+        } catch (error) {
+            return console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getInstitutions();
+        getCourses();
+        getCoursesLevels();
+	}, []);
+
     const registerStudents = async () => {
-        if (!registroMatricula | !name | !senha | !email | !telefone | !nascimento | !avatar | !codInstitution) {
+        if (!registroMatricula | !firstName | !lastName | !nascimento | !email | !password | !curso | !serie | !avatar | !codInstitution) {
             setConfirmation("Preencha todos os campos!")
             return;
-        } else {
+        }
+
+        try {
             const formData = new FormData();
             formData.append('registroMatricula', registroMatricula);
-            formData.append('name', name);
-            formData.append('senha', senha);
+            formData.append('first_name', firstName);
+            formData.append('last_name', lastName);
+            formData.append('birth_date', nascimento);
             formData.append('email', email);
+            formData.append('passwordHash', password);
+            formData.append('user_type', "Aluno");
             formData.append('telefone', telefone);
-            formData.append('dataNascimento', nascimento);
             formData.append('avatar', avatar);
-            formData.append('instituicao_id', codInstitution);
-    
-            return await Axios.post(`${url}students/register`, formData)
-            .then((response) => {
-                return setConfirmation(response.data.message);
-            })
-            .catch((error) => {
-                return setConfirmation(error.response.data.message);
-            });
+            formData.append('is_active', "Ativo");
+            formData.append('course_id', curso);
+            formData.append('course_level_id', serie);
+            formData.append('institution_id', codInstitution);
+            const response = await Axios.post(`${url}students/register`, formData)
+            return setConfirmation(response.data.message);
+        } catch (error) {
+            return setConfirmation(error.response.data.message)
         }
+        
     }
 
     const changeHandler = (event) => {
@@ -89,38 +105,38 @@ const CreateStudent = ({ closeCreateStudent }) => {
     return (
         <C.AdminUserContainer>
             <GlobalStyle />
-            <C.AdminBody>
-                <C.AdminHeader>
-                    <Logo />
-                    <button onClick={() => closeCreateStudent(false)}>
-                        <i className="ri-close-line"></i>
-                    </button>
-                </C.AdminHeader>
-
-                <C.Content enctype="multipart/form-data">
-                    <h1>Cadastrar usuário<span>.</span></h1>
+            <C.Content enctype="multipart/form-data">
+                <C.AdminBody>
+                    <C.ContentHeader>
+                        <h1>Cadastrar aluno<span>.</span></h1>
+                    </C.ContentHeader>
                     <C.Body>
                         <C.DividerArea>
                             <h1>Dados pessoais</h1>
                             <C.Line>
-                                <C.InputItem className="short">
+                                <C.InputItem>
+                                    <label>Nome</label>
+                                    <C.InputMain>
+                                        <i className="ri-user-line"></i>
+                                        <input type="text" placeholder="John" onChange={(e) => {setFirstName(e.target.value); setConfirmation('')}} />
+                                    </C.InputMain>
+                                </C.InputItem>
+                                <C.InputItem>
+                                    <label>Sobrenome</label>
+                                    <C.InputMain>
+                                        <input type="text" placeholder="Doe" onChange={(e) => {setLastName(e.target.value); setConfirmation('')}} />
+                                    </C.InputMain>
+                                </C.InputItem>
+                            </C.Line>
+
+                            <C.Line>
+                                <C.InputItem>
                                     <label>Nascimento</label>
                                     <C.InputMain>
                                         <i className="ri-calendar-line"></i>
                                         <input type="text" placeholder="19/08/1988" onChange={(e) => {setNascimento(e.target.value); setConfirmation('')}} />
                                     </C.InputMain>
                                 </C.InputItem>
-
-                                <C.InputItem>
-                                    <label>Nome completo</label>
-                                    <C.InputMain>
-                                        <i className="ri-user-line"></i>
-                                        <input type="text" placeholder="John Doe" onChange={(e) => {setName(e.target.value); setConfirmation('')}} />
-                                    </C.InputMain>
-                                </C.InputItem>
-                            </C.Line>
-
-                            <C.Line>
                                 <C.InputItem>
                                     <label>Telefone</label>
                                     <C.InputMain>
@@ -128,15 +144,13 @@ const CreateStudent = ({ closeCreateStudent }) => {
                                     </C.InputMain>
                                 </C.InputItem>
                             </C.Line>
+                        </C.DividerArea>
 
+                        <C.Divider></C.Divider>
+
+                        <C.DividerArea>
+                            <h1>MATRICULA</h1>
                             <C.Line>
-                                <C.InputItem>
-                                    <label>RM</label>
-                                    <C.InputMain>
-                                        <input type="number" placeholder="00" onChange={(e) => {setRegistroMatricula(e.target.value); setConfirmation('')}} />
-                                    </C.InputMain>
-                                </C.InputItem>
-
                                 <C.InputItem>
                                     <label>Cód. Instituição</label>
                                     <C.InputSelect onChange={(e) => {setCodInstitution(e.target.value); setConfirmation('')}}>
@@ -149,6 +163,7 @@ const CreateStudent = ({ closeCreateStudent }) => {
                                                         value={institution.id}>
 
                                                         {institution.name}
+                                                        
                                                     </option>
                                                 )
                                             })
@@ -159,16 +174,34 @@ const CreateStudent = ({ closeCreateStudent }) => {
                             <C.Line>
                                 <C.InputItem>
                                     <label>Curso</label>
-                                    <C.InputSelect onChange={(e) => {setCodInstitution(e.target.value); setConfirmation('')}}>
+                                    <C.InputSelect onChange={(e) => {setCurso(e.target.value); setConfirmation('')}}>
                                         <option value="">Selecione</option>
                                         {
-                                            institutions?.map((institution) => {
+                                            courses?.map((course) => {
                                                 return (
                                                     <option 
-                                                        key={institution.id} 
-                                                        value={institution.id}>
+                                                        key={course.id} 
+                                                        value={course.id}>
 
-                                                        {institution.name}
+                                                        {course.name}
+                                                    </option>
+                                                )
+                                            })
+                                        }
+                                    </C.InputSelect>
+                                </C.InputItem>
+                                <C.InputItem>
+                                    <label>Série</label>
+                                    <C.InputSelect onChange={(e) => {setSerie(e.target.value); setConfirmation('')}}>
+                                        <option value="">Selecione</option>
+                                        {
+                                            coursesLevels?.map((level) => {
+                                                return (
+                                                    <option 
+                                                        key={level.id} 
+                                                        value={level.id}>
+                                                        
+                                                        {level.name}
                                                     </option>
                                                 )
                                             })
@@ -189,12 +222,18 @@ const CreateStudent = ({ closeCreateStudent }) => {
                                         <input type="text" placeholder="test@etec.sp.gov.br" onChange={(e) => {setEmail(e.target.value); setConfirmation('')}} />
                                     </C.InputMain>
                                 </C.InputItem>
+                                <C.InputItem className="short">
+                                    <label>RM</label>
+                                    <C.InputMain>
+                                        <input type="number" placeholder="00" onChange={(e) => {setRegistroMatricula(e.target.value); setConfirmation('')}} />
+                                    </C.InputMain>
+                                </C.InputItem>
                             </C.Line>
                             <C.Line className="flex-end">
                                 <C.InputItem>
                                     <label>Senha</label>
                                     <C.InputMain>
-                                        <input type="password" placeholder="********" onChange={(e) => {setSenha(e.target.value); setConfirmation('')}} />
+                                        <input type="password" placeholder="********" onChange={(e) => {setPassword(e.target.value); setConfirmation('')}} />
                                         <i className="ri-eye-line"></i>
                                     </C.InputMain>
                                 </C.InputItem>
@@ -209,15 +248,14 @@ const CreateStudent = ({ closeCreateStudent }) => {
                                     </C.InputMain>
                                 </C.InputItem>
                             </C.Line>
-
-                            <C.LabelConfirmation>{confirmation}</C.LabelConfirmation>
-                            <Button onClick={() => checkRegister()} >
-                                {loading ? <Loader/> : "Continuar"}
-                            </Button>
                         </C.DividerArea>
                     </C.Body> 
-                    </C.Content>
-            </C.AdminBody>
+                </C.AdminBody>
+                <C.LabelConfirmation>{confirmation}</C.LabelConfirmation>
+                <Button onClick={() => checkRegister()} >
+                    {loading ? <Loader/> : "Continuar"}
+                </Button>
+            </C.Content>
         </C.AdminUserContainer>
     )
 }

@@ -46,11 +46,11 @@ exports.postTeacher = (req, res, next) => {
             conn.release();
             if (error) { return res.status(200).send ({ error: error }) }
             if (result.length >= 1) {
-                return res.status(409).send({ message: "Teacher já cadastrado!" });
+                return res.status(409).send({ message: "Professor já cadastrado!" });
             } else {
                 bcrypt.hash(req.body.senha, saltRounds, (err, hash) => {
                     conn.query(
-                        'INSERT INTO teacher (registroMatricula, first_name, last_name, birth_date, email, passwordHash, user_type, telefone, avatar, is_active, create_at, institution_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                        'INSERT INTO teacher (registroMatricula, first_name, last_name, birth_date, email, passwordHash, user_type, telefone, avatar, is_active, institution_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                         [
                             req.body.registroMatricula, 
                             req.body.first_name, 
@@ -67,7 +67,7 @@ exports.postTeacher = (req, res, next) => {
                         (error, result, field) => {
                             if (error) { return res.status(200).send ({ error: error }) }
                             const response = {
-                                message: 'Student inserido com sucesso!',
+                                message: 'Professor inserido com sucesso!',
                                 teacherCriado: {
                                     id: result.insertId,
                                     registroMatricula: req.body.registroMatricula,
@@ -84,7 +84,7 @@ exports.postTeacher = (req, res, next) => {
                                     institution_id: req.body.institution_id,
                                     request: {
                                         type: 'POST',
-                                        description: 'Ver todos os teachers',
+                                        description: 'Ver todos os professores',
                                         url: 'http://localhost:3001/teachers',
                                     }
                                 }
@@ -111,7 +111,7 @@ exports.getUniqueTeacher = (req, res, next) => {
                 
                 if (result.length < 1) {
                     return res.status(404).send({
-                        message: "Não foi encontrado o teacher com este ID"
+                        message: "Não foi encontrado o professor com este ID"
                     });
                 }
                 
@@ -133,7 +133,7 @@ exports.getUniqueTeacher = (req, res, next) => {
                         institution_id: result[0].institution_id,
                         request: {
                             type: 'GET',
-                            description: 'Ver todos os teachers',
+                            description: 'Ver todos os professores',
                             url: 'http://localhost:3001/teachers',
                         }
                     }
@@ -149,7 +149,7 @@ exports.patchTeacher = (req, res, next) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query(
-            `UPDATE student SET registroMatricula = ?, first_name = ?, last_name = ?, birth_date = ?, email = ?, passwordHash = ?, user_type = ?, telefone = ?, avatar = ?, is_active = ?, updated_at = ?, institution_id = ? WHERE id = ?`,
+            `UPDATE teacher SET registroMatricula = ?, first_name = ?, last_name = ?, birth_date = ?, email = ?, passwordHash = ?, user_type = ?, telefone = ?, avatar = ?, is_active = ?, updated_at = ?, institution_id = ? WHERE id = ?`,
                 [
                     req.body.first_name, 
                     req.body.last_name, 

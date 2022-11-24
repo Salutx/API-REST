@@ -68,6 +68,7 @@ export const Content = styled.div `
     height: 100vh;
     transition: all .25s linear;
     background-color: ${props => props.theme.background};
+    position: relative;
 
 `;
 
@@ -75,11 +76,11 @@ export const Main = styled.main `
 
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
     width: 100%;
     height: 100%;
     background: ${props => props.theme.background};
-    padding: 16px 24px 24px 24px;
+    padding: 24px 24px 24px 24px;
 
 `;
 
@@ -88,6 +89,4 @@ export const Section = styled.section `
     width: 100%;
     height: 100%;
     background: transparent;
-    overflow: auto;
-
 `;

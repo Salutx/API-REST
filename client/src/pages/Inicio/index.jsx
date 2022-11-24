@@ -1,35 +1,64 @@
 import React, { useState, useEffect } from 'react'
 import "../../../node_modules/video-react/dist/video-react.css";
-import { Player } from 'video-react';
-import VerticalMenu from '../../components/VerticalMenu';
+
 import * as G from "../../styles/global"
 import * as C from "./styles";
-import Header from '../../components/Header';
-import { fetchData } from '../../hooks/fetchData';
-import qrcode from '../../assets/images/qrcode.svg'
+
+import { Player } from 'video-react';
 import PermissionGate from '../../hooks/permissionGate';
-import Admin from './Admin';
+import Axios from 'axios';
+import jwt_decode from 'jwt-decode';
+
+import VerticalMenu from '../../components/VerticalMenu';
+import Header from '../../components/Header';
 import Preloader from '../../components/Preloader';
 
-const Inicio = () => {
+import qrcode from '../../assets/images/qrcode.svg'
+import CreateStudent from '../Admin/Student/CreateStudent';
+import ListStudent from '../Admin/Student/ListStudent';
+
+const Inicio = ( ) => {
+	const url = 'http://localhost:3001';
+
 	const [userData, setUserData] = useState([]);
+	const [courseData, setCourseData] = useState([]);
+	const [userAvatar, setUserAvatar] = useState('');
+	const [eyeCheck, setEyeCheck] = useState(false);
 
 	useEffect(() => {
-		const response = fetchData();
-		response.then((result) => {
-			setUserData(result.user); 
-		});
+		const token = localStorage.getItem('access-token');
+		const decoded = jwt_decode(token);
+
+		if (decoded.userId !== 0) {
+			const fetchData = async () => {
+				try {
+					const fetchUser = await Axios.get(`${url}/students/${decoded.userId}`);
+					setUserData(fetchUser.data.student);
+					setUserAvatar(fetchUser.data.student.avatar);
+					setCourseData(fetchUser.data.student.course);
+				} catch (error) {
+					console.error(error);
+				}
+			};
+			fetchData();
+		}
 	}, []);
-	
-	const avatarImg = null;
+
+	// const seePassword = (eyeCheck) => {
+	// 	if (eyeCheck === false) {
+	// 		return;
+	// 	}
+	// }
+
+	const avatarImg = userAvatar.substring(16);
 
 	return (
 		<>
 		<C.TestLoader>
-		<Preloader/>
-		<PermissionGate permissions={['Aluno', 'Professor']}>
+		<Preloader text="Carregando interface..."/>
+		<PermissionGate permissions={['Aluno']}>
 		<G.Content>
-			<VerticalMenu />
+			<VerticalMenu avatarUploaded={avatarImg} />
 				<G.Main>
 					<Header />
 					<G.Section>
@@ -37,13 +66,14 @@ const Inicio = () => {
 							<C.WelcomeArea className='section'>
 							<Player
 								fluid={false}
-								poster="/assets/poster.png"
+								poster={null}
 								src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
 								width="100%"
 								height="100%"
 								muted
 								autoPlay
 								preload="auto"
+								className="videoplayer"
 							/>
 							</C.WelcomeArea> 
 
@@ -78,7 +108,7 @@ const Inicio = () => {
 									<C.IdCardContent>
 										<C.IdCardHeader>
 											<h1>{userData.first_name} <span>{userData.last_name}</span></h1>
-											<p>Desen. de Sistemas</p>
+											<p>{courseData.course_name}</p>
 										</C.IdCardHeader>
 										<C.IdCardBody>
 											<C.IdCardColumn>
@@ -86,7 +116,7 @@ const Inicio = () => {
 													<h1>RM</h1>
 												</C.IdCardItem>
 												<C.IdCardItem>
-													<h1>RG</h1>
+													<h1>Instituição</h1>
 												</C.IdCardItem>
 												<C.IdCardItem>
 													<h1>Nascimento</h1>
@@ -103,29 +133,29 @@ const Inicio = () => {
 											</C.IdCardColumn>
 											<C.IdCardColumn>
 												<C.IdCardItem>
-													<p>2260</p>
+													<p>{userData.registroMatricula}</p>
 												</C.IdCardItem>
 												<C.IdCardItem>
-													<p>607976494/SP</p>
+													<p>ETEC Uirapuru</p>
 												</C.IdCardItem>
 												<C.IdCardItem>
-													<p>08/09/2004</p>
+													<p>{userData.birth_date}</p>
 												</C.IdCardItem>
 												<C.IdCardItem>
-													<p>Cursando</p>
+													<p>{userData.is_active}</p>
 												</C.IdCardItem>
 												<C.IdCardItem>
 													<p>Turma A</p>
 												</C.IdCardItem>
 												<C.IdCardItem>
-													<p>3° ETIM DS</p>
+													<p>{courseData.course_level} {courseData.course_abbr}</p>
 												</C.IdCardItem>
 											</C.IdCardColumn>
 										</C.IdCardBody>
 
 										<C.IdCardQrcode>
 											<p>Seu QRCODE:</p>
-											<img src={qrcode} alt="" />
+											<img src={qrcode} alt="QRCodeUser" />
 										</C.IdCardQrcode>
 									</C.IdCardContent>
 								</C.InfoContainer>
@@ -145,11 +175,6 @@ const Inicio = () => {
 									Inserir gráficos aqui
 								</C.FrequencyContainer>
 							</C.FrequencyArea>
-							{/* <C.SupportArea className="section">
-								<h1>Algum problema com a plataforma?</h1>
-								<SupportButton>Contatar suporte</SupportButton>
-							</C.SupportArea> */}
-							
 						</C.GridLayout>
 					</G.Section>
 				</G.Main>
@@ -157,7 +182,18 @@ const Inicio = () => {
 		</PermissionGate>
 		
 		<PermissionGate permissions={['Admin']}>
-			<Admin/>
+		<G.Content>
+			<VerticalMenu avatarUploaded={avatarImg} />
+				<G.Main>
+					<Header />
+					<G.Section>
+						<C.AdminSections>
+							<CreateStudent/>
+							<ListStudent />
+						</C.AdminSections>
+					</G.Section>
+				</G.Main>
+				</G.Content>
 		</PermissionGate>		
 		</C.TestLoader>
 		</>

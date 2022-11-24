@@ -95,8 +95,19 @@ export const NavbarTools = styled.div `
         display: flex;
         align-items: center;
         background-color: transparent !important;
+        position: relative;
     }
 
     button:hover {color: var(--primary-color);}
+
+    button span {
+        position: absolute;
+        height: 4px;
+        width: 4px;
+        border-radius: 16px;
+        background-color: var(--primary-color);
+        top: -.2rem;
+        right: -.2rem;
+    }
 
 `;

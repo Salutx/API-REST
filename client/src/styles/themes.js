@@ -13,18 +13,20 @@ export const lightTheme = {
     body: "#FFFFFF",
     titleAssets: "var(--primary-color-dark)",
     card: "#FFFFFF",
+    cardProfile: "#FFFFFF",
     paragraph: "#949494",
     iconBackground: "rgba(15, 25, 35, 0.1)",
     boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
-    boxShadowCard: "",
+    boxShadowCard: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;",
     banner: `${blackBanner}`,
     border: "1px solid #E7E7E7",
+    placeholder: "#838383",
 };
 
 export const darkTheme = {
     // START
-    background: "#202329",
-    backgroundStart: "#202329",
+    background: "#1C1D22",
+    backgroundStart: "#1C1D22",
     title: "#FFFFFF",
 
     // ASSETS
@@ -32,11 +34,13 @@ export const darkTheme = {
     backgroundStartAssets: "#ffffff",
     body: "#252F38",
     titleAssets: "#FFFFFF",
-    card: "#2D3339",
+    card: "#14151A",
+    cardProfile: "#2D3339",
     paragraph: "#CBCBCB",
     iconBackground: "rgba(255, 255, 255, 0.1)",
     boxShadow: "0px 16px 50px 5px rgba(0, 205, 180, 0.2)",
-    boxShadowCard: "",
+    boxShadowCard: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;",
     banner: `${whiteBanner}`,
     border: "1px solid #424242",
+    placeholder: "#6C6C6C"
 };

@@ -4,27 +4,27 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Axios from 'axios';
 
-const StudentsTimeline = (props) => {
+const TeachersTimeline = (props) => {
     const url = 'http://localhost:3001';
-    const deleteStudent = (value) => {Axios.delete(`${url}/students/delete`, { data: {id: value}} )}
+    const deleteTeacher = (value) => {Axios.delete(`${url}/teachers/delete`, { data: {id: value}} )}
 
     const displayNotes = (props) => {
-        const {students} = props;
-        if (students.length > 0) {
+        const {teachers} = props;
+        if (teachers.length > 0) {
             return (
-                students.map((student) => { 
+                teachers.map((teacher) => {
                     return (
-                        <C.UserItem key={student.id}>
+                        <C.UserItem key={teacher.id}>
                             <C.UserName>
                                 <i className="ri-checkbox-blank-circle-fill"></i>
-                                <p>{student.first_name} {student.last_name} ({student.user_type})</p>
+                                <p>({teacher.registroMatricula}) {teacher.first_name} {teacher.last_name} (Ativo: {teacher.is_active})</p>
                             </C.UserName>
                             <OverlayTrigger
                                 rootClose
                                 trigger="click"
                                 placement="bottom"
                                 overlay={
-                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteStudent(student.id)}}>
+                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteTeacher(teacher.id)}}>
                                         <Popover.Body>
                                             Deletar
                                         </Popover.Body>
@@ -40,7 +40,7 @@ const StudentsTimeline = (props) => {
                 })
             )
         } else {
-            return (<p className='enought'>Não há alunos cadastrados.</p>)
+            return (<p className='enought'>Não há professores cadastrados.</p>)
         }
     }
 
@@ -51,4 +51,4 @@ const StudentsTimeline = (props) => {
   )
 }
 
-export default StudentsTimeline
+export default TeachersTimeline

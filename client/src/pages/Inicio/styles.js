@@ -12,19 +12,20 @@ export const GridLayout = styled.div `
     grid-template-columns: 1fr 1fr .7fr; 
     grid-template-rows: 0.8fr 1fr 1fr; 
     gap: 24px 24px; 
+    height: 100%;
     grid-template-areas: 
         "welcome-area welcome-area info-area"
         "welcome-area welcome-area info-area"
         "tarefas-area frequency-area info-area";
 
-    height: 100%;
+    .videoplayer video {object-fit: cover !important;}
 
     .section {
-        background-color: ${props => props.theme.card};
         border-radius: 8px;
         padding: 2rem;
         gap: 1rem;
         box-shadow: ${props => props.theme.boxShadowCard};
+        background-color: ${props => props.theme.background};
     }
     
     @media (max-width: 1280px) { 
@@ -42,8 +43,8 @@ export const WelcomeArea = styled.div `
     justify-content: space-between;
     gap: 1rem !important;
     padding: 0 !important;
-    overflow: auto;
-    border: ${props => props.theme.border};
+    outline: 1px solid #2F3037;
+    overflow: hidden;
 `;
 
 export const WelcomeHeader = styled.div `
@@ -173,9 +174,9 @@ export const SectionInfo = styled.div `
     display: flex;
     align-items: center;
     gap: .5rem;
-    font-size: 14px;
+    font-size: 13px;
     color: ${props => props.theme.titleAssets};
-    font-weight: bold;
+    font-weight: 500;
 
     > i {color: ${props => props.theme.paragraph};}
 `;
@@ -206,7 +207,6 @@ export const InfoArea = styled.div `
     background-color: white;
     border-radius: 4px;
     height: 100%;
-    box-shadow: ${props => props.theme.boxShadowCard};
     overflow: auto;
 `;
 
@@ -285,6 +285,10 @@ export const IdCardHeader = styled.div `
         background-color: var(--primary-color);
         padding: .1rem 1.3rem;
         border-radius: 32px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
     }
 `;
 
@@ -359,5 +363,20 @@ export const SupportArea = styled.div `
     button {
         color: ${props => props.theme.titleAssets} !important;
         border: 1px solid ${props => props.theme.titleAssets} !important;
+    }
+`;
+
+export const AdminSections = styled.div `
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 1.5rem;
+
+    justify-content: space-between;
+
+    > div {max-height: 100%}
+    > div:first-child {
+        width: 40%;
+        box-shadow: ${props => props.theme.boxShadowCard};
     }
 `;

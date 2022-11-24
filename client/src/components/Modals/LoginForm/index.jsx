@@ -37,7 +37,7 @@ const LoginForm = ({ closeLogin }) => {
             signin(token)
             localStorage.setItem("access-token", token);
             localStorage.setItem("access-inst", codInstituicao);
-            navigate("/inicio");
+            navigate("/dashboard");
         })
         .catch(error => setError(`Erro na autenticação.`))
     }
