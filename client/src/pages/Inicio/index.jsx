@@ -54,7 +54,7 @@ const Inicio = ( ) => {
 
 	return (
 		<>
-		<C.TestLoader>
+		<G.TestLoader>
 		<Preloader text="Carregando interface..."/>
 		<PermissionGate permissions={['Aluno']}>
 		<G.Content>
@@ -193,9 +193,9 @@ const Inicio = ( ) => {
 						</C.AdminSections>
 					</G.Section>
 				</G.Main>
-				</G.Content>
+		</G.Content>
 		</PermissionGate>		
-		</C.TestLoader>
+		</G.TestLoader>
 		</>
 	)
 }

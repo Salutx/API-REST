@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 import * as C from "../styles";
 import GlobalStyle from "../styles"
-import Logo from '../../../../components/Logo';
-import Loader from "../../../../components/Loaders";
+import Loader from "../../../components/Loaders";
 import TeachersTimeline from "./DisplayTeachers";
 
 const ListTeacher = ({ closeListTeacher }) => {
@@ -38,13 +37,6 @@ const ListTeacher = ({ closeListTeacher }) => {
         <C.AdminUserContainer>
             <GlobalStyle />
             <C.AdminBody>
-                <C.AdminHeader>
-                    <Logo />
-                    <button onClick={() => closeListTeacher(false)}>
-                        <i className="ri-close-line"></i>
-                    </button>
-                </C.AdminHeader>
-
                 <C.Content>
                     <C.ContentHeader>
                         <h1>Professores cadastrados ({teachers.length})</h1>

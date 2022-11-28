@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import gradient from "../../assets/images/gradient2.svg"
 
-export const TestLoader = styled.div `
-    position: relative;
-`;
-
 export const GridLayout = styled.div `
 
     display: grid; 

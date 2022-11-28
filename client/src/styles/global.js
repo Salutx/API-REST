@@ -61,6 +61,10 @@ export default createGlobalStyle`
 
 `;
 
+export const TestLoader = styled.div `
+    position: relative;
+`;
+
 export const Content = styled.div `
 
     display: flex;
