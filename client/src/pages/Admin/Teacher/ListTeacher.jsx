@@ -36,21 +36,21 @@ const ListTeacher = ({ closeListTeacher }) => {
     return (
         <C.AdminUserContainer>
             <GlobalStyle />
-            <C.AdminBody>
-                <C.Content>
+            <C.Content className="list-content">
+                <C.AdminBody>
                     <C.ContentHeader>
-                        <h1>Professores cadastrados ({teachers.length})</h1>
+                        <h1>⭐ Professores cadastrados ({teachers.length})</h1>
                         <C.ContentIcons>
                             <i className="ri-refresh-line" onClick={() => checkTeachers()} ></i>
                             <i className="ri-search-line"></i>
                         </C.ContentIcons>
                     </C.ContentHeader>
 
-                    <C.UserList>
+                    <C.TableAround>
                         {loading ? <Loader/> : <TeachersTimeline teachers={teachers}/>}
-                    </C.UserList>
-                </C.Content>
-            </C.AdminBody>
+                    </C.TableAround>
+                </C.AdminBody>
+            </C.Content>
         </C.AdminUserContainer>
     )
 }

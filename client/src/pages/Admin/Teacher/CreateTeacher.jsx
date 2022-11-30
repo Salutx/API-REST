@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Axios from 'axios';
 import * as C from "../styles";
 import GlobalStyle from "../styles"
-import Logo from '../../../../../components/Logo';
-import Button from '../../../../../components/Button';
-import Loader from "../../../../../components/Loaders";
+import Button from '../../../components/Button';
+import Loader from "../../../components/Loaders";
 
-const CreateTeacher = ({ closeCreateTeacher }) => {
+const CreateTeacher = () => {
     const url = 'http://localhost:3001/';
 
     const [firstName, setFirstName] = useState('');
@@ -39,30 +38,31 @@ const CreateTeacher = ({ closeCreateTeacher }) => {
     }
 
     const registerTeachers = async () => {
-        if (!registroMatricula | !firstName | !lastName | !nascimento | !email | !password | !codInstitution) {
+        if (!registroMatricula | !firstName | !lastName | !nascimento | !email | !password | !avatar |  !codInstitution) {
             setConfirmation("Preencha todos os campos!")
             return;
         }
-        const formData = new FormData();
-        formData.append('registroMatricula', registroMatricula);
-        formData.append('first_name', firstName);
-        formData.append('last_name', lastName);
-        formData.append('birth_date', nascimento);
-        formData.append('email', email);
-        formData.append('passwordHash', password);
-        formData.append('user_type', "Professor");
-        formData.append('telefone', telefone);
-        formData.append('avatar', avatar);
-        formData.append('is_active', "Ativo");
-        formData.append('institution_id', codInstitution);
 
-        return await Axios.post(`${url}teachers/register`, formData)
-        .then((response) => {
+        const formData = new FormData();
+            formData.append('registroMatricula', registroMatricula);
+            formData.append('first_name', firstName);
+            formData.append('last_name', lastName);
+            formData.append('birth_date', nascimento);
+            formData.append('email', email);
+            formData.append('passwordHash', password);
+            formData.append('user_type', "Professor");
+            formData.append('telefone', telefone);
+            formData.append('avatar', avatar);
+            formData.append('is_active', "Ativo");
+            formData.append('institution_id', codInstitution);
+
+        try {
+            console.log(formData);
+            const response = await Axios.post(`${url}teachers/register`, formData)
             return setConfirmation(response.data.message);
-        })
-        .catch((error) => {
-            return setConfirmation(error.response.data.message);
-        });
+        } catch(error) {
+            return setConfirmation(error)
+        }
     }
 
     const changeHandler = (event) => {
@@ -77,19 +77,20 @@ const CreateTeacher = ({ closeCreateTeacher }) => {
         }, 800); 
     }
 
-    return (
-        <C.AdminUserContainer>
-            <GlobalStyle />
-            <C.AdminBody>
-                <C.AdminHeader>
-                    <Logo />
-                    <button onClick={() => closeCreateTeacher(false)}>
-                        <i className="ri-close-line"></i>
-                    </button>
-                </C.AdminHeader>
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          checkRegister();
+        }
+    }
 
-                <C.Content enctype="multipart/form-data">
-                    <h1>Cadastrar professor<span>.</span></h1>
+    return (
+        <C.AdminUserContainer onKeyDown={handleKeyDown}>
+            <GlobalStyle />
+             <C.Content enctype="multipart/form-data">
+                <C.AdminBody>
+                    <C.ContentHeader>
+                        <h1>Cadastrar professor<span>.</span></h1>
+                    </C.ContentHeader>
                     <C.Body>
                         <C.DividerArea>
                             <h1>Dados pessoais</h1>
@@ -110,7 +111,7 @@ const CreateTeacher = ({ closeCreateTeacher }) => {
                             </C.Line>
 
                             <C.Line>
-                                <C.InputItem className="short">
+                                <C.InputItem>
                                     <label>Nascimento</label>
                                     <C.InputMain>
                                         <i className="ri-calendar-line"></i>
@@ -191,13 +192,13 @@ const CreateTeacher = ({ closeCreateTeacher }) => {
                             </C.Line>
 
                             <C.LabelConfirmation>{confirmation}</C.LabelConfirmation>
-                            <Button onClick={() => checkRegister()} >
-                                {loading ? <Loader/> : "Continuar"}
-                            </Button>
                         </C.DividerArea>
                     </C.Body> 
-                    </C.Content>
-            </C.AdminBody>
+                </C.AdminBody>
+                <Button onClick={() => checkRegister()} >
+                    {loading ? <Loader/> : "Continuar"}
+                </Button>
+            </C.Content>
         </C.AdminUserContainer>
     )
 }

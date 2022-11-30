@@ -8,10 +8,9 @@ import StudentsTimeline from "./DisplayStudents";
 const ListStudent = () => {
     const [students, getStudents] = useState('');
     const [loading, setLoading] = useState(false);
-
 	const url = 'http://localhost:3001/';
-
 	useEffect(() => {
+
 		getAllStudents();
 	}, []);
 
@@ -38,7 +37,7 @@ const ListStudent = () => {
             <C.Content className="list-content">
                 <C.AdminBody>
                     <C.ContentHeader>
-                        <h1>Alunos cadastrados<span>.</span> <small>({students.length})</small></h1>
+                        <h1>⭐ Alunos cadastrados <small>({students.length})</small></h1>
                         <C.ContentIcons>
                             <i className="ri-refresh-line" onClick={() => checkStudents()} ></i>
                             <i className="ri-search-line"></i>

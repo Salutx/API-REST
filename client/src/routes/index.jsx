@@ -8,7 +8,7 @@ import Equipes from "../pages/Equipes";
 import PageNotFound from "../pages/PageNotFound/";
 import Test from "../pages/Test/index.jsx";
 import Students from "../pages/Students/index.jsx";
-// import Teachers from "../pages/Teachers/index.jsx";
+import Teachers from "../pages/Teachers/index.jsx";
 import PermissionGate from '../hooks/permissionGate';
 
 const Private = ({ Item }) => {
@@ -34,12 +34,12 @@ const RoutesApp = () => {
                                     <Private Item={Inicio} />
                                 </PermissionGate>
                                 <PermissionGate permissions={['Admin']}>
-                                    <Navigate to="/admin/students" />
+                                    <Navigate to="/students" />
                                 </PermissionGate>
                             </>
                         } />
 
-                        <Route exact path="/admin/students" element={
+                        <Route exact path="/students" element={
                             <>
                                 <PermissionGate permissions={['Aluno', 'Professor']}>
                                     <Navigate to="/dashboard" />
@@ -50,7 +50,7 @@ const RoutesApp = () => {
                             </>
                         } />
 
-                        {/* <Route exact path="/admin/teachers" element={
+                        <Route exact path="/teachers" element={
                             <>
                                 <PermissionGate permissions={['Aluno', 'Professor']}>
                                     <Navigate to="/dashboard" />
@@ -59,7 +59,7 @@ const RoutesApp = () => {
                                     <Private Item={Teachers} />
                                 </PermissionGate>
                             </>
-                        } /> */}
+                        } />
 
                         <Route exact path="/equipes"   element={<Private Item={Equipes} />} />
                         <Route exact path="/404"       element={<PageNotFound />} />

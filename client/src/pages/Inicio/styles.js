@@ -334,7 +334,36 @@ export const IdCardQrcode = styled.div `
     }
 `;
 
+export const UserItem = styled.div `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 205, 180, 0.1);
+    border-radius: 4px;
+    padding: .7rem 1.3rem;
+    color: white;
+`;
 
+export const UserName = styled.div `
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    color: #CBCBCB;
+  
+    i {font-size: 6px;}
+`;
+
+export const btnUser = styled.button `
+    display: flex;
+    align-items: center;
+    background-color: transparent !important;
+    color: white;
+    font-size: 1.3rem;
+`;
 
 // Frequency Area
 export const FrequencyArea = styled.div `

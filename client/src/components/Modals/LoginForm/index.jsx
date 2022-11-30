@@ -50,8 +50,15 @@ const LoginForm = ({ closeLogin }) => {
         }, 800); 
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          LoginCheck();
+        }
+    }
+
+
     return (
-        <C.LoginContainer status={closeLogin}>
+        <C.LoginContainer status={closeLogin} onKeyDown={handleKeyDown}>
             <C.LoginBody>
                 <C.LoginHeader>
                     <Logo />

@@ -142,15 +142,21 @@ const VerticalMenu = ( ) => {
 							<C.NavHeader>Gerenciar</C.NavHeader>
 							<C.NavMenu>
 								<C.NavItem status={urlCheck("students")}>
-									<button onClick={() => navigate("/admin/students")}>
+									<button onClick={() => navigate("/students")}>
 										<i className="ri-user-smile-line"></i>
 										<p>Alunos</p>
 									</button>
 								</C.NavItem>
 								<C.NavItem status={urlCheck("teachers")}>
-									<button onClick={() => navigate("/admin/teachers")}>
+									<button onClick={() => navigate("/teachers")}>
 										<i className="ri-user-star-line"></i>
 										<p>Professores</p>
+									</button>
+								</C.NavItem>
+								<C.NavItem status={urlCheck("courses")}>
+									<button onClick={() => navigate("/courses")}>
+										<i className="ri-dashboard-line"></i>
+										<p>Cursos</p>
 									</button>
 								</C.NavItem>
 							</C.NavMenu>

@@ -20,6 +20,7 @@ export const lightTheme = {
     boxShadowCard: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;",
     banner: `${blackBanner}`,
     border: "1px solid #E7E7E7",
+    borderHr: "1px solid #E7E7E7",
     placeholder: "#838383",
 };
 
@@ -42,5 +43,6 @@ export const darkTheme = {
     boxShadowCard: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;",
     banner: `${whiteBanner}`,
     border: "1px solid #424242",
+    borderHr: "1px solid #21222A",
     placeholder: "#6C6C6C"
 };

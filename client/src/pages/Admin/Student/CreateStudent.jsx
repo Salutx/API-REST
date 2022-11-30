@@ -4,7 +4,6 @@ import * as C from "../styles";
 import GlobalStyle from "../styles"
 import Button from '../../../components/Button';
 import Loader from "../../../components/Loaders";
-import Inicio from "../../Inicio";
 
 const CreateStudent = () => {
     const url = 'http://localhost:3001/';
@@ -101,14 +100,20 @@ const CreateStudent = () => {
             return registerStudents();
         }, 800); 
     }
+    
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          checkRegister();
+        }
+    }
 
     return (
-        <C.AdminUserContainer>
+        <C.AdminUserContainer onKeyDown={handleKeyDown}>
             <GlobalStyle />
             <C.Content enctype="multipart/form-data">
                 <C.AdminBody>
                     <C.ContentHeader>
-                        <h1>Cadastrar aluno<span>.</span></h1>
+                        <h1>Cadastrar aluno</h1>
                     </C.ContentHeader>
                     <C.Body>
                         <C.DividerArea>
@@ -244,7 +249,7 @@ const CreateStudent = () => {
                                 <C.InputItem>
                                     <label>Avatar</label>
                                     <C.InputMain>
-                                        <input type="file" name="file" onChange={changeHandler} />
+                                        <input type="file" onChange={changeHandler}/>
                                     </C.InputMain>
                                 </C.InputItem>
                             </C.Line>

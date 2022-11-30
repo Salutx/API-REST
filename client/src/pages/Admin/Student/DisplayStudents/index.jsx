@@ -14,6 +14,7 @@ const StudentsTimeline = (props) => {
             return (
                 students.map((student) => {
                     return (
+
                         <C.UserCard key={student.id}>
                             <C.UserAvatar>
                                 <OverlayTrigger

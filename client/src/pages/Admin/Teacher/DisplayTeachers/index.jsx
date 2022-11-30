@@ -14,28 +14,42 @@ const TeachersTimeline = (props) => {
             return (
                 teachers.map((teacher) => {
                     return (
-                        <C.UserItem key={teacher.id}>
-                            <C.UserName>
-                                <i className="ri-checkbox-blank-circle-fill"></i>
-                                <p>({teacher.registroMatricula}) {teacher.first_name} {teacher.last_name} (Ativo: {teacher.is_active})</p>
-                            </C.UserName>
-                            <OverlayTrigger
-                                rootClose
-                                trigger="click"
-                                placement="bottom"
-                                overlay={
-                                    <Popover id={`popover-positioned-bottom`} onClick={() => {deleteTeacher(teacher.id)}}>
-                                        <Popover.Body>
-                                            Deletar
-                                        </Popover.Body>
-                                    </Popover>
-                                }
-                                >
-                                <C.btnUser>
-                                    <i className="ri-more-line" ></i>
-                                </C.btnUser>
-                            </OverlayTrigger>
-                        </C.UserItem>
+                        <C.UserCard key={teacher.id}>
+                            <C.UserAvatar>
+                                <OverlayTrigger
+                                    rootClose
+                                    trigger="click"
+                                    placement="bottom"
+                                    className="overlaytrigger"
+                                    overlay={
+                                        <Popover id={`popover-positioned-bottom`} onClick={() => {deleteTeacher(teacher.id)}}>
+                                            <Popover.Body id="popoverbody">
+                                                Deletar
+                                            </Popover.Body>
+                                        </Popover>
+                                    }
+                                    >
+                                    <C.btnUser>
+                                        <i className="ri-more-line" ></i>
+                                    </C.btnUser>
+                                </OverlayTrigger>
+                                <img src={teacher.avatar.substring(16)} alt="Avatar" />
+                            </C.UserAvatar>
+                            <C.UserDetails>
+                                <C.UserBody>
+                                    {/* <p>{teacher.course.course_level}</p>
+                                    <p>{teacher.course.course_abbr}</p> */}
+                                </C.UserBody>
+                                <C.UserHeader>
+                                    <h1>{teacher.first_name} {teacher.last_name}</h1>
+                                    <p>{teacher.email}</p>
+                                    
+                                </C.UserHeader>
+                                <C.UserContact>
+                                    <p>{teacher.registroMatricula}</p>
+                                </C.UserContact>
+                            </C.UserDetails>
+                        </C.UserCard>
                     )
                 })
             )

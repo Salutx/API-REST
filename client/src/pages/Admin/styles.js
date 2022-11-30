@@ -15,6 +15,7 @@ export default createGlobalStyle `
         cursor: pointer;
         transition: none;
         position: relative;
+        z-index: 995;
     }
 
     #popoverbody {
@@ -28,6 +29,13 @@ export default createGlobalStyle `
         position: absolute;
         right: -13rem;
         bottom: -3rem;
+        z-index: 995;
+    }
+
+    .alertmodal {
+        position: absolute;
+        bottom: 0;
+        right: 0;
     }
 
 `;
@@ -98,18 +106,17 @@ export const Line = styled.div `
 
 export const InputItem = styled.div `
     display: flex;
-    color: ${props => props.theme.title};
+    color: ${props => props.theme.backgroundStartAssets};
     flex-direction: column;
     gap: .3rem;
     width: 100%;
 
     label {
-        font-weight: 700;
-        font-size: 12px;
+        font-weight: 600;
+        font-size: 11px;
         line-height: 21px;
     }
     .short {width: 60%;}
-
 `;
 
 export const InputMain = styled.div `
@@ -147,8 +154,10 @@ export const InputMain = styled.div `
 `;
 
 export const Divider = styled.hr `
-    border: ${props => props.theme.border};
-    border-radius: 64px;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: ${props => props.theme.borderHr};
 `;
 
 export const InputSelect = styled.select `
@@ -191,8 +200,15 @@ export const ContentHeader = styled.div `
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    color: ${props => props.theme.title};
-    padding: .5rem 0 1.5rem 0rem;
+    border-bottom: ${props => props.theme.border};
+    margin-bottom: 1.5rem;
+
+    > h1 {
+        color: ${props => props.theme.backgroundStartAssets};
+        padding: .5rem 0 .8rem 0rem;
+        font-weight: 600;
+        font-size: 16px;
+    }
 `;
 
 export const ContentIcons = styled.div `
@@ -212,7 +228,6 @@ export const LabelConfirmation = styled.label `
 
 export const TableAround = styled.div `
     display: flex;
-    justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
 `;
@@ -235,7 +250,7 @@ export const btnUser = styled.button `
 `;
 
 export const UserCard = styled.div `
-    width: 220px;
+    width: 170px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -249,6 +264,10 @@ export const UserCard = styled.div `
 
     :hover {
         border: ${props => props.theme.border};
+    }
+
+    :hover img {
+        transform: scale(1.1);
     }
 `;
 
@@ -272,9 +291,9 @@ export const UserHeader = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     > p {
-        font-size: 9px;
+        font-size: 7px;
         font-weight: 500;
         color: ${props => props.theme.paragraph};
         text-transform: uppercase;
@@ -282,8 +301,8 @@ export const UserHeader = styled.div `
 
     > h1 {
         text-transform: uppercase;
-        font-size: 20px;
-        color: ${props => props.theme.title};
+        font-size: 14px;
+        color: ${props => props.theme.backgroundStartAssets};
     }
 `;
 
@@ -291,13 +310,15 @@ export const UserAvatar = styled.div `
 
     position: relative;
     width: 100%;
-    height: 150px;
+    height: 120px;
+    overflow: hidden;
 
     img {
         width: 100%;
-        height: 100%;
         object-fit: cover;
         object-position: top;
+        filter: grayscale(1) brightness(0.6) contrast(0.6);
+        font-size: 0;
     }
 
     i {
@@ -310,7 +331,7 @@ export const UserAvatar = styled.div `
 `;
 
 export const UserDetails = styled.div `
-    padding: 1rem 1rem 1.5rem 1rem;
+    padding: .5rem;
     display: flex;
     flex-direction: column;
 

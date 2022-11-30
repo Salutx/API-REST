@@ -19,10 +19,12 @@ exports.getTeachers = (req, res, next) => {
                             registroMatricula: teacher.registroMatricula,
                             first_name: teacher.first_name,
                             last_name: teacher.last_name,
+                            email: teacher.email,
                             birth_date: teacher.birth_date,
                             user_type: teacher.user_type,
                             telefone: teacher.telefone,
                             is_active: teacher.is_active,
+                            avatar: teacher.avatar,
                             institution_id: teacher.institution_id,
                             request: {
                                 type: 'GET',
@@ -48,7 +50,7 @@ exports.postTeacher = (req, res, next) => {
             if (result.length >= 1) {
                 return res.status(409).send({ message: "Professor já cadastrado!" });
             } else {
-                bcrypt.hash(req.body.senha, saltRounds, (err, hash) => {
+                bcrypt.hash(req.body.passwordHash, saltRounds, (err, hash) => {
                     conn.query(
                         'INSERT INTO teacher (registroMatricula, first_name, last_name, birth_date, email, passwordHash, user_type, telefone, avatar, is_active, institution_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                         [

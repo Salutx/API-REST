@@ -8,6 +8,7 @@ import { Player } from 'video-react';
 import PermissionGate from '../../hooks/permissionGate';
 import Axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import Button from '../../components/Button';
 
 import VerticalMenu from '../../components/VerticalMenu';
 import Header from '../../components/Header';
@@ -184,15 +185,15 @@ const Inicio = ( ) => {
 		<PermissionGate permissions={['Admin']}>
 		<G.Content>
 			<VerticalMenu avatarUploaded={avatarImg} />
-				<G.Main>
-					<Header />
-					<G.Section>
-						<C.AdminSections>
-							<CreateStudent/>
-							<ListStudent />
-						</C.AdminSections>
-					</G.Section>
-				</G.Main>
+			<G.Main>
+				<Header />
+				<G.Section>
+					<C.AdminSections>
+						<CreateStudent/>
+						<ListStudent />
+					</C.AdminSections>
+				</G.Section>
+			</G.Main>
 		</G.Content>
 		</PermissionGate>		
 		</G.TestLoader>
