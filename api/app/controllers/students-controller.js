@@ -8,7 +8,7 @@ exports.getStudents = async (req, res, next) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query( 
-            'SELECT student.*, course.course_name, course.abbr, course_level.level FROM student LEFT JOIN course ON student.course_id = course.id LEFT JOIN course_level ON course.course_level_id = course_level.id',
+            'SELECT student.*, course.course_name, course.course_abbr, course_level.level FROM student LEFT JOIN course ON student.course_id = course.id LEFT JOIN course_level ON course.course_level_id = course_level.id',
             (error, result, fields) => {
                 if (error) { return res.status(500).send ({ error: error }) }
                 const response = {
@@ -28,7 +28,7 @@ exports.getStudents = async (req, res, next) => {
                             course: {
                                 course_id: student.course_id,
                                 course_name: student.course_name,
-                                course_abbr: student.abbr,
+                                course_abbr: student.course_abbr,
                                 course_level: student.level,
                                 institution_id: student.institution_id,
                             },
@@ -112,7 +112,7 @@ exports.getUniqueStudent = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
         conn.query(
-            'SELECT student.*, course.course_name, course.abbr, course_level.level FROM student LEFT JOIN course ON student.course_id = course.id LEFT JOIN course_level ON course.course_level_id = course_level.id WHERE registroMatricula = ?;',
+            'SELECT student.*, course.course_name, course.course_abbr, course_level.level FROM student LEFT JOIN course ON student.course_id = course.id LEFT JOIN course_level ON course.course_level_id = course_level.id WHERE registroMatricula = ?;',
             [req.params.id, req.params.id],
             (error, result, field) => {
                 conn.release();
@@ -143,7 +143,7 @@ exports.getUniqueStudent = (req, res, next) => {
                             course_id: result[0].course_id,
                             course_level: result[0].level,
                             course_name: result[0].course_name,
-                            course_abbr: result[0].abbr,
+                            course_abbr: result[0].course_abbr,
                             institution_id: result[0].institution_id,
                         },
                         request: {
