@@ -28,7 +28,7 @@ const RoutesApp = () => {
                         <Route path="*"          element={<Navigate to="/404" />} />
 
                         {/* Pages Routes */}
-                        <Route exact path="/dashboard"  element={
+                        <Route exact path="/dashboard" element={
                             <>
                                 <PermissionGate permissions={['Aluno', 'Professor']}>
                                     <Private Item={Inicio} />

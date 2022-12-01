@@ -8,7 +8,6 @@ import { Player } from 'video-react';
 import PermissionGate from '../../hooks/permissionGate';
 import Axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import Button from '../../components/Button';
 
 import VerticalMenu from '../../components/VerticalMenu';
 import Header from '../../components/Header';
@@ -18,13 +17,12 @@ import qrcode from '../../assets/images/qrcode.svg'
 import CreateStudent from '../Admin/Student/CreateStudent';
 import ListStudent from '../Admin/Student/ListStudent';
 
-const Inicio = ( ) => {
+const Inicio = () => {
 	const url = 'http://localhost:3001';
 
 	const [userData, setUserData] = useState([]);
 	const [courseData, setCourseData] = useState([]);
 	const [userAvatar, setUserAvatar] = useState('');
-	const [userType, setUserType] = useState('');
 	const [avatarImg, setAvatarImg] = useState('');
 
 	const token = localStorage.getItem('access-token');
@@ -32,50 +30,58 @@ const Inicio = ( ) => {
 
 	useEffect(() => {
 		if (decoded.userId !== 0) {
-
-			Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
-			.then((response) => {
-				console.log(response.data.user)
-
-				if (response.data.user.user_type === "Aluno") {
-					Axios.get(`${url}/students/${decoded.userId}`)
-					.then((response) => {
-						setUserData(response.data.student);
-						setUserAvatar(response.data.student.avatar);
-					})
-				}
-
-				if (response.data.user.user_type === "Professor") {
-					Axios.get(`${url}/teachers/${decoded.userId}`)
-					.then((response) => {
-						setUserData(response.data.teacher);
-						setUserAvatar(response.data.teacher.avatar);
-					})
-				}
-
-				if (response.data.user.user_type === "Admin") {
-					setUserAvatar(undefined);
-				}
-			})
+			try {
+				Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
+				.then((response) => {
+					if (response.data.user.user_type === "Aluno") {
+						Axios.get(`${url}/students/${decoded.userId}`)
+						.then((request) => {
+							console.log(request);
+							setCourseData(request.data.student.course);
+							setUserAvatar(request.data.student.avatar);
+							return setUserData(request.data.student);
+						})
+						.catch((err) => {
+							return console.log(err);
+						})
+					} else if(response.data.user.user_type === "Professor") {
+						Axios.get(`${url}/teachers/${decoded.userId}`)
+						.then((request) => {
+							setUserAvatar(request.data.teacher.avatar);
+							return setUserData(request.data.teacher);
+						})
+						.catch((err) => {
+							return console.log(err);
+						})
+					} else if (response.data.user.user_type === "Admin") {
+						return setUserAvatar(undefined);
+					}
+				})
+				.catch((error) => {
+					return console.log(error);
+				})
+			} catch (error) {
+				return console.log(error);
+			}
+			
 		}
 	}, []);
-
-	console.log(userData);
 
 	if (!userAvatar) {
 		return;
 	} else {
 		setAvatarImg(userAvatar.substring(16));
 	}
-	
+
+	console.log(userData);
 
 	return (
 		<>
 		<G.TestLoader>
-		<Preloader text="Carregando interface..."/>
-		<PermissionGate permissions={['Aluno', 'Professor']}>
-		<G.Content>
-			<VerticalMenu avatarUploaded={avatarImg} />
+			<Preloader text="Carregando interface..."/>
+			<PermissionGate permissions={['Aluno']}>
+			<G.Content>
+				<VerticalMenu avatarUploaded={avatarImg} />
 				<G.Main>
 					<Header />
 					<G.Section>
@@ -195,23 +201,23 @@ const Inicio = ( ) => {
 						</C.GridLayout>
 					</G.Section>
 				</G.Main>
-				</G.Content>
-		</PermissionGate>
-		
-		<PermissionGate permissions={['Admin']}>
-		<G.Content>
-			<VerticalMenu avatarUploaded={avatarImg} />
-			<G.Main>
-				<Header />
-				<G.Section>
-					<C.AdminSections>
-						<CreateStudent/>
-						<ListStudent />
-					</C.AdminSections>
-				</G.Section>
-			</G.Main>
-		</G.Content>
-		</PermissionGate>		
+			</G.Content>
+			</PermissionGate>
+			
+			<PermissionGate permissions={['Admin']}>
+			<G.Content>
+				<VerticalMenu avatarUploaded={avatarImg} />
+				<G.Main>
+					<Header />
+					<G.Section>
+						<C.AdminSections>
+							<CreateStudent/>
+							<ListStudent />
+						</C.AdminSections>
+					</G.Section>
+				</G.Main>
+			</G.Content>
+			</PermissionGate>		
 		</G.TestLoader>
 		</>
 	)

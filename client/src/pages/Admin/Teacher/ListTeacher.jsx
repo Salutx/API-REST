@@ -32,7 +32,6 @@ const ListTeacher = ({ closeListTeacher }) => {
         }, 400); 
     }
 
-
     return (
         <C.AdminUserContainer>
             <GlobalStyle />
