@@ -14,13 +14,13 @@ const Navbar = () => {
 
 	useEffect(() => {
 		const token = localStorage.getItem('access-token');
-		const decoded = jwt_decode(token);	
+		const decoded = jwt_decode(token);
 
 		if (decoded.userId !== 0) {
 			const fetchData = async () => {
 				try {
-					const fetchUser = await Axios.get(`${url}/students/${decoded.userId}`);
-					setUserData(fetchUser.data.student);
+					const fetchUser = await Axios.get(`${url}/categorys/userdetails/${decoded.userId}`);
+					setUserData(fetchUser.data.user);
 				} catch (error) {
 					console.error(error);
 				}
@@ -32,7 +32,7 @@ const Navbar = () => {
 
     return (
         <>
-            <PermissionGate permissions={['Aluno']}>
+            <PermissionGate permissions={['Aluno', 'Professor']}>
                 <C.Header>
                     <GlobalStyle />
                     <C.Container>

@@ -80,7 +80,7 @@ exports.getUserDetails = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send ({ error: error }) }
         conn.query( 
-            'SELECT * FROM ( SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type FROM mindset_db2.student UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type FROM mindset_db2.teacher UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type FROM mindset_db2.institution_admin ) N WHERE registroMatricula = ?;',
+            'SELECT * FROM ( SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type, avatar FROM mindset_db2.student UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type, avatar FROM mindset_db2.teacher UNION ALL SELECT registroMatricula, birth_date, institution_id, email, passwordHash, first_name, last_name, user_type, avatar FROM mindset_db2.institution_admin ) N WHERE registroMatricula = ?;',
             [req.params.id],
             (error, result, fields) => {
                 conn.release();
@@ -93,10 +93,11 @@ exports.getUserDetails = (req, res, next) => {
                 
                 const response = {
                     user: {
+                        registroMatricula: result[0].registroMatricula,
                         first_name: result[0].first_name,
                         last_name: result[0].last_name,
                         birth_date: result[0].birth_date,
-                        registroMatricula: result[0].registroMatricula,
+                        avatar: result[0].avatar,
                         user_type: result[0].user_type,
                     }
                 }

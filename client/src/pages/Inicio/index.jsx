@@ -24,40 +24,56 @@ const Inicio = ( ) => {
 	const [userData, setUserData] = useState([]);
 	const [courseData, setCourseData] = useState([]);
 	const [userAvatar, setUserAvatar] = useState('');
-	const [eyeCheck, setEyeCheck] = useState(false);
+	const [userType, setUserType] = useState('');
+	const [avatarImg, setAvatarImg] = useState('');
+
+	const token = localStorage.getItem('access-token');
+	const decoded = jwt_decode(token);
 
 	useEffect(() => {
-		const token = localStorage.getItem('access-token');
-		const decoded = jwt_decode(token);
-
 		if (decoded.userId !== 0) {
-			const fetchData = async () => {
-				try {
-					const fetchUser = await Axios.get(`${url}/students/${decoded.userId}`);
-					setUserData(fetchUser.data.student);
-					setUserAvatar(fetchUser.data.student.avatar);
-					setCourseData(fetchUser.data.student.course);
-				} catch (error) {
-					console.error(error);
+
+			Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
+			.then((response) => {
+				console.log(response.data.user)
+
+				if (response.data.user.user_type === "Aluno") {
+					Axios.get(`${url}/students/${decoded.userId}`)
+					.then((response) => {
+						setUserData(response.data.student);
+						setUserAvatar(response.data.student.avatar);
+					})
 				}
-			};
-			fetchData();
+
+				if (response.data.user.user_type === "Professor") {
+					Axios.get(`${url}/teachers/${decoded.userId}`)
+					.then((response) => {
+						setUserData(response.data.teacher);
+						setUserAvatar(response.data.teacher.avatar);
+					})
+				}
+
+				if (response.data.user.user_type === "Admin") {
+					setUserAvatar(undefined);
+				}
+			})
 		}
 	}, []);
 
-	// const seePassword = (eyeCheck) => {
-	// 	if (eyeCheck === false) {
-	// 		return;
-	// 	}
-	// }
+	console.log(userData);
 
-	const avatarImg = userAvatar.substring(16);
+	if (!userAvatar) {
+		return;
+	} else {
+		setAvatarImg(userAvatar.substring(16));
+	}
+	
 
 	return (
 		<>
 		<G.TestLoader>
 		<Preloader text="Carregando interface..."/>
-		<PermissionGate permissions={['Aluno']}>
+		<PermissionGate permissions={['Aluno', 'Professor']}>
 		<G.Content>
 			<VerticalMenu avatarUploaded={avatarImg} />
 				<G.Main>

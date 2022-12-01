@@ -105,7 +105,7 @@ exports.getUniqueTeacher = (req, res, next) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query(
-            'SELECT * FROM teacher WHERE id = ?;',
+            'SELECT * FROM teacher WHERE registroMatricula = ?;',
             [req.params.id],
             (error, result, field) => {
                 conn.release();
