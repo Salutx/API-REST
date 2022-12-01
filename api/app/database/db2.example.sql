@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `mindset_db2`.`course_level` (
 CREATE TABLE IF NOT EXISTS `mindset_db2`.`course` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `course_name` VARCHAR(255) NOT NULL,
+  `course_abbr` VARCHAR(5) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL,
   `course_level_id` INT NOT NULL,
