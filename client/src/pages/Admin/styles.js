@@ -27,17 +27,10 @@ export default createGlobalStyle `
         font-size: 10px;
         padding: .3rem .5rem;
         position: absolute;
-        right: -13rem;
-        bottom: -3rem;
-        z-index: 995;
+        right: -10rem;
+        bottom: -3.2rem;
+        z-index: 899;
     }
-
-    .alertmodal {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
-
 `;
 
 export const AdminUserContainer = styled.div `
@@ -218,6 +211,7 @@ export const ContentIcons = styled.div `
     font-size: 20px;
     i {cursor: pointer;}
     i:hover {color: var(--primary-color);}
+    color: ${props => props.theme.backgroundStartAssets};
 `;
 
 export const LabelConfirmation = styled.label `
@@ -267,7 +261,7 @@ export const UserCard = styled.div `
     }
 
     :hover img {
-        transform: scale(1.1);
+        transform: scale(1.2);
     }
 `;
 
@@ -293,7 +287,7 @@ export const UserHeader = styled.div `
     align-items: center;
     
     > p {
-        font-size: 7px;
+        font-size: 9px;
         font-weight: 500;
         color: ${props => props.theme.paragraph};
         text-transform: uppercase;
@@ -301,7 +295,7 @@ export const UserHeader = styled.div `
 
     > h1 {
         text-transform: uppercase;
-        font-size: 14px;
+        font-size: 16px;
         color: ${props => props.theme.backgroundStartAssets};
     }
 `;
@@ -310,28 +304,29 @@ export const UserAvatar = styled.div `
 
     position: relative;
     width: 100%;
-    height: 120px;
+    height: 110px;
     overflow: hidden;
 
     img {
         width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: top;
         filter: grayscale(1) brightness(0.6) contrast(0.6);
-        font-size: 0;
     }
 
     i {
         position: absolute;
         top: .7rem;
         right: .8rem;
-        color: var(--primary-color);
+        color: #fff;
         font-size: 1.3rem;
+        z-index: 899;
     }
 `;
 
 export const UserDetails = styled.div `
-    padding: .5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
 

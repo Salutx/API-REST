@@ -10,25 +10,34 @@ const Navbar = () => {
     const { changeTheme } = useThemeContext();
 	
     const url = 'http://localhost:3001';
+    const token = localStorage.getItem('access-token');
+	const decoded = jwt_decode(token);
+    
 	const [userData, setUserData] = useState([]);
 
-	useEffect(() => {
-		const token = localStorage.getItem('access-token');
-		const decoded = jwt_decode(token);
-
+    useEffect(() => {
 		if (decoded.userId !== 0) {
-			const fetchData = async () => {
-				try {
-					const fetchUser = await Axios.get(`${url}/categorys/userdetails/${decoded.userId}`);
-					setUserData(fetchUser.data.user);
-				} catch (error) {
-					console.error(error);
+
+			Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
+			.then((response) => {
+				console.log(response.data.user)
+
+				if (response.data.user.user_type === "Aluno") {
+					Axios.get(`${url}/students/${decoded.userId}`)
+					.then((response) => {
+						setUserData(response.data.student);
+					})
 				}
-			};
-			fetchData();
+
+				if (response.data.user.user_type === "Professor") {
+					Axios.get(`${url}/teachers/${decoded.userId}`)
+					.then((response) => {
+						setUserData(response.data.teacher);
+					})
+				}
+			})
 		}
 	}, []);
-    
 
     return (
         <>

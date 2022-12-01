@@ -13,30 +13,46 @@ const VerticalMenu = ( ) => {
 	const { signout } = useAuth();
 
 	const url = 'http://localhost:3001';
+	const token = localStorage.getItem('access-token');
+	const decoded = jwt_decode(token);
 
 	const [userData, setUserData] = useState([]);
-	const [avatar, setAvatar] = useState('')
+	const [userAvatar, setUserAvatar] = useState('')
 
 	const urlCheck = ( check ) => {if(window.location.href.indexOf(check) > -1) {return "active";}}
 
 	useEffect(() => {
-		const token = localStorage.getItem('access-token');
-		const decoded = jwt_decode(token);	
+		if (decoded.userId !== 0) {
 
-		const fetchData = async () => {
-			try {
-				const fetchUser = await Axios.get(`${url}/categorys/userdetails/${decoded.userId}`);
-				setUserData(fetchUser.data.user);
-				setAvatar(fetchUser.data.user.avatar);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchData();
+			Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
+			.then((response) => {
+				console.log(response.data.user)
+
+				if (response.data.user.user_type === "Aluno") {
+					Axios.get(`${url}/students/${decoded.userId}`)
+					.then((response) => {
+						setUserData(response.data.student);
+						setUserAvatar(response.data.student.avatar);
+					})
+				}
+
+				if (response.data.user.user_type === "Professor") {
+					Axios.get(`${url}/teachers/${decoded.userId}`)
+					.then((response) => {
+						setUserData(response.data.teacher);
+						setUserAvatar(response.data.teacher.avatar);
+					})
+				}
+
+				if (response.data.user.user_type === "Admin") {
+					setUserAvatar(undefined);
+				}
+			})
+		}
 	}, []);
 
 	const name = userData.first_name + " " + userData.last_name;
-	const avatarImg = avatar.substring(16);
+	const avatarImg = userAvatar.substring(16);
 
   	return (
 		<>

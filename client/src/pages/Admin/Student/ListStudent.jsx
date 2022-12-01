@@ -10,7 +10,6 @@ const ListStudent = () => {
     const [loading, setLoading] = useState(false);
 	const url = 'http://localhost:3001/';
 	useEffect(() => {
-
 		getAllStudents();
 	}, []);
 
@@ -20,7 +19,7 @@ const ListStudent = () => {
 			const allStudents = response.data.students;
 			getStudents(allStudents);
 		})
-		.catch(error => console.log(`Error: ${error}`));
+		.catch(error => console.error(`Error: ${error}`));
 	}
 
     const checkStudents = () => {

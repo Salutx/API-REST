@@ -31,7 +31,7 @@ const StudentsTimeline = (props) => {
                                     }
                                     >
                                     <C.btnUser>
-                                        <i className="ri-more-line" ></i>
+                                        <i className="ri-more-line"></i>
                                     </C.btnUser>
                                 </OverlayTrigger>
                                 <img src={student.avatar.substring(16)} alt="Avatar" />
