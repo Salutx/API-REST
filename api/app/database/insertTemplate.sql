@@ -7,5 +7,5 @@ VALUES (0, "00000000", "uirapuru_admin@etec.sp.gov.br", "$2a$10$8gQeEhvYf0CTrueQ
 INSERT INTO course_level (level)
 VALUES ("3ETIM");
 
-INSERT INTO course (name, course_level_id)
+INSERT INTO course (course_name, course_level_id)
 VALUES ("Desenvolvimento de Sistemas", 1);
