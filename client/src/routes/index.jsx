@@ -25,7 +25,16 @@ const RoutesApp = () => {
                         {/* Global Routes */}
                         <Route path="/start"     element={<Test />} />
                         <Route path="/"          element={<Navigate to="/start" />} />
-                        <Route path="*"          element={<Navigate to="/404" />} />
+                        <Route path="*" element={
+                            <>
+                                <PermissionGate permissions={['Aluno', 'Professor']}>
+                                    <Navigate to="/dashboard" />
+                                </PermissionGate>
+                                <PermissionGate permissions={['Admin']}>
+                                    <Navigate to="/students" />
+                                </PermissionGate>
+                            </>
+                        } />
 
                         {/* Pages Routes */}
                         <Route exact path="/dashboard" element={

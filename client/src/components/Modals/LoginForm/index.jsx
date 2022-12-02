@@ -7,6 +7,7 @@ import Input from '../../Input';
 import Button from '../../Button';
 import Loader from "../../Loaders";
 import Axios from 'axios';
+import GlobalStyle from './styles';
 
 const LoginForm = ({ closeLogin }) => {
 
@@ -39,9 +40,9 @@ const LoginForm = ({ closeLogin }) => {
             localStorage.setItem("access-inst", codInstituicao);
             navigate("/dashboard");
         })
-        .catch(error => setError(`Erro na autenticação.`))
+        .catch((error) => setError(error))
     }
-
+    
     const LoginCheck = () => {
         setLoading(true);
         setTimeout(() => {
@@ -56,9 +57,9 @@ const LoginForm = ({ closeLogin }) => {
         }
     }
 
-
     return (
         <C.LoginContainer status={closeLogin} onKeyDown={handleKeyDown}>
+            <GlobalStyle/>
             <C.LoginBody>
                 <C.LoginHeader>
                     <Logo />
@@ -68,7 +69,7 @@ const LoginForm = ({ closeLogin }) => {
                 </C.LoginHeader>
 
                 <C.LoginMain>
-                    <C.Content>
+                    <C.Content confirmation={error}>
                         <h1>Autentique-se<span>.</span></h1>
                         <C.Line>
                             <Input
@@ -100,9 +101,8 @@ const LoginForm = ({ closeLogin }) => {
                             onChange={(e) => [setSenha(e.target.value), setError("")]}
                         />
 
-                        <C.LabelError>{ error }</C.LabelError>
                         <Button onClick={() => [LoginCheck()]}>
-                            {loading ? <Loader/> : "Continuar"}
+                            {loading ? <Loader/> : error ? "Tente novamente" : "Continuar"}
                         </Button>
                         
                     </C.Content>

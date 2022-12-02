@@ -15,28 +15,37 @@ const Navbar = () => {
     
 	const [userData, setUserData] = useState([]);
 
-    useEffect(() => {
-		if (decoded.userId !== 0) {
-
-			Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
-			.then((response) => {
-				console.log(response.data.user)
-
-				if (response.data.user.user_type === "Aluno") {
-					Axios.get(`${url}/students/${decoded.userId}`)
-					.then((response) => {
-						setUserData(response.data.student);
-					})
+	useEffect(() => {
+		const userCheck = async () => {
+			if (decoded.userId !== 0) {
+				try {
+					const type = await Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
+					if (type.data.user.user_type === "Aluno") {
+						Axios.get(`${url}/students/${decoded.userId}`)
+						.then((request) => {
+							setUserData(request.data.student);
+						})
+						.catch((err) => {
+							return console.log(err);
+						})
+					} 
+					
+					if(type.data.user.user_type === "Professor") {
+						Axios.get(`${url}/teachers/${decoded.userId}`)
+						.then((request) => {
+							setUserData(request.data.teacher);
+						})
+						.catch((err) => {
+							console.log(err);
+						})
+					}
+					
+				} catch (error) {
+					return console.error(error);
 				}
-
-				if (response.data.user.user_type === "Professor") {
-					Axios.get(`${url}/teachers/${decoded.userId}`)
-					.then((response) => {
-						setUserData(response.data.teacher);
-					})
-				}
-			})
+			}
 		}
+		userCheck();
 	}, []);
 
     return (

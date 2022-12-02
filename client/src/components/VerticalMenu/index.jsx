@@ -22,37 +22,42 @@ const VerticalMenu = ( ) => {
 	const urlCheck = ( check ) => {if(window.location.href.indexOf(check) > -1) {return "active";}}
 
 	useEffect(() => {
-		if (decoded.userId !== 0) {
-
-			Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
-			.then((response) => {
-				console.log(response.data.user)
-
-				if (response.data.user.user_type === "Aluno") {
-					Axios.get(`${url}/students/${decoded.userId}`)
-					.then((response) => {
-						setUserData(response.data.student);
-						setUserAvatar(response.data.student.avatar);
-					})
+		const userCheck = async () => {
+			if (decoded.userId !== 0) {
+				try {
+					const type = await Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
+					if (type.data.user.user_type === "Aluno") {
+						Axios.get(`${url}/students/${decoded.userId}`)
+						.then((request) => {
+							setUserAvatar(request.data.student.avatar.substring(16));
+							setUserData(request.data.student);
+						})
+						.catch((err) => {
+							return console.log(err);
+						})
+					} 
+					
+					if(type.data.user.user_type === "Professor") {
+						Axios.get(`${url}/teachers/${decoded.userId}`)
+						.then((request) => {
+							setUserAvatar(request.data.teacher.avatar.substring(16));
+							setUserData(request.data.teacher);
+						})
+						.catch((err) => {
+							console.log(err);
+						})
+					}
+					
+					if (type.data.user.user_type === "Admin") {
+						setUserAvatar(undefined);
+					}
+				} catch (error) {
+					return console.error(error);
 				}
-
-				if (response.data.user.user_type === "Professor") {
-					Axios.get(`${url}/teachers/${decoded.userId}`)
-					.then((response) => {
-						setUserData(response.data.teacher);
-						setUserAvatar(response.data.teacher.avatar);
-					})
-				}
-
-				if (response.data.user.user_type === "Admin") {
-					setUserAvatar(undefined);
-				}
-			})
+			}
 		}
+		userCheck();
 	}, []);
-
-	const name = userData.first_name + " " + userData.last_name;
-	const avatarImg = userAvatar.substring(16);
 
   	return (
 		<>
@@ -110,13 +115,13 @@ const VerticalMenu = ( ) => {
 						<C.NavSection>
 							<C.NavHeader>Geral</C.NavHeader>
 							<C.NavMenu>
-								<C.NavItem status={urlCheck("boletim")}>
+								<C.NavItem status={urlCheck("organizacao")}>
 									<button>
 										<i className="ri-community-line"></i>
 										<p>Organização</p>
 									</button>
 								</C.NavItem>
-								<C.NavItem status={urlCheck("boletim")}>
+								<C.NavItem status={urlCheck("perfil")}>
 									<button>
 										<i className="ri-user-line"></i>
 										<p>Perfil</p>
@@ -129,9 +134,9 @@ const VerticalMenu = ( ) => {
 					<C.UserContainer>
 						<C.NavUser>
 							<C.NavUserLeft>
-								<img src={avatarImg} alt="" />
+								<img src={userAvatar} alt="" />
 								<C.UserDetails>
-									<p>{name}</p>
+									<p>{userData.first_name} {userData.last_name}</p>
 									<p>{userData.user_type}(a)</p>
 								</C.UserDetails>
 							</C.NavUserLeft>
@@ -217,9 +222,9 @@ const VerticalMenu = ( ) => {
 					<C.UserContainer>
 						<C.NavUser>
 							<C.NavUserLeft>
-								<img src={avatarImg} alt="" />
+								<img src={userAvatar} alt="" />
 								<C.UserDetails>
-									<p>{name}</p>
+									<p>{userData.first_name} {userData.last_name}</p>
 									<p>{userData.user_type}(a)</p>
 								</C.UserDetails>
 							</C.NavUserLeft>

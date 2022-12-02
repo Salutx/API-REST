@@ -1,5 +1,11 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { device } from "../../@media-query";
+
+export default createGlobalStyle `
+    .alertcontainer {
+        width: 500px;
+    }
+`;
 
 export const LoginContainer = styled.div `
 
@@ -12,6 +18,7 @@ export const LoginContainer = styled.div `
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.25);
+    gap: 3rem;
 
     animation-name: opacity-animation;
     animation-duration: 0.3s;
@@ -37,8 +44,18 @@ export const LoginBody = styled.div `
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    transition: all .2s;
 
     @media ${device.tablet} {border-radius: 0;}
+
+    @keyframes blink {
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
 
 `;
 
@@ -59,7 +76,6 @@ export const LoginHeader = styled.div `
         background-color: transparent; 
         color: var(--primary-color);
     }
-
 `;
 
 export const LoginMain = styled.div `
@@ -183,6 +199,15 @@ export const Content = styled.div`
 
     h1 span {
         color: var(--primary-color);
+    }
+
+    button {
+        background-color: ${props => props.confirmation ? "#ef6e6e" : "var(--primary-color)"};
+        margin-top: 1rem;
+
+        :hover {
+            background-color: ${props => props.confirmation ? "#ef6e6e" : "var(--primary-color-dark)"};
+        }
     }
 `;
 

@@ -8,6 +8,7 @@ export const Button = styled.button `
     border: none;
     border-radius: 6px;
     width: 100%;
+    height: 48px;
     cursor: pointer;
     background-color: var(--primary-color);
     color: white;
@@ -21,4 +22,5 @@ export const Button = styled.button `
     :hover {
         background-color: var(--primary-color-dark);
     }
+
 `

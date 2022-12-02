@@ -20,7 +20,7 @@ import ListStudent from '../Admin/Student/ListStudent';
 const Inicio = () => {
 	const url = 'http://localhost:3001';
 
-	const [userData, setUserData] = useState([]);
+	const [userData, setUserData] = useState('');
 	const [courseData, setCourseData] = useState([]);
 	const [userAvatar, setUserAvatar] = useState('');
 	const [avatarImg, setAvatarImg] = useState('');
@@ -29,51 +29,43 @@ const Inicio = () => {
 	const decoded = jwt_decode(token);
 
 	useEffect(() => {
-		if (decoded.userId !== 0) {
-			try {
-				Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
-				.then((response) => {
-					if (response.data.user.user_type === "Aluno") {
+		const userCheck = async () => {
+			if (decoded.userId !== 0) {
+				try {
+					const type = await Axios.get(`${url}/categorys/userdetails/${decoded.userId}`)
+					if (type.data.user.user_type === "Aluno") {
 						Axios.get(`${url}/students/${decoded.userId}`)
 						.then((request) => {
-							console.log(request);
 							setCourseData(request.data.student.course);
-							setUserAvatar(request.data.student.avatar);
-							return setUserData(request.data.student);
+							setUserAvatar(request.data.student.avatar.substring(16));
+							setUserData(request.data.student);
 						})
 						.catch((err) => {
 							return console.log(err);
 						})
-					} else if(response.data.user.user_type === "Professor") {
+					} 
+					
+					if(type.data.user.user_type === "Professor") {
 						Axios.get(`${url}/teachers/${decoded.userId}`)
 						.then((request) => {
-							setUserAvatar(request.data.teacher.avatar);
-							return setUserData(request.data.teacher);
+							setUserAvatar(request.data.teacher.avatar.substring(16));
+							setUserData(request.data.teacher);
 						})
 						.catch((err) => {
-							return console.log(err);
+							console.log(err);
 						})
-					} else if (response.data.user.user_type === "Admin") {
-						return setUserAvatar(undefined);
 					}
-				})
-				.catch((error) => {
-					return console.log(error);
-				})
-			} catch (error) {
-				return console.log(error);
+					
+					if (type.data.user.user_type === "Admin") {
+						setUserAvatar(undefined);
+					}
+				} catch (error) {
+					return console.error(error);
+				}
 			}
-			
 		}
+		userCheck();
 	}, []);
-
-	if (!userAvatar) {
-		return;
-	} else {
-		setAvatarImg(userAvatar.substring(16));
-	}
-
-	console.log(userData);
 
 	return (
 		<>
@@ -81,7 +73,7 @@ const Inicio = () => {
 			<Preloader text="Carregando interface..."/>
 			<PermissionGate permissions={['Aluno']}>
 			<G.Content>
-				<VerticalMenu avatarUploaded={avatarImg} />
+				<VerticalMenu avatarUploaded={userAvatar} />
 				<G.Main>
 					<Header />
 					<G.Section>
@@ -126,7 +118,7 @@ const Inicio = () => {
 								
 								<C.InfoContainer>
 									<C.IdCardAvatar>
-										<img src={avatarImg} alt="" />
+										<img src={userAvatar} alt="" />
 									</C.IdCardAvatar>
 									<C.IdCardContent>
 										<C.IdCardHeader>
@@ -206,7 +198,7 @@ const Inicio = () => {
 			
 			<PermissionGate permissions={['Admin']}>
 			<G.Content>
-				<VerticalMenu avatarUploaded={avatarImg} />
+				<VerticalMenu avatarUploaded={userAvatar} />
 				<G.Main>
 					<Header />
 					<G.Section>
