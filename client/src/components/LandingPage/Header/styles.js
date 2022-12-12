@@ -4,7 +4,7 @@ export const Header = styled.header `
 
     h1 {
         font-size: 1rem;
-        color: ${props => props.theme.title};
+        color: white;
     }
 
 `;
@@ -37,7 +37,7 @@ export const NavbarBrand = styled.div `
         display: flex; 
         gap: .2rem; 
         text-transform: uppercase; 
-        color: ${props => props.theme.title};
+        color: white;
     }
 
     span > * {font-size: 16px;}

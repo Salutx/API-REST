@@ -21,11 +21,11 @@ export const Input = styled.input `
     padding: 1.6rem 1.3rem .5rem 1rem;
     width: 100%;
     border-radius: 6px;
-    border: ${props => props.theme.border};
+    border: 1px solid #424242;
     font-size: .8rem;
-    color: ${props => props.theme.title};
+    color: white;
 
-    background-color: ${props => props.theme.background};
+    background-color: #1C1D22;
 
     ::placeholder {
         font-size: .8rem;

@@ -36,7 +36,7 @@ export const LoginContainer = styled.div `
 
 export const LoginBody = styled.div `
 
-    background: ${props => props.theme.background};
+    background: #1C1D22;
     max-width: 955px;
     width: 100%;
     border-radius: 16px;
@@ -68,7 +68,7 @@ export const LoginHeader = styled.div `
     button {
         background-color: transparent;
         font-size: 24px;
-        color: ${props => props.theme.title};
+        color: white;
         display: flex;
     }
 
@@ -85,7 +85,7 @@ export const LoginMain = styled.div `
 
     > h1 {
         font-size: 1rem;
-        color: ${props => props.theme.title};
+        color: white;
         position: relative;
     }
 
@@ -152,7 +152,7 @@ export const LoginSupport = styled.div `
     h1 {
         font-size: 24px;
         line-height: 40px;
-        color: ${props => props.theme.title};
+        color: white;
     }
 
     h1 span {
@@ -170,7 +170,7 @@ export const SupportButton = styled.button `
     padding: .6rem;
     text-transform: uppercase;
     font-weight: bold;
-    color: ${props => props.theme.title};
+    color: white;
     background-color: transparent;
     border: 2px solid var(--primary-color);
     border-radius: 4px;
@@ -193,7 +193,7 @@ export const Content = styled.div`
     position: relative;
 
     h1 {
-        color: ${props => props.theme.title};
+        color: white;
         font-size: 1.5rem;
     }
 

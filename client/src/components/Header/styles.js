@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
-export const Header = styled.header ``;
+export const Header = styled.header `
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 280px);
+    height: 85px;
+    padding: 0 1.5rem;
+    background: ${props => props.theme.background};
+    z-index: 800;
+`;
 
 export const Container = styled.div `
     height: 100%;

@@ -86,25 +86,25 @@ const VerticalMenu = ( ) => {
 									</button>
 								</C.NavItem>
 								<C.NavItem status={urlCheck("agenda")}>
-									<button>
+									<button onClick={() => navigate("/agenda")}>
 										<i className="ri-calendar-todo-line"></i>
 										<p>Agenda</p>
 									</button>
 								</C.NavItem>
 								<C.NavItem status={urlCheck("tarefas")}>
-									<button>
+									<button onClick={() => navigate("/tarefas")}>
 										<i className="ri-file-list-3-line"></i>
 										<p>Tarefas</p>
 									</button>
 								</C.NavItem>
 								<C.NavItem status={urlCheck("boletim")}>
-									<button>
+									<button onClick={() => navigate("/boletim")}>
 										<i className="ri-pie-chart-2-line"></i>
 										<p>Boletim</p>
 									</button>
 								</C.NavItem>
 								<C.NavItem status={urlCheck("avisos")}>
-									<button>
+									<button onClick={() => navigate("/avisos")}>
 										<i className="ri-inbox-line"></i>
 										<p>Avisos</p>
 									</button>
@@ -116,13 +116,13 @@ const VerticalMenu = ( ) => {
 							<C.NavHeader>Geral</C.NavHeader>
 							<C.NavMenu>
 								<C.NavItem status={urlCheck("organizacao")}>
-									<button>
+									<button onClick={() => navigate("/organizacao")}>
 										<i className="ri-community-line"></i>
 										<p>Organização</p>
 									</button>
 								</C.NavItem>
 								<C.NavItem status={urlCheck("perfil")}>
-									<button>
+									<button onClick={() => navigate("/perfil")}>
 										<i className="ri-user-line"></i>
 										<p>Perfil</p>
 									</button>

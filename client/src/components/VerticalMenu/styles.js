@@ -8,6 +8,9 @@ export const VerticalMenu = styled.aside `
     min-width: 280px;
     background-color: #1C1D22;
     height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
     border-right: 1px solid #2F3037;
 
 `;
