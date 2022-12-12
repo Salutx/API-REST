@@ -14,14 +14,14 @@ export const GridLayout = styled.div `
         "welcome-area welcome-area info-area"
         "tarefas-area frequency-area info-area";
 
-    .videoplayer video {object-fit: cover !important;}
+    .videoplayer video {object-fit: cover !important; border: ${props => props.theme.border};}
 
     .section {
         border-radius: 8px;
         padding: 2rem;
         gap: 1rem;
         box-shadow: ${props => props.theme.boxShadowCard};
-        background-color: ${props => props.theme.background};
+        background-color: ${props => props.theme.card} !important;
     }
     
     @media (max-width: 1280px) { 
@@ -29,10 +29,10 @@ export const GridLayout = styled.div `
         flex-direction: column;
         gap: 24px;
     }
+
 `;
 
 export const WelcomeArea = styled.div `
-
     grid-area: welcome-area; 
     display: flex;
     flex-direction: column;
@@ -124,7 +124,7 @@ export const InfoMembers = styled.div `
     display: flex;
     align-items: center;
     gap: 8px;
-    color: ${props => props.theme.titleAssets};;
+    color: ${props => props.theme.titleAssets};
     font-size: 10px;
 `;
 
@@ -141,7 +141,14 @@ export const TarefasArea = styled.div `
     height: 100%;
 `;
 
-export const TarefasContainer = styled.div ``;
+export const TarefasContainer = styled.div `
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${props => props.theme.title};
+`;
 
 export const SectionHeader = styled.div `
     display: flex;
@@ -373,7 +380,14 @@ export const FrequencyArea = styled.div `
     gap: 32px;
 `;
 
-export const FrequencyContainer = styled.div ``;
+export const FrequencyContainer = styled.div `
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${props => props.theme.title};
+`;
 
 // Support Area
 

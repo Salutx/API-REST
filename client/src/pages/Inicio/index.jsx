@@ -5,17 +5,18 @@ import * as G from "../../styles/global"
 import * as C from "./styles";
 
 import { Player } from 'video-react';
-import PermissionGate from '../../hooks/permissionGate';
 import Axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 import VerticalMenu from '../../components/VerticalMenu';
 import Header from '../../components/Header';
 import Preloader from '../../components/Preloader';
+import PermissionGate from '../../hooks/permissionGate';
 
 import qrcode from '../../assets/images/qrcode.svg'
 import CreateStudent from '../Admin/Student/CreateStudent';
 import ListStudent from '../Admin/Student/ListStudent';
+import trailer from '../../assets/apresentation.mp4'
 
 const Inicio = () => {
 	const url = 'http://localhost:3001';
@@ -23,7 +24,6 @@ const Inicio = () => {
 	const [userData, setUserData] = useState('');
 	const [courseData, setCourseData] = useState([]);
 	const [userAvatar, setUserAvatar] = useState('');
-	const [avatarImg, setAvatarImg] = useState('');
 
 	const token = localStorage.getItem('access-token');
 	const decoded = jwt_decode(token);
@@ -82,7 +82,7 @@ const Inicio = () => {
 							<Player
 								fluid={false}
 								poster={null}
-								src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+								src={trailer}
 								width="100%"
 								height="100%"
 								muted
@@ -109,7 +109,7 @@ const Inicio = () => {
 								</C.SectionHeader>
 
 								<C.TarefasContainer>
-									Inserir tabela aqui
+									Em breve...
 								</C.TarefasContainer>
 							</C.TarefasArea>
 
@@ -187,7 +187,7 @@ const Inicio = () => {
 								</C.SectionHeader>
 
 								<C.FrequencyContainer>
-									Inserir gráficos aqui
+									Em breve...
 								</C.FrequencyContainer>
 							</C.FrequencyArea>
 						</C.GridLayout>

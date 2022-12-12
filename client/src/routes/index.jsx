@@ -6,9 +6,13 @@ import Inicio from "../pages/Inicio";
 import Start from "../pages/Start";
 import Equipes from "../pages/Equipes";
 import PageNotFound from "../pages/PageNotFound/";
-import Test from "../pages/Test/index.jsx";
 import Students from "../pages/Students/index.jsx";
 import Teachers from "../pages/Teachers/index.jsx";
+import Agenda from "../pages/Agenda/index.jsx";
+import Tarefas from "../pages/Tarefas/index.jsx";
+import Boletim from "../pages/Boletim/index.jsx";
+import Avisos from "../pages/Avisos/index.jsx";
+import Perfil from "../pages/Perfil/index.jsx";
 import PermissionGate from '../hooks/permissionGate';
 
 const Private = ({ Item }) => {
@@ -23,7 +27,7 @@ const RoutesApp = () => {
                 <ThemeContextProvider>
                     <Routes>
                         {/* Global Routes */}
-                        <Route path="/start"     element={<Test />} />
+                        <Route path="/start"     element={<Start />} />
                         <Route path="/"          element={<Navigate to="/start" />} />
                         <Route path="*" element={
                             <>
@@ -70,7 +74,72 @@ const RoutesApp = () => {
                             </>
                         } />
 
-                        <Route exact path="/equipes"   element={<Private Item={Equipes} />} />
+                        <Route exact path="/equipes" element={
+                            <>
+                                <PermissionGate permissions={['Aluno', 'Professor']}>
+                                    <Private Item={Equipes} />
+                                </PermissionGate>
+                                <PermissionGate permissions={['Admin']}>
+                                    <Navigate to="/dashboard" />
+                                </PermissionGate>
+                            </>
+                        } />
+
+                        <Route exact path="/agenda" element={
+                            <>
+                                <PermissionGate permissions={['Aluno', 'Professor']}>
+                                    <Private Item={Agenda} />
+                                </PermissionGate>
+                                <PermissionGate permissions={['Admin']}>
+                                    <Navigate to="/dashboard" />
+                                </PermissionGate>
+                            </>
+                        } />
+
+                        <Route exact path="/tarefas" element={
+                            <>
+                                <PermissionGate permissions={['Aluno', 'Professor']}>
+                                    <Private Item={Tarefas} />
+                                </PermissionGate>
+                                <PermissionGate permissions={['Admin']}>
+                                    <Navigate to="/dashboard" />
+                                </PermissionGate>
+                            </>
+                        } />
+
+                        <Route exact path="/boletim" element={
+                            <>
+                                <PermissionGate permissions={['Aluno', 'Professor']}>
+                                    <Private Item={Boletim} />
+                                </PermissionGate>
+                                <PermissionGate permissions={['Admin']}>
+                                    <Navigate to="/dashboard" />
+                                </PermissionGate>
+                            </>
+                        } />
+
+                        <Route exact path="/avisos" element={
+                            <>
+                                <PermissionGate permissions={['Aluno', 'Professor']}>
+                                    <Private Item={Avisos} />
+                                </PermissionGate>
+                                <PermissionGate permissions={['Admin']}>
+                                    <Navigate to="/dashboard" />
+                                </PermissionGate>
+                            </>
+                        } />
+
+                        <Route exact path="/perfil" element={
+                            <>
+                                <PermissionGate permissions={['Aluno', 'Professor']}>
+                                    <Private Item={Perfil} />
+                                </PermissionGate>
+                                <PermissionGate permissions={['Admin']}>
+                                    <Navigate to="/dashboard" />
+                                </PermissionGate>
+                            </>
+                        } />
+
                         <Route exact path="/404"       element={<PageNotFound />} />
                     </Routes>
                 </ThemeContextProvider>

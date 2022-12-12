@@ -4,7 +4,6 @@ import GlobalStyle from "./styles";
 import Thumbnail from '../../assets/images/app-thumb.svg';
 import LoginForm from "../../components/Modals/LoginForm";
 import LPHeader from "../../components/LandingPage/Header"
-import ThemeSwitch from '../../components/LandingPage/ThemeSwitch';
 import Container from "../../components/Container";
 import SupportButton from "../../components/SupportButton";
 
@@ -18,7 +17,6 @@ const Signin = () => {
                 <GlobalStyle />
 
                 <LPHeader>
-                    <ThemeSwitch/>
                     <C.LoginButton onClick={() => {setOpenLoginForm(true)}}>
                         FAZER LOGIN
                     </C.LoginButton>
@@ -140,7 +138,7 @@ const Signin = () => {
                                 </C.CardBody>
                             </C.SecurityArea>
 
-                            <C.SupportArea className="card">
+                            <C.SupportArea className="card card-black">
                                 <C.SupportHeader>
                                     <C.CardTag>SUPORTE</C.CardTag>
                                     <h1>Sempre preparados para atender suas <strong>necessidades.</strong></h1>

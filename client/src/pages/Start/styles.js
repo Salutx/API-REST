@@ -5,7 +5,7 @@ export default createGlobalStyle `
     body {
         width: 100% !important;
         min-height: 100vh;
-        background-color: ${props => props.theme.backgroundStart};
+        background: linear-gradient(156deg, rgba(44,62,80,1) 0%, rgba(12,21,30,1) 31%);
     }
 
     .card {
@@ -13,12 +13,18 @@ export default createGlobalStyle `
         padding: 2rem;
         display: flex;
         flex-direction: column;
-        gap: .8rem;
+        gap: 1rem;
         max-width: 750px;
     }
 
     .card-black {
-        background-color: ${props => props.theme.backgroundStart};
+        /* From https://css.glass */
+        background: rgba(29, 42, 56, 0.4);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5.2px);
+        -webkit-backdrop-filter: blur(5.2px);
+        border: 1px solid rgba(29, 42, 56, 0.5);
     }
 
     @media ${device.laptopL} { 
@@ -73,7 +79,7 @@ export const HeroDisplay = styled.p `
     font-size: 4rem;
     line-height: 60px;
     text-align: center;
-    color: ${props => props.theme.title};
+    color: white;
 
     @media (max-width: 524px) { 
         font-size: 2.7rem;;
@@ -86,7 +92,7 @@ export const HeroCall = styled.div `
     flex-direction: column;
     align-items: center;
     gap: .5rem;
-    color: ${props => props.theme.title};
+    color: white;
     text-align: center;
 
     @media (max-width: 524px) { 
@@ -119,7 +125,7 @@ export const HeroButtons = styled.div `
 
     button:nth-child(2) {
         border-radius: 32px 32px 32px 0px;
-        background-color: ${props => props.theme.title};
+        background-color: white;
         color: var(--primary-color);
     }
 
@@ -144,7 +150,7 @@ export const About = styled.div `
 
     img {
         z-index: 99; 
-        box-shadow: ${props => props.theme.boxShadow};
+        box-shadow: 0px 16px 50px 5px rgba(0, 205, 180, 0.2);
     }
 
     @media (max-width: 958px) { 
@@ -196,7 +202,7 @@ export const BenefitsTitle = styled.h1 `
 `;
 
 export const BenefitsContent = styled.h1 `
-    color: ${props => props.theme.title};
+    color: white;
     font-size: .9rem;
     font-weight: 400;
     line-height: 25px;
@@ -232,7 +238,7 @@ export const BenefitsRetangle = styled.div `
 export const Arrow = styled.div `
     width: 100%;
     display: flex;
-    color: ${props => props.theme.title};
+    color: white;
     align-items: center;
     justify-content: center;
     padding: 1.5rem 0;
@@ -242,7 +248,6 @@ export const Arrow = styled.div `
 // Section
 
 export const Section = styled.section `
-    background-color: ${props => props.theme.title};
     border-radius: 32px 32px 0px 0px;
     padding: 1.5rem;
 
@@ -294,7 +299,6 @@ export const GridLayout = styled.div `
 
 export const SupportArea = styled.div `
     grid-area: support; 
-    background: linear-gradient(180deg, var(--dark-color) 0%, #077870 51.04%, #00CDB4 100%);
     color: white;
     justify-content: center;
 
@@ -348,24 +352,8 @@ export const SectionCounter = styled.div `
 
     button {display: none;}
 
-    h1 {
-        font-size: 2rem;
-        color: ${props => props.theme.backgroundStart};
-        line-height: 35px;
-    }
-
-    p {
-        font-weight: 500;
-        font-size: 1.2rem;
-        line-height: 25px;
-        color: var(--secundary-color);
-    }
-
     @media ${device.laptopL} { 
-        h1 {
-            color: white;
-        }
-        background-color: ${props => props.theme.backgroundStart};
+        background-color: rgba(29, 42, 56, 0.5);
 
         button {display: block}
     }
@@ -377,12 +365,13 @@ export const CounterMain = styled.div `
     text-align: center;
     gap: 1.5rem;
     margin-bottom: .8rem;
+    color: white;
 
     div:nth-child(1) {display: none;}
 
     h1 {
         font-weight: 400;
-        font-size: 1.5rem;
+        font-size: 1rem;
         line-height: 45px;
     }
 
@@ -423,7 +412,7 @@ export const CardHeader = styled.div `
 
     h1 {
         font-size: 22px;
-        color: ${props => props.theme.title};
+        color: white;
     }
 `;
 
@@ -434,8 +423,8 @@ export const CardIcon = styled.div `
     width: 52px;
     height: 52px;
     border-radius: 64px;
-    background: ${props => props.theme.iconBackground};
-    color: ${props => props.theme.title};
+    background: rgba(12,21,30,1);
+    color: var(--primary-color);
     font-size: 22px;
 `;
 
@@ -453,21 +442,21 @@ export const CardItem = styled.div `
 //  Card Body
 
 export const BodyIcon = styled.div `
-    padding: .16rem 0;
+    padding: .2rem 0;
     display: flex;
-    font-size: 24px;
-    color: ${props => props.theme.title};
+    font-size: 18px;
+    color: white;
 `;
 
 export const BodyContent = styled.div `
     display: flex;
     flex-direction: column;
     gap: .3rem;
-    padding: .15rem 0;
+    padding: .05rem 0;
 
     h1 {
         font-size: 16px;
-        color: ${props => props.theme.title};
+        color: white;
         font-weight: bold;
     }
 
@@ -475,7 +464,7 @@ export const BodyContent = styled.div `
         font-weight: 400;
         font-size: 14px;
         line-height: 24px;
-        color: ${props => props.theme.paragraph};
+        color: #CBCBCB;
         width: 90%;
     }
 
@@ -488,10 +477,9 @@ export const BodyContent = styled.div `
 // Footer
 
 export const Footer = styled.footer `
-    padding: 1rem 0; 
+    padding: 2rem 0; 
     font-size: .8rem;
-    background-color: ${props => props.theme.title};
-    color: ${props => props.theme.backgroundStart};
+    color: white;
 `;
 
 export const FooterContainer = styled.div `
