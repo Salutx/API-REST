@@ -10,6 +10,7 @@ const institutionRouter = require('./routes/institutions.routes.js');
 const courseRouter = require('./routes/courses.routes.js');
 const studentRouter = require('./routes/students.routes.js');
 const teacherRouter = require('./routes/teachers.routes.js');
+const avaregesRouter = require('./routes/avareges.routes.js');
 const categorysRouter = require('./routes/categorys.routes.js');
 
 app.use(cookieParser());
@@ -36,6 +37,7 @@ app.use('/institutions', institutionRouter);
 app.use('/courses', courseRouter);
 app.use('/students', studentRouter);
 app.use('/teachers', teacherRouter);
+app.use('/avareges', avaregesRouter);
 app.use('/categorys', categorysRouter);
 app.use('/uploads', express.static('uploads'));
 

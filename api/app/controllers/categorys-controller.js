@@ -59,7 +59,7 @@ exports.getUserTypes = (req, res, next) => {
         if (error) { return res.status(500).send ({ error: error }) }
 
         conn.query( 
-            'SELECT * FROM ( SELECT user_type FROM mindset_db2.student UNION ALL SELECT user_type FROM mindset_db2.teacher UNION ALL SELECT user_type FROM mindset_db2.institution_admin ) N GROUP BY user_type;',
+            'SELECT student.registroMatricula, matter_avarege.avarege, matter.name FROM student INNER JOIN matter_avarege ON student.id = matter_avarege.student_id INNER JOIN matter ON matter.id = matter_avarege.matter_id WHERE registroMatricula = ?',
             (error, result, fields) => {
                 if (error) { return res.status(500).send ({ error: error }) }
                 const response = {
